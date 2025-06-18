@@ -6,9 +6,9 @@ CFLAGS  := -Wall -Wextra -O2
 LDFLAGS := -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
 # Source files and target
-SRC     := main.c
+SRC     := main.c attaque.c mouvement.c
 OBJDIR  := bin
-OBJ     := $(OBJDIR)/main.o
+OBJ     := $(SRC:%.c=$(OBJDIR)/%.o)
 TARGET  := 1v1GDN
 
 # Default target
@@ -18,11 +18,11 @@ all: $(TARGET)
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
-# Compile object file into bin/
-$(OBJ): $(SRC) | $(OBJDIR)
+# Compile object files into bin/
+$(OBJDIR)/%.o: %.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Build target from object file
+# Build target from object files
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
