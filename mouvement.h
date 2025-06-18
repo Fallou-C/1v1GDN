@@ -11,9 +11,10 @@ typedef struct _Joueur {
     int positionX;
     int positionY;
     bool sautable;
-    int SAUT;
+    int SAUT; // permet de savoir où on en est dans le saut
     int PV;
     bool touchable;
+    int cpt_invinsible; // valeurs avant laquelle on devient invincible à mettre à 0 
 } Joueur ;
 
 void Bouge(Joueur *joueur,bool colision); //gère le mouvement du joueur à gauche

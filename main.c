@@ -38,12 +38,12 @@ int main(void)
     const int screenHeight = 600;
 
     InitWindow(screenWidth, screenHeight, "1v1GDN");
-    Image fond = LoadImage("resoucres___subway_by_shirouu_kun_d9x3kdx.png");
+    Image fond = LoadImage("fond/resoucres___subway_by_shirouu_kun_d9x3kdx.png");
     Texture2D texture = LoadTextureFromImage(fond);
     UnloadImage(fond);
     
     InitAudioDevice();
-    Music music = LoadMusicStream("Live and Learn - Sonic Adventure 2 [OST].mp3");
+    Music music = LoadMusicStream("music/Live and Learn - Sonic Adventure 2 [OST].mp3");
     PlayMusicStream(music);  
 
 

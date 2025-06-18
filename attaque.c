@@ -66,6 +66,11 @@ void ExecuteAttaque2(Joueur *joueur1, Joueur *joueur2,Attaque *attaque,bool IsKe
     }
 }
 
+
+// bug chelou sur les attaques à distances qui se lance sur l'ancienne emplacement du joueur (à garder en feature ptdr)
+// + des fois veut pas se lancer
+// faire en sorte quelles se détruisent mutuellement 
+
 void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque lancé part la joueur 1
 {
     if (Key || attaque->executer)
@@ -80,7 +85,7 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
         {
             attaque->executer=true;
             attaque->positionX += 12;
-            if ((abs(j2->positionX - attaque->positionX ) <= attaque->taille) & !attaque->lag.Encours & !IsKeyDown(KEY_D)) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
+            if ((abs(j2->positionX - attaque->positionX ) <= attaque->taille) && !attaque->lag.Encours & !IsKeyDown(KEY_D)) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
             {
                 ColisionAtk(j2,attaque);
                 attaque->lag.Encours=true;
@@ -103,7 +108,7 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
         {
             attaque->executer=true;
             attaque->positionX -= 12;
-            if ((abs(j1->positionX - attaque->positionX ) <= 190) & (!attaque->lag.Encours) & !IsKeyDown(KEY_LEFT)) //si on est assez proche et qu'on a pas touché y'a colision
+            if ((abs(j1->positionX - attaque->positionX ) <= 190) && (!attaque->lag.Encours) & !IsKeyDown(KEY_LEFT)) //si on est assez proche et qu'on a pas touché y'a colision
             {
                 ColisionAtk2(j1,attaque);
                 attaque->lag.Encours=true;
@@ -111,3 +116,5 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
         }
     }
 }
+
+//ajouté lag quand on se prend une attaque et invul si lag trop long

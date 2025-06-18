@@ -68,9 +68,9 @@ bool colision(Joueur *joueur1,Joueur *joueur2) // en théorie un joueur ne peut 
 
 void AfficheMenu(int screenWidth, int screenHeight)
 {
-    Image fondMenu = LoadImage("logoC.png");
+    Image fondMenu = LoadImage("fond/logoC.png");
     Texture2D textureMenu = LoadTextureFromImage(fondMenu);
-    Music musicMenu = LoadMusicStream("Evoland 2 OST - Track 38 (Fighting Magus).mp3");
+    Music musicMenu = LoadMusicStream("music/Evoland 2 OST - Track 38 (Fighting Magus).mp3");
     PlayMusicStream(musicMenu);
     while(!IsKeyDown(KEY_ENTER) & !WindowShouldClose())
     {
@@ -83,3 +83,5 @@ void AfficheMenu(int screenWidth, int screenHeight)
     UnloadImage(fondMenu);
     UnloadMusicStream(musicMenu);
 }
+
+// ajouter inertie au saut ?
