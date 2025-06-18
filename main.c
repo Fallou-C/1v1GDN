@@ -1,5 +1,5 @@
 /*******************************************************************************************
-*hihi
+*
 *   raylib [core] example - Basic window
 *
 *   Welcome to raylib!
@@ -24,7 +24,9 @@
 *
 ********************************************************************************************/
 
-#include "C:\raylib\raylib\src\raylib.h"
+#include "../raylib/src/raylib.h"
+
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -104,10 +106,9 @@ bool colision(Joueur *joueur1,Joueur *joueur2)
 
 void AfficheMenu(int screenWidth, int screenHeight)
 {
-    Image fondMenu = LoadImage("C:\\Users\\ultim\\Pictures\\Saved Pictures\\logoC2.png");
+    Image fondMenu = LoadImage("logoC.png");
     Texture2D textureMenu = LoadTextureFromImage(fondMenu);
-    UnloadImage(fondMenu);
-    Music musicMenu = LoadMusicStream("C:\\Users\\ultim\\Downloads\\Evoland 2 OST - Track 38 (Fighting Magus).mp3");
+    Music musicMenu = LoadMusicStream("Evoland 2 OST - Track 38 (Fighting Magus).mp3");
     PlayMusicStream(musicMenu);
     while(!IsKeyDown(KEY_ENTER) & !WindowShouldClose())
     {
@@ -117,6 +118,7 @@ void AfficheMenu(int screenWidth, int screenHeight)
         DrawTexture(textureMenu, screenWidth/2 - textureMenu.width/2, screenHeight/2 - textureMenu.height/2 +100, WHITE);
         EndDrawing();
     }
+    UnloadImage(fondMenu);
     UnloadMusicStream(musicMenu);
 }
 
@@ -218,7 +220,7 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
 {
     if (Key || attaque->executer)
     {
-        if (attaque->lag.Encours || (attaque->positionX > 1000 ))
+        if (attaque->lag.Encours || (abs(j2->positionX - attaque->positionX ) <= attaque->taille))
         {
             attaque->executer=false;
             attaque->positionX=j1->positionX + 190;
@@ -241,7 +243,7 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
 {
     if (Key || attaque->executer)
     {
-        if (attaque->lag.Encours || (attaque->positionX < 0 ))
+        if (attaque->lag.Encours || (abs(j1->positionX - attaque->positionX ) <= 190))
         {
             attaque->executer=false;
             attaque->positionX=j2->positionX - attaque->taille;
@@ -266,12 +268,12 @@ int main(void)
     const int screenHeight = 600;
 
     InitWindow(screenWidth, screenHeight, "1v1GDN");
-    Image fond = LoadImage("C:\\Users\\ultim\\Downloads\\resoucres___subway_by_shirouu_kun_d9x3kdx.png");
+    Image fond = LoadImage("resoucres___subway_by_shirouu_kun_d9x3kdx.png");
     Texture2D texture = LoadTextureFromImage(fond);
     UnloadImage(fond);
     
     InitAudioDevice();
-    Music music = LoadMusicStream("C:\\Users\\ultim\\Downloads\\Live and Learn - Sonic Adventure 2 [OST].mp3");
+    Music music = LoadMusicStream("Live and Learn - Sonic Adventure 2 [OST].mp3");
     PlayMusicStream(music);  
 
 
