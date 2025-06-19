@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include "raylib.h"
 
+//pensez à ré-organiser les fonctions par thèmes 
 
 void ColisionAtk(Joueur *joueur, Attaque *attaque)
 {
@@ -38,6 +39,7 @@ void HitLagTemps(Attaque *attaque,long int fpstour,int DureeLag)
         if ( attaque->lag.MemoFps==fpstour)
         {
             attaque->lag.Encours=false;
+            attaque->executer = false;
             attaque->lag.SaLag=0;
             attaque->lag.MemoFps=0;
         }
@@ -63,24 +65,25 @@ void ExecuteAttaque2(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquan
         if (!(attaque->lag.Encours))
         {
             attaque->lag.Encours = true;
+            attaque->executer = true;
             ColisionAtk2(joueur,attaque);
         }
     }
 }
 
 
-// faire en sorte quelles se détruisent mutuellement 
+// faire en sorte quelles se détruisent mutuellement (chiant car regarder pour toutes les attaques mais y'a des listes doc c'est ok)
 
 void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque lancé part la joueur 1
 {
     if (Key || attaque->executer)
     {
         if ((attaque->lag.Encours ) || attaque->espace->positionX > 900 ) //  on regarde si l'attaque est fini ou si elle est trop loin
-        {
+        {   // si ça touche ou qu'on sort de l'écran on arrête et on reset tous
             attaque->executer=false;
             attaque->espace->positionX=j1->positionX + 190;
             attaque->espace->positionY=j1->positionY;
-        }// si ça touche ou qu'on sort de l'écran on arrête et on reset tous
+        }
         else
         {
             attaque->executer=true;
@@ -129,7 +132,7 @@ void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'atta
         );} */
     for(int i = 0; i < nb_atk; i++)
     {
-        if (!liste_atk[i]->executer)
+        if (!liste_atk[i]->executer) // à cause de ça
         {
             if (est_j1)
             {
@@ -168,6 +171,27 @@ void Iniatk(Attaque *atk, int* info_atk /*de taille 7*/) // initialise une attaq
     atk->executer = false;
 }
 
-
+void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, bool estj1) // regarde si l'attaque se fait détruire par celle de l'adversaire
+{
+    for (int i = 0; i < nb_atk; i++)
+    {
+        if (estj1)
+        {
+            if (abs(attaque->espace->positionX + attaque->espace->taille - liste_atk[i]->espace->positionX) == 0)
+            {
+                attaque->executer=false;
+                break;
+            }
+        }
+        else
+        {
+            if (abs(liste_atk[i]->espace->positionX + liste_atk[i]->espace->taille - attaque->espace->positionX) == 0)
+            {
+                attaque->executer=false;
+                break;
+            }
+        }
+    }
+}
 
 //ajouté lag quand on se prend une attaque et invul si lag trop long

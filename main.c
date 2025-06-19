@@ -118,7 +118,7 @@ int main(void)
         MiseAJourAtk(&joueur1,atk_j1,3,true,CompteFps); // maj j1
         MiseAJourAtk(&joueur2,atk_j2,3,false,CompteFps); // maj j2
 
-        
+        DestructionProjectile(&Pigeon ,atk_j1,3,true);
 
 
         // execution des attaques
