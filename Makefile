@@ -31,7 +31,11 @@ clean:
 	rm -f $(TARGET) $(OBJ)
 
 git:
-	git pull
+	@read -p "Commit message: " msg; \
+	git add *; \
+	git commit -m "$$msg"; \
+	git push
+
 
 # Phony targets
 .PHONY: all clean
