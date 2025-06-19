@@ -60,18 +60,46 @@ int main(void)
     joueur1.SAUT=joueur2.SAUT=0;
     joueur1.PV=joueur2.PV=100;
     
-    // def atk : {coX, coY,degat,taille,{false,0,0},largeur,false}
-    //atk j1
-    Attaque escarm = {joueur1.positionX + 190,joueur1.positionY,20,50,{false,0,0},20,false}; // posX posY degats taille (parametre par defauts du lag)
-    Attaque Babouche = {joueur1.positionX + 190,joueur1.positionY,30,70,{false,0,0},20,false};
-    Attaque Pigeon = {joueur1.positionX + 190,joueur1.positionY,10,50,{false,0,0},50,false};
-    
+
+    Attaque Escarm; //= {joueur1.positionX + 190,joueur1.positionY,20,50,{false,0,0},20,false}; // posX posY degats taille (parametre par defauts du lag)
+    int escarm_info[7] = {20,joueur1.positionX + 190,joueur1.positionY,50,20,50,30};
+    Iniatk(&Escarm,escarm_info); // init attaque avec une liste du format : [degat,posX,posY,taille,largeur,pos-relatif,durrelag]
+
+    Attaque Babouche; //= {joueur1.positionX + 190,joueur1.positionY,30,70,{false,0,0},20,false};
+    int babouche_info[7] = {30,joueur1.positionX + 190,joueur1.positionY,70,20,200,45};
+    Iniatk(&Babouche,babouche_info);
+
+    Attaque Pigeon; //= {joueur1.positionX + 190,joueur1.positionY,10,50,{false,0,0},50,false};
+    int pigeon_info[7] = {10,joueur1.positionX + 190,joueur1.positionY,50,50,0,60};
+    Iniatk(&Pigeon,pigeon_info);
+
+
+    Attaque **atk_j1 = (Attaque **) malloc(3 * sizeof(Attaque *)); // allocation dynamique pour le tableau d'attaques
+    atk_j1[0] = &Escarm;
+    atk_j1[1] = &Babouche;
+    atk_j1[2] = &Pigeon; // on initialise le tableau d'attaques j1 avec les attaques créées précédemment
+
+
     //atk j2
-    Attaque Punch = {joueur2.positionX - 50,joueur2.positionY,20,50,{false,0,0},20,false};
-    Attaque Slash = {joueur2.positionX - 70,joueur2.positionY,30,70,{false,0,0},20,false};
-    Attaque Sandale = {joueur2.positionX - 50,joueur1.positionY,10,50,{false,0,0},50,false};
-    
+    Attaque Punch;// = {joueur2.positionX - 50,joueur2.positionY,20,50,{false,0,0},20,false};
+    int punch_info[7] = {20,joueur2.positionX - 50,joueur2.positionY,50,20,50,30};
+    Iniatk(&Punch,punch_info);
+
+    Attaque Slash;// = {joueur2.positionX - 70,joueur2.positionY,30,70,{false,0,0},20,false};
+    int slash_info[7] = {30,joueur2.positionX - 70,joueur2.positionY,70,20,200,30};
+    Iniatk(&Slash,slash_info);
+
+    Attaque Sandale;// = {joueur2.positionX - 50,joueur1.positionY,10,50,{false,0,0},50,false};
+    int sandale_info[7] = {10,joueur2.positionX - 50,joueur2.positionY,50,50,0,60};
+    Iniatk(&Sandale,sandale_info);
+
+    Attaque **atk_j2 = (Attaque **) malloc(3 * sizeof(Attaque *)); // allocation dynamique pour le tableau d'attaques
+    atk_j2[0] = &Punch;
+    atk_j2[1] = &Slash;
+    atk_j2[2] = &Sandale;
+
     long int CompteFps=0;
+    
     AfficheAcceuil(screenWidth,screenHeight);
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -85,41 +113,18 @@ int main(void)
         Bouge2(&joueur2,coli);
         
         
-        // mise à jour de la position des attaques
-        
-        escarm.positionX = joueur1.positionX + 190; //prendre en compte l'épaisseur du joueur
-        escarm.positionY = joueur1.positionY + 50; //où il se trouve par rapport aux joueurs
-        HitLagTemps(&escarm,CompteFps,30);
-        
-        Babouche.positionX = joueur1.positionX + 190; 
-        Babouche.positionY = joueur1.positionY + 200;
-        HitLagTemps(&Babouche,CompteFps,45);
-        
-        if (!Pigeon.executer)
-        {
-            Pigeon.positionX = joueur1.positionX + 190;
-            Pigeon.positionY = joueur1.positionY;
-        }
-        HitLagTemps(&Pigeon,CompteFps,60);
+        // mise à jour de la position des attaques et du lag
 
-        Punch.positionX = joueur2.positionX - Punch.taille; 
-        Punch.positionY = joueur2.positionY + 50;
-        HitLagTemps(&Punch,CompteFps,30);
-        
-        Slash.positionX = joueur2.positionX - Slash.taille; 
-        Slash.positionY = joueur2.positionY + 200;
-        HitLagTemps(&Slash,CompteFps,30);    
+        MiseAJourAtk(&joueur1,atk_j1,3,true,CompteFps); // maj j1
+        MiseAJourAtk(&joueur2,atk_j2,3,false,CompteFps); // maj j2
 
-        if (!Sandale.executer)
-        {
-            Sandale.positionX = joueur2.positionX - 50; // on retire la largeur de l'attaque 
-            Sandale.positionY = joueur2.positionY;
-        }
-        HitLagTemps(&Sandale,CompteFps,60);
+        
+
+
         // execution des attaques
         
         //j1 
-        ExecuteAttaque(&joueur2,&escarm,IsKeyDown(KEY_C)); // on fait l'attaque escarmouche
+        ExecuteAttaque(&joueur2,&Escarm,IsKeyDown(KEY_C)); // on fait l'attaque Escarmouche
         ExecuteAttaque(&joueur2,&Babouche,IsKeyDown(KEY_V));
         AttaqueDistance(&joueur1,&joueur2,&Pigeon,IsKeyDown(KEY_X));
         
@@ -135,7 +140,7 @@ int main(void)
             //joueur et stats
             //info debug
             /*
-            DrawText(TextFormat("testmemo?: %i,%i", escarm.lag.MemoFps, escarm.lag.SaLag), 10,50, 10, BLACK);
+            DrawText(TextFormat("testmemo?: %i,%i", Escarm.lag.MemoFps, Escarm.lag.SaLag), 10,50, 10, BLACK);
             DrawText(TextFormat("atk?touché? : %i, %i ", IsKeyDown(KEY_T), joueur2.touchable), 10,60, 10, BLACK);
             DrawText(TextFormat("où est la souris: [%i, %i]", GetMouseX(), GetMouseY()), 10, 10, 10, RED); //info position souris
             DrawText(TextFormat("colision : %i",coli), 10, 40, 10, RED); // info colision
@@ -151,14 +156,14 @@ int main(void)
             DrawRectangle(580,555, 3*joueur2.PV, 40, GREEN); //pv joueur2
             
             //affichage attaque 
-            if (escarm.lag.Encours){DrawRectangle(escarm.positionX,escarm.positionY,escarm.taille,escarm.largeur, ORANGE);}
-            if (Babouche.lag.Encours){DrawRectangle(Babouche.positionX,Babouche.positionY,Babouche.taille,Babouche.largeur, ORANGE);}
-            if (Pigeon.executer){DrawRectangle(Pigeon.positionX,Pigeon.positionY,Pigeon.taille,Pigeon.largeur, YELLOW);}
+            if (Escarm.lag.Encours){DrawRectangle(Escarm.espace->positionX,Escarm.espace->positionY,Escarm.espace->taille,Escarm.espace->largeur, ORANGE);}
+            if (Babouche.lag.Encours){DrawRectangle(Babouche.espace->positionX,Babouche.espace->positionY,Babouche.espace->taille,Babouche.espace->largeur, ORANGE);}
+            if (Pigeon.executer){DrawRectangle(Pigeon.espace->positionX,Pigeon.espace->positionY,Pigeon.espace->taille,Pigeon.espace->largeur, YELLOW);}
             
             
-            if (Punch.lag.Encours){DrawRectangle(Punch.positionX,Punch.positionY,Punch.taille,Punch.largeur, PURPLE);}
-            if (Slash.lag.Encours){DrawRectangle(Slash.positionX,Slash.positionY,Slash.taille,Slash.largeur, PURPLE);}
-            if (Sandale.executer){DrawRectangle(Sandale.positionX,Sandale.positionY,Sandale.taille,Sandale.largeur, PINK);}
+            if (Punch.lag.Encours){DrawRectangle(Punch.espace->positionX,Punch.espace->positionY,Punch.espace->taille,Punch.espace->largeur, PURPLE);}
+            if (Slash.lag.Encours){DrawRectangle(Slash.espace->positionX,Slash.espace->positionY,Slash.espace->taille,Slash.espace->largeur, PURPLE);}
+            if (Sandale.executer){DrawRectangle(Sandale.espace->positionX,Sandale.espace->positionY,Sandale.espace->taille,Sandale.espace->largeur, PINK);}
 
                
             if (joueur1.PV<=0 || joueur2.PV<=0)
@@ -205,3 +210,37 @@ int main(void)
 
     return 0;
 }
+
+
+// trash zone (y mettre truc qui marchait mais qui ont été remplacer au cas où)
+
+/*
+        Escarm.espace->positionX = joueur1.positionX + 190; //prendre en compte l'épaisseur du joueur
+        Escarm.espace->positionY = joueur1.positionY + 50; //où il se trouve par rapport aux joueurs
+        HitLagTemps(&Escarm,CompteFps,30);
+        
+        Babouche.espace->positionX = joueur1.positionX + 190; 
+        Babouche.espace->positionY = joueur1.positionY + 200;
+        HitLagTemps(&Babouche,CompteFps,45);
+        
+        if (!Pigeon.executer)
+        {
+            Pigeon.espace->positionX = joueur1.positionX + 190;
+            Pigeon.espace->positionY = joueur1.positionY;
+        }
+        HitLagTemps(&Pigeon,CompteFps,60);
+
+        Punch.espace->positionX = joueur2.positionX - Punch.espace->taille; 
+        Punch.espace->positionY = joueur2.positionY + 50;
+        HitLagTemps(&Punch,CompteFps,30);
+        
+        Slash.espace->positionX = joueur2.positionX - Slash.espace->taille; 
+        Slash.espace->positionY = joueur2.positionY + 200;
+        HitLagTemps(&Slash,CompteFps,30);    
+
+        if (!Sandale.executer)
+        {
+            Sandale.espace->positionX = joueur2.positionX - 50; // on retire la largeur de l'attaque 
+            Sandale.espace->positionY = joueur2.positionY;
+        }
+        HitLagTemps(&Sandale,CompteFps,60); */

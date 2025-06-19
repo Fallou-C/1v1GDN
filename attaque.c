@@ -10,18 +10,18 @@
 
 void ColisionAtk(Joueur *joueur, Attaque *attaque)
 {
-    if ( abs(joueur->positionX - attaque->positionX ) <= attaque->taille) // on prend la position du joueur par rapport à x 
+    if ( abs(joueur->positionX - attaque->espace->positionX ) <= attaque->espace->taille) // on prend la position du joueur par rapport à x 
     {
-        if(abs(joueur->positionY - attaque->positionY <= attaque->largeur)& !IsKeyDown(KEY_D)) //on regarde si l'attaque a pas été lancé trop haut
+        if(abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur)& !IsKeyDown(KEY_D)) //on regarde si l'attaque a pas été lancé trop haut
         {joueur->PV -= attaque->degat;}
     }
 }
 
 void ColisionAtk2(Joueur *joueur, Attaque *attaque)
 {
-    if ( abs(joueur->positionX - attaque->positionX ) <= 190) // on prend la position du joueur par rapport à x avec largeur du joueur (important si attaque joueur à gauche)
+    if ( abs(joueur->positionX - attaque->espace->positionX ) <= 190) // on prend la position du joueur par rapport à x avec largeur du joueur (important si attaque joueur à gauche)
     {
-        if(abs(joueur->positionY - attaque->positionY <= attaque->largeur) & !IsKeyDown(KEY_LEFT))
+        if(abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur) & !IsKeyDown(KEY_LEFT))
         {joueur->PV -= attaque->degat;}
     }
 }
@@ -69,24 +69,23 @@ void ExecuteAttaque2(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquan
 }
 
 
-
 // faire en sorte quelles se détruisent mutuellement 
 
 void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque lancé part la joueur 1
 {
     if (Key || attaque->executer)
     {
-        if ((attaque->lag.Encours ) || attaque->positionX > 900 ) //  on regarde si l'attaque est fini ou si elle est trop loin
+        if ((attaque->lag.Encours ) || attaque->espace->positionX > 900 ) //  on regarde si l'attaque est fini ou si elle est trop loin
         {
             attaque->executer=false;
-            attaque->positionX=j1->positionX + 190;
-            attaque->positionY=j1->positionY;
+            attaque->espace->positionX=j1->positionX + 190;
+            attaque->espace->positionY=j1->positionY;
         }// si ça touche ou qu'on sort de l'écran on arrête et on reset tous
         else
         {
             attaque->executer=true;
-            attaque->positionX += 12;
-            if ((abs(j2->positionY - attaque->positionY ) <= attaque->largeur) && (abs(j2->positionX - attaque->positionX ) <= attaque->taille) && !attaque->lag.Encours & !IsKeyDown(KEY_D)) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
+            attaque->espace->positionX += 12;
+            if ((abs(j2->positionY - attaque->espace->positionY ) <= attaque->espace->largeur) && (abs(j2->positionX - attaque->espace->positionX ) <= attaque->espace->taille) && !attaque->lag.Encours & !IsKeyDown(KEY_D)) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
             {
                 ColisionAtk(j2,attaque);
                 attaque->lag.Encours=true;
@@ -99,17 +98,17 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
 {
     if (Key || attaque->executer)
     {
-        if (attaque->lag.Encours || attaque->positionX < 0)
+        if (attaque->lag.Encours || attaque->espace->positionX < 0)
         {
             attaque->executer=false;
-            attaque->positionX=j2->positionX - attaque->taille;
-            attaque->positionY=j2->positionY;
+            attaque->espace->positionX=j2->positionX - attaque->espace->taille;
+            attaque->espace->positionY=j2->positionY;
         }// si ça touche ou qu'on sort de l'écran on arrête et on reset tous
         else
         {
             attaque->executer=true;
-            attaque->positionX -= 12;
-            if ( (abs(j1->positionY - attaque->positionY ) <= attaque->largeur) && (abs(j1->positionX - attaque->positionX ) <= 190) && (!attaque->lag.Encours) & !IsKeyDown(KEY_LEFT)) //si on est assez proche et qu'on a pas touché y'a colision
+            attaque->espace->positionX -= 12;
+            if ( (abs(j1->positionY - attaque->espace->positionY ) <= attaque->espace->largeur) && (abs(j1->positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) & !IsKeyDown(KEY_LEFT)) //si on est assez proche et qu'on a pas touché y'a colision
             {
                 ColisionAtk2(j1,attaque);
                 attaque->lag.Encours=true;
@@ -118,9 +117,57 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
     }
 }
 
-//ajouté lag quand on se prend une attaque et invul si lag trop long
-
-void MiseAJourAtk()
+void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'attaque*/, int nb_atk, bool est_j1,int CompteFps ) // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
 {
-    // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
+    /*for(int i=0;i<3;i++){fprintf(stderr,"atk_j1[%d] posX=%d, posY=%d, taille=%d, largeur=%d, pos_relatif=%d\n",
+            i,
+            liste_atk[i]->espace->positionX,
+            liste_atk[i]->espace->positionY,
+            liste_atk[i]->espace->taille,
+            liste_atk[i]->espace->largeur,
+            liste_atk[i]->espace->pos_relatif
+        );} */
+    for(int i = 0; i < nb_atk; i++)
+    {
+        if (!liste_atk[i]->executer)
+        {
+            if (est_j1)
+            {
+                liste_atk[i]->espace->positionX = joueur->positionX + 190;
+                liste_atk[i]->espace->positionY = joueur->positionY + liste_atk[i]->espace->pos_relatif; // ajouter la position de l'attaque relatif au personnage
+            }
+            else
+            {
+                liste_atk[i]->espace->positionX = joueur->positionX - liste_atk[i]->espace->taille;
+                liste_atk[i]->espace->positionY = joueur->positionY + liste_atk[i]->espace->pos_relatif;
+            }
+        }
+        HitLagTemps(liste_atk[i],CompteFps,liste_atk[i]->lag.DureeLag);
+    }
 }
+
+void Iniatk(Attaque *atk, int* info_atk /*de taille 7*/) // initialise une attaque en fonction des valeurs données 
+{
+    // info_atk = {degat,positionX,positionY,taille,largeur,pos_relatif,durrelag}    
+    int i = 0;
+
+    atk->espace = (Espace*) malloc(sizeof(Espace));
+
+    atk->degat = info_atk[i];i++;
+    atk->espace->positionX = info_atk[i];i++;
+    atk->espace->positionY = info_atk[i];i++;
+    atk->espace->taille = info_atk[i];i++;
+    atk->espace->largeur = info_atk[i];i++;
+    atk->espace->pos_relatif = info_atk[i];i++;
+
+    atk->lag.Encours = false;
+    atk->lag.MemoFps = 0;
+    atk->lag.SaLag = 0;
+    atk->lag.DureeLag = info_atk[i];
+
+    atk->executer = false;
+}
+
+
+
+//ajouté lag quand on se prend une attaque et invul si lag trop long

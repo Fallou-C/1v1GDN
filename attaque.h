@@ -12,15 +12,21 @@ typedef struct HitLag_ {
     bool Encours;
     int MemoFps; //on regarde quand l'attaque a été lancé
     int SaLag; // prend en compte le début et la fin du lag
+    int DureeLag;
 } HitLag;
 
-typedef struct Attaque_ {
+typedef struct Espace_ {
     int positionX;
     int positionY;
-    int degat;
     int taille; //par défaut la taille et mesure sur l'axe x
+    int largeur; // same que taille mais en y
+    int pos_relatif;
+} Espace;
+
+typedef struct Attaque_ {
+    int degat;
+    Espace *espace;
     HitLag lag;
-    int largeur;// same que taille mais en y
     bool executer; // surtout pour les attaques à distances, pour savoir si elles sont activées
 } Attaque;
 
@@ -35,6 +41,9 @@ void ExecuteAttaque2(Joueur *joueur2,Attaque *attaque,bool IsKeyDown); // on ex�
 void AttaqueDistance(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance pour joueur 1
 void AttaqueDistance2(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance pour joueur 2
 
+void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'attaque*/, int nb_atk, bool est_j1, int CompteFps); // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
 
+// init attaque avec une liste du format : [degat,posX,posY,taille,largeur,pos-relatif,durrelag]
+void Iniatk(Attaque *atk, int* info_atk); // initialise une attaque en fonction des valeurs données
 
 #endif //ATTACK_H
