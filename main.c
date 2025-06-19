@@ -27,6 +27,7 @@
 #include "../raylib/src/raylib.h"
 #include "mouvement.h"
 #include "attaque.h"
+#include "utility.h"
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -71,7 +72,7 @@ int main(void)
     Attaque Sandale = {joueur2.positionX - 50,joueur1.positionY,10,50,{false,0,0},50,false};
     
     long int CompteFps=0;
-    AfficheMenu(screenWidth,screenHeight);
+    AfficheAcceuil(screenWidth,screenHeight);
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {

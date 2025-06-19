@@ -1,3 +1,5 @@
+//gère les attaques
+
 #include "attaque.h"
 #include "mouvement.h"
 #include <stdlib.h> 
@@ -67,8 +69,7 @@ void ExecuteAttaque2(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquan
 }
 
 
-// bug chelou sur les attaques à distances qui se lance sur l'ancienne emplacement du joueur (à garder en feature ptdr)
-// + des fois veut pas se lancer
+
 // faire en sorte quelles se détruisent mutuellement 
 
 void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque lancé part la joueur 1
@@ -118,3 +119,8 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
 }
 
 //ajouté lag quand on se prend une attaque et invul si lag trop long
+
+void MiseAJourAtk()
+{
+    // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
+}

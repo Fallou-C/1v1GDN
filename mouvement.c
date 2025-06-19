@@ -1,3 +1,5 @@
+// gère les mouvements des personnages
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -64,24 +66,6 @@ bool colision(Joueur *joueur1,Joueur *joueur2) // en théorie un joueur ne peut 
 {
     if (abs((joueur2->positionX - joueur1->positionX))<190) {return true;}
     else {return false;}
-}
-
-void AfficheMenu(int screenWidth, int screenHeight)
-{
-    Image fondMenu = LoadImage("fond/logoC.png");
-    Texture2D textureMenu = LoadTextureFromImage(fondMenu);
-    Music musicMenu = LoadMusicStream("music/Evoland 2 OST - Track 38 (Fighting Magus).mp3");
-    PlayMusicStream(musicMenu);
-    while(!IsKeyDown(KEY_ENTER) & !WindowShouldClose())
-    {
-        UpdateMusicStream(musicMenu);
-        BeginDrawing();
-        ClearBackground(WHITE);
-        DrawTexture(textureMenu, screenWidth/2 - textureMenu.width/2, screenHeight/2 - textureMenu.height/2 +100, WHITE);
-        EndDrawing();
-    }
-    UnloadImage(fondMenu);
-    UnloadMusicStream(musicMenu);
 }
 
 // ajouter inertie au saut ?

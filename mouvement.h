@@ -22,6 +22,5 @@ void Bouge2(Joueur *joueur, bool colision); //gère le mouvement du joueur à dr
 
 bool colision(Joueur *joueur1,Joueur *joueur2);
 
-void AfficheMenu(int screenWidth, int screenHeight); // flemme de le laisser seul
 
 #endif //MOUVEMENT_H

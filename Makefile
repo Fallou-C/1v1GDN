@@ -6,7 +6,7 @@ CFLAGS  := -Wall -Wextra -O2
 LDFLAGS := -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
 # Source files and target
-SRC     := main.c attaque.c mouvement.c
+SRC     := main.c attaque.c mouvement.c utility.c
 OBJDIR  := bin
 OBJ     := $(SRC:%.c=$(OBJDIR)/%.o)
 TARGET  := 1v1GDN
