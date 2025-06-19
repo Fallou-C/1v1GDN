@@ -29,8 +29,8 @@ void ColisionAtk2(Joueur *joueur, Attaque *attaque); //colision pour joueur 2
 
 void HitLagTemps(Attaque *attaque,long int fpstour,int DureeLag); //gère le temps de lag
 
-void ExecuteAttaque(Joueur *joueur1, Joueur *joueur2,Attaque *attaque,bool IsKeyDown); //gère l'attaque du joueur 1
-void ExecuteAttaque2(Joueur *joueur1, Joueur *joueur2,Attaque *attaque,bool IsKeyDown); //gère l'attaque du joueur 2
+void ExecuteAttaque(Joueur *joueur2,Attaque *attaque,bool IsKeyDown); // on exécute l'attaque de Key sur le joueur
+void ExecuteAttaque2(Joueur *joueur2,Attaque *attaque,bool IsKeyDown); // on exécute l'attaque de Key sur le joueur mais pour j2
 
 void AttaqueDistance(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance pour joueur 1
 void AttaqueDistance2(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance pour joueur 2

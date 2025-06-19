@@ -30,7 +30,7 @@ void HitLagTemps(Attaque *attaque,long int fpstour,int DureeLag)
     {
         if (attaque->lag.SaLag==0)
         {
-            attaque->lag.MemoFps= fpstour + DureeLag;
+            attaque->lag.MemoFps = fpstour + DureeLag;
             attaque->lag.SaLag++;
         }
         if ( attaque->lag.MemoFps==fpstour)
@@ -42,26 +42,26 @@ void HitLagTemps(Attaque *attaque,long int fpstour,int DureeLag)
     }
 }
 
-void ExecuteAttaque(Joueur *joueur1, Joueur *joueur2,Attaque *attaque,bool IsKeyDown) // attaquant attaqué attaque touche
+void ExecuteAttaque(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquant attaqué attaque touche
 {
     if (IsKeyDown & !attaque->lag.Encours)
     {
         if (!(attaque->lag.Encours))
         {
             attaque->lag.Encours = true;
-            ColisionAtk(joueur2,attaque);
+            ColisionAtk(joueur,attaque);
         }
     }
 }
 
-void ExecuteAttaque2(Joueur *joueur1, Joueur *joueur2,Attaque *attaque,bool IsKeyDown) // attaquant attaqué attaque touche mais on utilise colision2
+void ExecuteAttaque2(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquant attaqué attaque touche mais on utilise colision2
 {
     if (IsKeyDown & !attaque->lag.Encours)
     {
         if (!(attaque->lag.Encours))
         {
             attaque->lag.Encours = true;
-            ColisionAtk2(joueur2,attaque);
+            ColisionAtk2(joueur,attaque);
         }
     }
 }
@@ -75,7 +75,7 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
 {
     if (Key || attaque->executer)
     {
-        if (attaque->lag.Encours || (abs(j2->positionX - attaque->positionX ) <= attaque->taille))
+        if ((attaque->lag.Encours ) || attaque->positionX > 900 ) //  on regarde si l'attaque est fini ou si elle est trop loin
         {
             attaque->executer=false;
             attaque->positionX=j1->positionX + 190;
@@ -85,7 +85,7 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
         {
             attaque->executer=true;
             attaque->positionX += 12;
-            if ((abs(j2->positionX - attaque->positionX ) <= attaque->taille) && !attaque->lag.Encours & !IsKeyDown(KEY_D)) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
+            if ((abs(j2->positionY - attaque->positionY ) <= attaque->largeur) && (abs(j2->positionX - attaque->positionX ) <= attaque->taille) && !attaque->lag.Encours & !IsKeyDown(KEY_D)) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
             {
                 ColisionAtk(j2,attaque);
                 attaque->lag.Encours=true;
@@ -98,7 +98,7 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
 {
     if (Key || attaque->executer)
     {
-        if (attaque->lag.Encours || (abs(j1->positionX - attaque->positionX ) <= 190))
+        if (attaque->lag.Encours || attaque->positionX < 0)
         {
             attaque->executer=false;
             attaque->positionX=j2->positionX - attaque->taille;
@@ -108,7 +108,7 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
         {
             attaque->executer=true;
             attaque->positionX -= 12;
-            if ((abs(j1->positionX - attaque->positionX ) <= 190) && (!attaque->lag.Encours) & !IsKeyDown(KEY_LEFT)) //si on est assez proche et qu'on a pas touché y'a colision
+            if ( (abs(j1->positionY - attaque->positionY ) <= attaque->largeur) && (abs(j1->positionX - attaque->positionX ) <= 190) && (!attaque->lag.Encours) & !IsKeyDown(KEY_LEFT)) //si on est assez proche et qu'on a pas touché y'a colision
             {
                 ColisionAtk2(j1,attaque);
                 attaque->lag.Encours=true;

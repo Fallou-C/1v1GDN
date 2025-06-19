@@ -30,5 +30,8 @@ $(TARGET): $(OBJ)
 clean:
 	rm -f $(TARGET) $(OBJ)
 
+git:
+	git pull
+
 # Phony targets
 .PHONY: all clean

@@ -84,7 +84,7 @@ int main(void)
         Bouge2(&joueur2,coli);
         
         
-        // position des attaques
+        // mise à jour de la position des attaques
         
         escarm.positionX = joueur1.positionX + 190; //prendre en compte l'épaisseur du joueur
         escarm.positionY = joueur1.positionY + 50; //où il se trouve par rapport aux joueurs
@@ -94,6 +94,11 @@ int main(void)
         Babouche.positionY = joueur1.positionY + 200;
         HitLagTemps(&Babouche,CompteFps,45);
         
+        if (!Pigeon.executer)
+        {
+            Pigeon.positionX = joueur1.positionX + 190;
+            Pigeon.positionY = joueur1.positionY;
+        }
         HitLagTemps(&Pigeon,CompteFps,60);
 
         Punch.positionX = joueur2.positionX - Punch.taille; 
@@ -104,17 +109,22 @@ int main(void)
         Slash.positionY = joueur2.positionY + 200;
         HitLagTemps(&Slash,CompteFps,30);    
 
+        if (!Sandale.executer)
+        {
+            Sandale.positionX = joueur2.positionX - 50; // on retire la largeur de l'attaque 
+            Sandale.positionY = joueur2.positionY;
+        }
         HitLagTemps(&Sandale,CompteFps,60);
-        //attaque execution
+        // execution des attaques
         
         //j1 
-        ExecuteAttaque(&joueur1,&joueur2,&escarm,IsKeyDown(KEY_C)); // on fait l'attaque escarmouche
-        ExecuteAttaque(&joueur1,&joueur2,&Babouche,IsKeyDown(KEY_V));
+        ExecuteAttaque(&joueur2,&escarm,IsKeyDown(KEY_C)); // on fait l'attaque escarmouche
+        ExecuteAttaque(&joueur2,&Babouche,IsKeyDown(KEY_V));
         AttaqueDistance(&joueur1,&joueur2,&Pigeon,IsKeyDown(KEY_X));
         
         //j2
-        ExecuteAttaque2(&joueur2,&joueur1,&Punch,IsKeyDown(KEY_I));
-        ExecuteAttaque2(&joueur2,&joueur1,&Slash,IsKeyDown(KEY_O));
+        ExecuteAttaque2(&joueur1,&Punch,IsKeyDown(KEY_I));
+        ExecuteAttaque2(&joueur1,&Slash,IsKeyDown(KEY_O));
         AttaqueDistance2(&joueur2,&joueur1,&Sandale,IsKeyDown(KEY_U));
         
         BeginDrawing(); 
@@ -139,7 +149,7 @@ int main(void)
             DrawRectangle(20,555, 3*joueur1.PV, 40, GREEN); //pv joueur1
             DrawRectangle(580,555, 3*joueur2.PV, 40, GREEN); //pv joueur2
             
-            //attaque Pigeon
+            //affichage attaque 
             if (escarm.lag.Encours){DrawRectangle(escarm.positionX,escarm.positionY,escarm.taille,escarm.largeur, ORANGE);}
             if (Babouche.lag.Encours){DrawRectangle(Babouche.positionX,Babouche.positionY,Babouche.taille,Babouche.largeur, ORANGE);}
             if (Pigeon.executer){DrawRectangle(Pigeon.positionX,Pigeon.positionY,Pigeon.taille,Pigeon.largeur, YELLOW);}
@@ -167,6 +177,17 @@ int main(void)
                     joueur1.PV=joueur2.PV=100;
                 }
             }
+
+            if (IsKeyDown(KEY_R))
+                {
+                    CompteFps=0; // reset pour pas que la mémoire explose
+                    joueur1.positionX = 50;
+                    joueur2.positionX = 660;
+                    joueur1.positionY = joueur2.positionY = 210;
+                    joueur1.sautable=joueur2.sautable=joueur2.touchable=true;
+                    joueur1.SAUT=joueur2.SAUT=0;
+                    joueur1.PV=joueur2.PV=100;
+                }
     
         EndDrawing();
         //----------------------------------------------------------------------------------
