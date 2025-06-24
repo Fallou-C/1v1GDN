@@ -165,28 +165,35 @@ void Iniatk(Attaque *atk, int* info_atk /*de taille 8*/) // initialise une attaq
     atk->executer = false;
 }
 
-void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, bool estj1) // regarde si l'attaque se fait détruire par celle de l'adversaire
+void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, bool estj2) // regarde si l'attaque se fait détruire par celle de l'adversaire
 {
     for (int i = 0; i < nb_atk; i++)
     {
-        if (liste_atk[i]->lag.Encours){
-        if (estj1)
+        if (attaque->executer)
         {
-            if ( (attaque->espace->positionX + attaque->espace->taille - liste_atk[i]->espace->positionX) <= 0)
+            if ((liste_atk[i]->lag.Encours && !liste_atk[i]->atk_distance) || (liste_atk[i]->executer && liste_atk[i]->atk_distance))
             {
-                attaque->executer=false;
-                break;
+                if (estj2)
+                {
+                    if ( (-(attaque->espace->positionX + attaque->espace->taille - liste_atk[i]->espace->positionX) < 1))
+                    {
+                        attaque->executer=false;
+                        attaque->lag.Encours=true;
+                        break;
+                    }
+                }
+                else
+                {
+                    if ( (abs(liste_atk[i]->espace->positionX   - attaque->espace->positionX) < liste_atk[i]->espace->taille))// pb calcule distance
+                    {
+                        attaque->executer=false;
+                        attaque->lag.Encours=true;
+                        break;
+                    }
+                }
             }
         }
-        else
-        {
-            if ( (liste_atk[i]->espace->positionX + liste_atk[i]->espace->taille - attaque->espace->positionX) <= 0)
-            {
-                attaque->executer=false;
-                break;
-            }
-        }
-    }}
+    }
 }
 
 //ajouté lag quand on se prend une attaque et invul si lag trop long

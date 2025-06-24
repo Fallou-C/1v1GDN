@@ -120,6 +120,7 @@ int main(void)
         MiseAJourAtk(&joueur2,atk_j2,3,false,CompteFps); // maj j2
 
         DestructionProjectile(&Pigeon ,atk_j2,3,true);
+        DestructionProjectile(&Sandale ,atk_j1,3,false);
 
 
         // execution des attaques
@@ -140,14 +141,14 @@ int main(void)
             
             //joueur et stats
             //info debug
-            /*
+            
             DrawText(TextFormat("testmemo?: %i,%i", Escarm.lag.MemoFps, Escarm.lag.SaLag), 10,50, 10, BLACK);
             DrawText(TextFormat("atk?touché? : %i, %i ", IsKeyDown(KEY_T), joueur2.touchable), 10,60, 10, BLACK);
             DrawText(TextFormat("où est la souris: [%i, %i]", GetMouseX(), GetMouseY()), 10, 10, 10, RED); //info position souris
             DrawText(TextFormat("colision : %i",coli), 10, 40, 10, RED); // info colision
             DrawText(TextFormat("position du joueur: [%i, %i]", joueur1.positionX, joueur1.positionY), 10, 20, 10, RED); //position Joueur1
             DrawText(TextFormat("position du joueur2: [%i, %i]", joueur2.positionX, joueur2.positionY), 10, 30, 10, RED); //info position joueur2-
-            */
+            
             
             /*
             //info joueur
