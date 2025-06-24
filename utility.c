@@ -26,7 +26,7 @@ void AfficheAcceuil(int screenWidth, int screenHeight)
     UnloadMusicStream(musicMenu);
 }
 
-void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2)
+void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2) //amener à evoluer quand y'aura les sprites
 {
     //affichage joueur
 

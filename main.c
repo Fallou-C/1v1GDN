@@ -51,6 +51,7 @@ int main(void)
     SetTargetFPS(60);            
     bool coli;
 
+    // initialisation des joueurs
     Joueur joueur1;
     Joueur joueur2;
     joueur1.positionX = 50;
@@ -60,7 +61,7 @@ int main(void)
     joueur1.SAUT=joueur2.SAUT=0;
     joueur1.PV=joueur2.PV=100;
     
-
+    // initialisation des attaques
     Attaque Escarm; //= {joueur1.positionX + 190,joueur1.positionY,20,50,{false,0,0},20,false}; // posX posY degats taille (parametre par defauts du lag)
     int escarm_info[8] = {20,joueur1.positionX + 190,joueur1.positionY,50,20,50,30,false};
     Iniatk(&Escarm,escarm_info); // init attaque avec une liste du format : [degat,posX,posY,taille,largeur,pos-relatif,durrelag]
@@ -118,7 +119,7 @@ int main(void)
         MiseAJourAtk(&joueur1,atk_j1,3,true,CompteFps); // maj j1
         MiseAJourAtk(&joueur2,atk_j2,3,false,CompteFps); // maj j2
 
-        DestructionProjectile(&Pigeon ,atk_j1,3,true);
+        DestructionProjectile(&Pigeon ,atk_j2,3,true);
 
 
         // execution des attaques

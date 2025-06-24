@@ -169,9 +169,10 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
 {
     for (int i = 0; i < nb_atk; i++)
     {
+        if (liste_atk[i]->lag.Encours){
         if (estj1)
         {
-            if (abs(attaque->espace->positionX + attaque->espace->taille - liste_atk[i]->espace->positionX) == 0)
+            if ( (attaque->espace->positionX + attaque->espace->taille - liste_atk[i]->espace->positionX) <= 0)
             {
                 attaque->executer=false;
                 break;
@@ -179,13 +180,13 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
         }
         else
         {
-            if (abs(liste_atk[i]->espace->positionX + liste_atk[i]->espace->taille - attaque->espace->positionX) == 0)
+            if ( (liste_atk[i]->espace->positionX + liste_atk[i]->espace->taille - attaque->espace->positionX) <= 0)
             {
                 attaque->executer=false;
                 break;
             }
         }
-    }
+    }}
 }
 
 //ajouté lag quand on se prend une attaque et invul si lag trop long

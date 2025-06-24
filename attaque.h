@@ -47,6 +47,6 @@ void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'atta
 // init attaque avec une liste du format : [degat,posX,posY,taille,largeur,pos-relatif,durrelag]
 void Iniatk(Attaque *atk, int* info_atk); // initialise une attaque en fonction des valeurs données
 
-void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, bool estj1);
+void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, bool estj1); //marche pas
 
 #endif //ATTACK_H
