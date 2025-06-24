@@ -179,25 +179,21 @@ int main(void)
                 DrawText(TextFormat("PRESS R TO RESTART"), 20, 300, 70, BLACK);                
                 if (IsKeyDown(KEY_R))
                 {
+                    Reset_Combat(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3,&CompteFps);
+                    /*
                     CompteFps=0; // reset pour pas que la mémoire explose
                     joueur1.positionX = 50;
                     joueur2.positionX = 660;
                     joueur1.positionY = joueur2.positionY = 210;
                     joueur1.sautable=joueur2.sautable=joueur2.touchable=true;
                     joueur1.SAUT=joueur2.SAUT=0;
-                    joueur1.PV=joueur2.PV=100;
+                    joueur1.PV=joueur2.PV=100;*/
                 }
             }
 
             if (IsKeyDown(KEY_R))
                 {
-                    CompteFps=0; // reset pour pas que la mémoire explose
-                    joueur1.positionX = 50;
-                    joueur2.positionX = 660;
-                    joueur1.positionY = joueur2.positionY = 210;
-                    joueur1.sautable=joueur2.sautable=joueur2.touchable=true;
-                    joueur1.SAUT=joueur2.SAUT=0;
-                    joueur1.PV=joueur2.PV=100;
+                    Reset_Combat(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3,&CompteFps);
                 }
     
         EndDrawing();

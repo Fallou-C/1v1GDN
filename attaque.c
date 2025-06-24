@@ -175,7 +175,7 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
             {
                 if (estj2)
                 {
-                    if ( (-(attaque->espace->positionX + attaque->espace->taille - liste_atk[i]->espace->positionX) < 1)) // si collision on la détruit 
+                    if (  (-(attaque->espace->positionX + attaque->espace->taille - liste_atk[i]->espace->positionX) < 1)) // si collision on la détruit 
                     {
                         attaque->executer=false;
                         attaque->lag.Encours=true;
@@ -195,5 +195,6 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
         }
     }
 }
+// partie selon Y ((abs(attaque->espace->positionY + attaque->espace->largeur - liste_atk[i]->espace->positionY - liste_atk[i]->espace->largeur )<1)) &&
 
 //ajouté lag quand on se prend une attaque et invul si lag trop long

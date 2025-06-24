@@ -71,5 +71,39 @@ void MenuDebug()
 
 void InitialisationCombat()
 {
-    // permet de tous reset rapidement en initalisent le combat par rapport à certains paramètre d'origine
+
+}
+
+void Reset_Combat(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2,long int* CompteFps) // permet de tous reset rapidement en initalisent le combat par rapport à certains paramètre d'origine
+{
+    // initailisation fps
+    *CompteFps = 0;
+
+    // initiatlisation des joueurs
+    j1->positionX = 50;
+    j2->positionX = 660;
+    j1->positionY = j2->positionY = 210;
+    j1->sautable = j2->sautable = j2->touchable = true;
+    j1->SAUT = j2->SAUT = 0;
+    j1->PV = j2->PV = 100;
+
+    // re-initialisation des attaques
+
+    //j1
+    for (int i=0; i < nb_atk1; i++)
+    {
+        liste_atk1[i]->executer = false;
+        liste_atk1[i]->lag.Encours = false;
+        liste_atk1[i]->lag.MemoFps = 0;
+        liste_atk1[i]->lag.SaLag = 0;
+    }
+
+    //j2
+    for (int i=0; i < nb_atk2; i++)
+    {
+        liste_atk2[i]->executer = false;
+        liste_atk2[i]->lag.Encours = false;
+        liste_atk2[i]->lag.MemoFps = 0;
+        liste_atk2[i]->lag.SaLag = 0;
+    }
 }
