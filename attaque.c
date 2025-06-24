@@ -65,7 +65,6 @@ void ExecuteAttaque2(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquan
         if (!(attaque->lag.Encours))
         {
             attaque->lag.Encours = true;
-            attaque->executer = true;
             ColisionAtk2(joueur,attaque);
         }
     }
@@ -91,6 +90,7 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
             if ((abs(j2->positionY - attaque->espace->positionY ) <= attaque->espace->largeur) && (abs(j2->positionX - attaque->espace->positionX ) <= attaque->espace->taille) && !attaque->lag.Encours & !IsKeyDown(KEY_D)) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
             {
                 ColisionAtk(j2,attaque);
+                attaque->executer=false;
                 attaque->lag.Encours=true;
             }
         }
@@ -115,6 +115,7 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
             {
                 ColisionAtk2(j1,attaque);
                 attaque->lag.Encours=true;
+                attaque->executer=false;
             }
         }
     }
@@ -122,14 +123,6 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
 
 void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'attaque*/, int nb_atk, bool est_j1,int CompteFps ) // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
 {
-    /*for(int i=0;i<3;i++){fprintf(stderr,"atk_j1[%d] posX=%d, posY=%d, taille=%d, largeur=%d, pos_relatif=%d\n",
-            i,
-            liste_atk[i]->espace->positionX,
-            liste_atk[i]->espace->positionY,
-            liste_atk[i]->espace->taille,
-            liste_atk[i]->espace->largeur,
-            liste_atk[i]->espace->pos_relatif
-        );} */
     for(int i = 0; i < nb_atk; i++)
     {
         if (!liste_atk[i]->executer) // à cause de ça
@@ -149,7 +142,7 @@ void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'atta
     }
 }
 
-void Iniatk(Attaque *atk, int* info_atk /*de taille 7*/) // initialise une attaque en fonction des valeurs données 
+void Iniatk(Attaque *atk, int* info_atk /*de taille 8*/) // initialise une attaque en fonction des valeurs données 
 {
     // info_atk = {degat,positionX,positionY,taille,largeur,pos_relatif,durrelag}    
     int i = 0;
@@ -166,8 +159,9 @@ void Iniatk(Attaque *atk, int* info_atk /*de taille 7*/) // initialise une attaq
     atk->lag.Encours = false;
     atk->lag.MemoFps = 0;
     atk->lag.SaLag = 0;
-    atk->lag.DureeLag = info_atk[i];
+    atk->lag.DureeLag = info_atk[i];i++;
 
+    atk->atk_distance = info_atk[i];
     atk->executer = false;
 }
 

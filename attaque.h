@@ -28,6 +28,7 @@ typedef struct Attaque_ {
     Espace *espace;
     HitLag lag;
     bool executer; // surtout pour les attaques à distances, pour savoir si elles sont activées
+    bool atk_distance;
 } Attaque;
 
 void ColisionAtk(Joueur *joueur, Attaque *attaque); //colision pour joueur 1

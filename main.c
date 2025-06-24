@@ -62,15 +62,15 @@ int main(void)
     
 
     Attaque Escarm; //= {joueur1.positionX + 190,joueur1.positionY,20,50,{false,0,0},20,false}; // posX posY degats taille (parametre par defauts du lag)
-    int escarm_info[7] = {20,joueur1.positionX + 190,joueur1.positionY,50,20,50,30};
+    int escarm_info[8] = {20,joueur1.positionX + 190,joueur1.positionY,50,20,50,30,false};
     Iniatk(&Escarm,escarm_info); // init attaque avec une liste du format : [degat,posX,posY,taille,largeur,pos-relatif,durrelag]
 
     Attaque Babouche; //= {joueur1.positionX + 190,joueur1.positionY,30,70,{false,0,0},20,false};
-    int babouche_info[7] = {30,joueur1.positionX + 190,joueur1.positionY,70,20,200,45};
+    int babouche_info[8] = {30,joueur1.positionX + 190,joueur1.positionY,70,20,200,45,false};
     Iniatk(&Babouche,babouche_info);
 
     Attaque Pigeon; //= {joueur1.positionX + 190,joueur1.positionY,10,50,{false,0,0},50,false};
-    int pigeon_info[7] = {10,joueur1.positionX + 190,joueur1.positionY,50,50,0,60};
+    int pigeon_info[8] = {10,joueur1.positionX + 190,joueur1.positionY,50,50,0,60,true};
     Iniatk(&Pigeon,pigeon_info);
 
 
@@ -82,15 +82,15 @@ int main(void)
 
     //atk j2
     Attaque Punch;// = {joueur2.positionX - 50,joueur2.positionY,20,50,{false,0,0},20,false};
-    int punch_info[7] = {20,joueur2.positionX - 50,joueur2.positionY,50,20,50,30};
+    int punch_info[8] = {20,joueur2.positionX - 50,joueur2.positionY,50,20,50,30,false};
     Iniatk(&Punch,punch_info);
 
     Attaque Slash;// = {joueur2.positionX - 70,joueur2.positionY,30,70,{false,0,0},20,false};
-    int slash_info[7] = {30,joueur2.positionX - 70,joueur2.positionY,70,20,200,30};
+    int slash_info[8] = {30,joueur2.positionX - 70,joueur2.positionY,70,20,200,30,false};
     Iniatk(&Slash,slash_info);
 
     Attaque Sandale;// = {joueur2.positionX - 50,joueur1.positionY,10,50,{false,0,0},50,false};
-    int sandale_info[7] = {10,joueur2.positionX - 50,joueur2.positionY,50,50,0,60};
+    int sandale_info[8] = {10,joueur2.positionX - 50,joueur2.positionY,50,50,0,60,true};
     Iniatk(&Sandale,sandale_info);
 
     Attaque **atk_j2 = (Attaque **) malloc(3 * sizeof(Attaque *)); // allocation dynamique pour le tableau d'attaques
@@ -148,6 +148,7 @@ int main(void)
             DrawText(TextFormat("position du joueur2: [%i, %i]", joueur2.positionX, joueur2.positionY), 10, 30, 10, RED); //info position joueur2-
             */
             
+            /*
             //info joueur
             DrawRectangle(joueur1.positionX,joueur1.positionY, 190.0f, 270.0f, RED); //joueur 1
             DrawRectangle(joueur2.positionX,joueur2.positionY, 190.0f, 270.0f, BLUE); //joueur2
@@ -164,7 +165,8 @@ int main(void)
             if (Punch.lag.Encours){DrawRectangle(Punch.espace->positionX,Punch.espace->positionY,Punch.espace->taille,Punch.espace->largeur, PURPLE);}
             if (Slash.lag.Encours){DrawRectangle(Slash.espace->positionX,Slash.espace->positionY,Slash.espace->taille,Slash.espace->largeur, PURPLE);}
             if (Sandale.executer){DrawRectangle(Sandale.espace->positionX,Sandale.espace->positionY,Sandale.espace->taille,Sandale.espace->largeur, PINK);}
-
+            */
+            AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
                
             if (joueur1.PV<=0 || joueur2.PV<=0)
             {
@@ -200,8 +202,8 @@ int main(void)
     
     
     }
-    UnloadMusicStream(music);
 
+    UnloadMusicStream(music);
     CloseAudioDevice(); 
     // De-Initialization
     //--------------------------------------------------------------------------------------
