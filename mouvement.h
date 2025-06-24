@@ -20,7 +20,7 @@ typedef struct _Joueur {
 void Bouge(Joueur *joueur,bool colision); //gère le mouvement du joueur à gauche
 void Bouge2(Joueur *joueur, bool colision); //gère le mouvement du joueur à droite
 
-bool colision(Joueur *joueur1,Joueur *joueur2);
+bool colision(Joueur *joueur1,Joueur *joueur2); // on se touche ouuu
 
 
 #endif //MOUVEMENT_H

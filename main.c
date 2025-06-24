@@ -62,15 +62,15 @@ int main(void)
     joueur1.PV=joueur2.PV=100;
     
     // initialisation des attaques
-    Attaque Escarm; //= {joueur1.positionX + 190,joueur1.positionY,20,50,{false,0,0},20,false}; // posX posY degats taille (parametre par defauts du lag)
+    Attaque Escarm;
     int escarm_info[8] = {20,joueur1.positionX + 190,joueur1.positionY,50,20,50,30,false};
-    Iniatk(&Escarm,escarm_info); // init attaque avec une liste du format : [degat,posX,posY,taille,largeur,pos-relatif,durrelag]
+    Iniatk(&Escarm,escarm_info);
 
-    Attaque Babouche; //= {joueur1.positionX + 190,joueur1.positionY,30,70,{false,0,0},20,false};
+    Attaque Babouche; 
     int babouche_info[8] = {30,joueur1.positionX + 190,joueur1.positionY,70,20,200,45,false};
     Iniatk(&Babouche,babouche_info);
 
-    Attaque Pigeon; //= {joueur1.positionX + 190,joueur1.positionY,10,50,{false,0,0},50,false};
+    Attaque Pigeon; 
     int pigeon_info[8] = {10,joueur1.positionX + 190,joueur1.positionY,50,50,0,60,true};
     Iniatk(&Pigeon,pigeon_info);
 
@@ -82,15 +82,15 @@ int main(void)
 
 
     //atk j2
-    Attaque Punch;// = {joueur2.positionX - 50,joueur2.positionY,20,50,{false,0,0},20,false};
+    Attaque Punch;
     int punch_info[8] = {20,joueur2.positionX - 50,joueur2.positionY,50,20,50,30,false};
     Iniatk(&Punch,punch_info);
 
-    Attaque Slash;// = {joueur2.positionX - 70,joueur2.positionY,30,70,{false,0,0},20,false};
+    Attaque Slash;
     int slash_info[8] = {30,joueur2.positionX - 70,joueur2.positionY,70,20,200,30,false};
     Iniatk(&Slash,slash_info);
 
-    Attaque Sandale;// = {joueur2.positionX - 50,joueur1.positionY,10,50,{false,0,0},50,false};
+    Attaque Sandale;
     int sandale_info[8] = {10,joueur2.positionX - 50,joueur2.positionY,50,50,0,60,true};
     Iniatk(&Sandale,sandale_info);
 
@@ -168,6 +168,7 @@ int main(void)
             if (Slash.lag.Encours){DrawRectangle(Slash.espace->positionX,Slash.espace->positionY,Slash.espace->taille,Slash.espace->largeur, PURPLE);}
             if (Sandale.executer){DrawRectangle(Sandale.espace->positionX,Sandale.espace->positionY,Sandale.espace->taille,Sandale.espace->largeur, PINK);}
             */
+           
             AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
                
             if (joueur1.PV<=0 || joueur2.PV<=0)

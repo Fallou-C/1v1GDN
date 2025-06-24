@@ -29,14 +29,14 @@ void ColisionAtk2(Joueur *joueur, Attaque *attaque)
 
 void HitLagTemps(Attaque *attaque,long int fpstour,int DureeLag) 
 {
-    if (attaque->lag.Encours)
+    if (attaque->lag.Encours) // si on doit mettre du lag
     {
-        if (attaque->lag.SaLag==0)
+        if (attaque->lag.SaLag==0) // on commence le lag
         {
             attaque->lag.MemoFps = fpstour + DureeLag;
             attaque->lag.SaLag++;
         }
-        if ( attaque->lag.MemoFps==fpstour)
+        if ( attaque->lag.MemoFps==fpstour) // on l'arrete
         {
             attaque->lag.Encours=false;
             attaque->executer = false;
@@ -169,13 +169,13 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
 {
     for (int i = 0; i < nb_atk; i++)
     {
-        if (attaque->executer)
+        if (attaque->executer) // l'attaque est lancé
         {
-            if ((liste_atk[i]->lag.Encours && !liste_atk[i]->atk_distance) || (liste_atk[i]->executer && liste_atk[i]->atk_distance))
+            if ((liste_atk[i]->lag.Encours && !liste_atk[i]->atk_distance) || (liste_atk[i]->executer && liste_atk[i]->atk_distance)) // on regarde si on a lancer une attaque
             {
                 if (estj2)
                 {
-                    if ( (-(attaque->espace->positionX + attaque->espace->taille - liste_atk[i]->espace->positionX) < 1))
+                    if ( (-(attaque->espace->positionX + attaque->espace->taille - liste_atk[i]->espace->positionX) < 1)) // si collision on la détruit 
                     {
                         attaque->executer=false;
                         attaque->lag.Encours=true;
