@@ -179,6 +179,9 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
                     {
                         attaque->executer=false;
                         attaque->lag.Encours=true;
+                        if (liste_atk[i]->atk_distance){
+                            liste_atk[i]->executer=false;
+                            liste_atk[i]->lag.Encours=true;}
                         break;
                     }
                 }
@@ -188,6 +191,9 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
                     {
                         attaque->executer=false;
                         attaque->lag.Encours=true;
+                        if (liste_atk[i]->atk_distance){
+                            liste_atk[i]->executer=false;
+                            liste_atk[i]->lag.Encours=true;}
                         break;
                     }
                 }
