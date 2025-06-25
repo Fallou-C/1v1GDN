@@ -47,6 +47,7 @@ int main(void)
     Music music = LoadMusicStream("music/Live and Learn - Sonic Adventure 2 [OST].mp3");
     PlayMusicStream(music);  
 
+    bool debug = false;
 
     SetTargetFPS(60);            
     bool coli;
@@ -105,7 +106,8 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-        
+        if(IsKeyDown(KEY_P)){debug = !debug;}
+
         UpdateMusicStream(music);
         CompteFps++;
         
@@ -142,12 +144,14 @@ int main(void)
             //joueur et stats
             //info debug
             
+            if (debug){
             DrawText(TextFormat("testmemo?: %i,%i", Escarm.lag.MemoFps, Escarm.lag.SaLag), 10,50, 10, BLACK);
             DrawText(TextFormat("atk?touché? : %i, %i ", IsKeyDown(KEY_T), joueur2.touchable), 10,60, 10, BLACK);
             DrawText(TextFormat("où est la souris: [%i, %i]", GetMouseX(), GetMouseY()), 10, 10, 10, RED); //info position souris
             DrawText(TextFormat("colision : %i",coli), 10, 40, 10, RED); // info colision
             DrawText(TextFormat("position du joueur: [%i, %i]", joueur1.positionX, joueur1.positionY), 10, 20, 10, RED); //position Joueur1
             DrawText(TextFormat("position du joueur2: [%i, %i]", joueur2.positionX, joueur2.positionY), 10, 30, 10, RED); //info position joueur2-
+            }
             
             
             /*

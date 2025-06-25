@@ -5,10 +5,11 @@ j1 est le joueur à gauche et j2 est le joueur à droite
 Chose à faire ranger par ordre de priorité/type de truc [diffilculté supposé]
 
 Important : choisir le nombre max d'attaque !
+            Le KEY_M ne marche pas ???
 
 à faire : 
 
-- ajouter un vrai menu/bouton debug [facile]
+- ajouter un vrai menu debug [facile]
 - généraliser tous en améliorant la structure des joueurs [ez_mais_chiant]
 - lag aussi avant les attaques pas que après [fine]
 - durée pendant laquelle l'attaque ferra des dégats (entre les deux lags) [chiantouille]
