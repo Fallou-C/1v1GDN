@@ -69,7 +69,7 @@ void MenuDebug()
     // mettre les fonctions d'affichage de hitbox, info sur les personnages et boutton de reset rapide
 }
 
-void InitialisationCombat()
+void InitialisationCombat() // en vrai peut-être pas si nécassire
 {
 
 }

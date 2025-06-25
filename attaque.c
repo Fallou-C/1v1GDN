@@ -144,7 +144,7 @@ void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'atta
 
 void Iniatk(Attaque *atk, int* info_atk /*de taille 8*/) // initialise une attaque en fonction des valeurs données 
 {
-    // info_atk = {degat,positionX,positionY,taille,largeur,pos_relatif,durrelag}    
+    // info_atk = {degat,positionX,positionY,taille,largeur,pos_relatif,durrelag,bool atk_distance}    
     int i = 0;
 
     atk->espace = (Espace*) malloc(sizeof(Espace));

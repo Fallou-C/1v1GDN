@@ -12,7 +12,7 @@ typedef struct _Joueur {
     int positionY;
     bool sautable;
     int SAUT; // permet de savoir où on en est dans le saut
-    int PV;
+    int PV; // créer struct personnage où on met toutes les infos ou le nom et on regarde dans un dossier où y'a tous
     bool touchable;
     int cpt_invinsible; // valeurs avant laquelle on devient invincible à mettre à 0 
 } Joueur ;
