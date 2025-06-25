@@ -63,7 +63,7 @@ int main(void)
     
     // initialisation des attaques
     Attaque Escarm;
-    int escarm_info[8] = {20,joueur1.positionX + 190,joueur1.positionY,50,20,50,30,false};
+    int escarm_info[8] = {20,joueur1.positionX + 190,joueur1.positionY,50,20,45,30,false};
     Iniatk(&Escarm,escarm_info);
 
     Attaque Babouche; 
