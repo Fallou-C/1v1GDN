@@ -49,7 +49,7 @@ idée en vrac :
 
 * invinsibilité si trop hit ? (mal imémenter)
 
-* Mettre en place un systeme client/serveur pour permettre de jouer online (quoicouidée)
+* Mettre en place un systeme client/serveur pour permettre de jouer online (quoicouidée) (ne pas oublier aussi dcp de gerer les probleme de difference de fps dans du online qui peut creer du nimportequoicoubeh)
 
 ⣿⣿⣿⣿⡏⠅⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠚⢿⣿⣿⣿⣿
 ⣿⣿⣿⡿⢈⠀⠀⠀⣴⠀⢠⢀⡄⢀⣴⣶⣶⣶⣶⣶⣻⣷⠆⠀⣷⡎⢻⣿⣿⣿
