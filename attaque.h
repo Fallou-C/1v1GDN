@@ -3,7 +3,6 @@
 
 #include <stdbool.h>
 #include "mouvement.h"
-#include "raylib.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -30,6 +29,9 @@ typedef struct Attaque_ {
     bool executer; // surtout pour les attaques à distances, pour savoir si elles sont activées
     bool atk_distance;
 } Attaque;
+
+
+bool AtkToucheY(Joueur *j,Attaque *atk1, Attaque *atk2); // renvoie si un joueur se fait toucher par atk1 en Y ou si atk1 touche atk2 en Y si joueur null
 
 void ColisionAtk(Joueur *joueur, Attaque *attaque); //colision pour joueur 1
 void ColisionAtk2(Joueur *joueur, Attaque *attaque); //colision pour joueur 2   

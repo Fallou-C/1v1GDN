@@ -6,14 +6,28 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "raylib.h"
+#include "utility.h"
+
 
 //pensez à ré-organiser les fonctions par thèmes 
+
+
+bool AtkToucheY(Joueur* j,Attaque* atk1, Attaque* atk2) // renvoie si un joueur se fait toucher par atk1 en Y ou si atk1 touche atk2 en Y si joueur null
+{
+    if (j != NULL)
+    {
+        return ((atk1->espace->positionY <= j->positionY) && (abs(atk1->espace->positionY - j->positionY) <= atk1->espace->largeur ) ) || ( (j->positionY <= atk1->espace->positionY) && (abs(atk1->espace->positionY - j->positionY) <= 270 )) ; //270 hauteur du joueurs
+    }
+    else {
+        return (  ((atk1->espace->positionY <= atk2->espace->positionY) && (abs(atk1->espace->positionY - atk2->espace->positionY) <= atk1->espace->largeur )) ||  ((atk1->espace->positionY >= atk2->espace->positionY) && (abs(atk1->espace->positionY - atk2->espace->positionY) <= atk2->espace->largeur)));
+    }
+}
 
 void ColisionAtk(Joueur *joueur, Attaque *attaque)
 {
     if ( abs(joueur->positionX - attaque->espace->positionX ) <= attaque->espace->taille) // on prend la position du joueur par rapport à x 
     {
-        if(abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur)& !IsKeyDown(KEY_D)) //on regarde si l'attaque a pas été lancé trop haut
+        if( AtkToucheY(joueur,attaque,NULL) && (abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur)) & !IsKeyDown(KEY_D)) //on regarde si l'attaque a pas été lancé trop haut
         {joueur->PV -= attaque->degat;}
     }
 }
@@ -22,7 +36,7 @@ void ColisionAtk2(Joueur *joueur, Attaque *attaque)
 {
     if ( abs(joueur->positionX - attaque->espace->positionX ) <= 190) // on prend la position du joueur par rapport à x avec largeur du joueur (important si attaque joueur à gauche)
     {
-        if(abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur) & !IsKeyDown(KEY_LEFT))
+        if( AtkToucheY(joueur,attaque,NULL) && abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur) & !IsKeyDown(KEY_LEFT))
         {joueur->PV -= attaque->degat;}
     }
 }
@@ -87,7 +101,7 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
         {
             attaque->executer=true;
             attaque->espace->positionX += 12;
-            if ((abs(j2->positionY - attaque->espace->positionY ) <= attaque->espace->largeur) && (abs(j2->positionX - attaque->espace->positionX ) <= attaque->espace->taille) && !attaque->lag.Encours & !IsKeyDown(KEY_D)) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
+            if (AtkToucheY(j2,attaque,NULL) && (abs(j2->positionX - attaque->espace->positionX ) <= attaque->espace->taille) && !attaque->lag.Encours & !IsKeyDown(KEY_D)) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
             {
                 ColisionAtk(j2,attaque);
                 attaque->executer=false;
@@ -111,7 +125,7 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
         {
             attaque->executer=true;
             attaque->espace->positionX -= 12;
-            if ( (abs(j1->positionY - attaque->espace->positionY ) <= attaque->espace->largeur) && (abs(j1->positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) & !IsKeyDown(KEY_LEFT)) //si on est assez proche et qu'on a pas touché y'a colision
+            if ( AtkToucheY(j1,attaque,NULL) && (abs(j1->positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) & !IsKeyDown(KEY_LEFT)) //si on est assez proche et qu'on a pas touché y'a colision
             {
                 ColisionAtk2(j1,attaque);
                 attaque->lag.Encours=true;
@@ -169,7 +183,7 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
 {
     for (int i = 0; i < nb_atk; i++)
     {
-        if (attaque->executer && ( ( (attaque->espace->positionY<liste_atk[i]->espace->positionY) && (abs(attaque->espace->positionY - liste_atk[i]->espace->positionY) < attaque->espace->largeur ) ) || ( (liste_atk[i]->espace->positionY<attaque->espace->positionY) && (abs(attaque->espace->positionY - liste_atk[i]->espace->positionY) < liste_atk[i]->espace->largeur )) ) ) // l'attaque est lancé et vérifie quelles se touchent
+        if (attaque->executer && AtkToucheY(NULL,attaque,liste_atk[i]) ) // l'attaque est lancé et vérifie quelles se touchent
         {
             if ((liste_atk[i]->lag.Encours && !liste_atk[i]->atk_distance) || (liste_atk[i]->executer && liste_atk[i]->atk_distance)) // on regarde si on a lancer une attaque
             {
@@ -203,5 +217,7 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
 }
 // partie selon Y ((abs(attaque->espace->positionY + attaque->espace->largeur - liste_atk[i]->espace->positionY - liste_atk[i]->espace->largeur )<1)) &&
 // regarder quelle attaque est au dessus de l'autre
+
+
 
 //ajouté lag quand on se prend une attaque et invul si lag trop long
