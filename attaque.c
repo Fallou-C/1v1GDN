@@ -169,7 +169,7 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
 {
     for (int i = 0; i < nb_atk; i++)
     {
-        if (attaque->executer) // l'attaque est lancé
+        if (attaque->executer && ( ( (attaque->espace->positionY<liste_atk[i]->espace->positionY) && (abs(attaque->espace->positionY - liste_atk[i]->espace->positionY) < attaque->espace->largeur ) ) || ( (liste_atk[i]->espace->positionY<attaque->espace->positionY) && (abs(attaque->espace->positionY - liste_atk[i]->espace->positionY) < liste_atk[i]->espace->largeur )) ) ) // l'attaque est lancé et vérifie quelles se touchent
         {
             if ((liste_atk[i]->lag.Encours && !liste_atk[i]->atk_distance) || (liste_atk[i]->executer && liste_atk[i]->atk_distance)) // on regarde si on a lancer une attaque
             {
@@ -202,5 +202,6 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
     }
 }
 // partie selon Y ((abs(attaque->espace->positionY + attaque->espace->largeur - liste_atk[i]->espace->positionY - liste_atk[i]->espace->largeur )<1)) &&
+// regarder quelle attaque est au dessus de l'autre
 
 //ajouté lag quand on se prend une attaque et invul si lag trop long

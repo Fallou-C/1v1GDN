@@ -83,7 +83,7 @@ int main(void)
 
     //atk j2
     Attaque Punch;
-    int punch_info[8] = {20,joueur2.positionX - 50,joueur2.positionY,50,20,50,30,false};
+    int punch_info[8] = {20,joueur2.positionX - 50,joueur2.positionY,50,20,45,30,false};
     Iniatk(&Punch,punch_info);
 
     Attaque Slash;
