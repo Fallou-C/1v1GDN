@@ -152,26 +152,6 @@ int main(void)
             DrawText(TextFormat("position du joueur: [%i, %i]", joueur1.positionX, joueur1.positionY), 10, 20, 10, RED); //position Joueur1
             DrawText(TextFormat("position du joueur2: [%i, %i]", joueur2.positionX, joueur2.positionY), 10, 30, 10, RED); //info position joueur2-
             }
-            
-            
-            /*
-            //info joueur
-            DrawRectangle(joueur1.positionX,joueur1.positionY, 190.0f, 270.0f, RED); //joueur 1
-            DrawRectangle(joueur2.positionX,joueur2.positionY, 190.0f, 270.0f, BLUE); //joueur2
-            
-            DrawRectangle(20,555, 3*joueur1.PV, 40, GREEN); //pv joueur1
-            DrawRectangle(580,555, 3*joueur2.PV, 40, GREEN); //pv joueur2
-            
-            //affichage attaque 
-            if (Escarm.lag.Encours){DrawRectangle(Escarm.espace->positionX,Escarm.espace->positionY,Escarm.espace->taille,Escarm.espace->largeur, ORANGE);}
-            if (Babouche.lag.Encours){DrawRectangle(Babouche.espace->positionX,Babouche.espace->positionY,Babouche.espace->taille,Babouche.espace->largeur, ORANGE);}
-            if (Pigeon.executer){DrawRectangle(Pigeon.espace->positionX,Pigeon.espace->positionY,Pigeon.espace->taille,Pigeon.espace->largeur, YELLOW);}
-            
-            
-            if (Punch.lag.Encours){DrawRectangle(Punch.espace->positionX,Punch.espace->positionY,Punch.espace->taille,Punch.espace->largeur, PURPLE);}
-            if (Slash.lag.Encours){DrawRectangle(Slash.espace->positionX,Slash.espace->positionY,Slash.espace->taille,Slash.espace->largeur, PURPLE);}
-            if (Sandale.executer){DrawRectangle(Sandale.espace->positionX,Sandale.espace->positionY,Sandale.espace->taille,Sandale.espace->largeur, PINK);}
-            */
            
             AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
                
@@ -184,14 +164,7 @@ int main(void)
                 if (IsKeyDown(KEY_R))
                 {
                     Reset_Combat(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3,&CompteFps);
-                    /*
-                    CompteFps=0; // reset pour pas que la mémoire explose
-                    joueur1.positionX = 50;
-                    joueur2.positionX = 660;
-                    joueur1.positionY = joueur2.positionY = 210;
-                    joueur1.sautable=joueur2.sautable=joueur2.touchable=true;
-                    joueur1.SAUT=joueur2.SAUT=0;
-                    joueur1.PV=joueur2.PV=100;*/
+
                 }
             }
 
@@ -248,4 +221,32 @@ int main(void)
             Sandale.espace->positionX = joueur2.positionX - 50; // on retire la largeur de l'attaque 
             Sandale.espace->positionY = joueur2.positionY;
         }
-        HitLagTemps(&Sandale,CompteFps,60); */
+        HitLagTemps(&Sandale,CompteFps,60);
+        
+        
+            //info joueur
+            DrawRectangle(joueur1.positionX,joueur1.positionY, 190.0f, 270.0f, RED); //joueur 1
+            DrawRectangle(joueur2.positionX,joueur2.positionY, 190.0f, 270.0f, BLUE); //joueur2
+            
+            DrawRectangle(20,555, 3*joueur1.PV, 40, GREEN); //pv joueur1
+            DrawRectangle(580,555, 3*joueur2.PV, 40, GREEN); //pv joueur2
+            
+            //affichage attaque 
+            if (Escarm.lag.Encours){DrawRectangle(Escarm.espace->positionX,Escarm.espace->positionY,Escarm.espace->taille,Escarm.espace->largeur, ORANGE);}
+            if (Babouche.lag.Encours){DrawRectangle(Babouche.espace->positionX,Babouche.espace->positionY,Babouche.espace->taille,Babouche.espace->largeur, ORANGE);}
+            if (Pigeon.executer){DrawRectangle(Pigeon.espace->positionX,Pigeon.espace->positionY,Pigeon.espace->taille,Pigeon.espace->largeur, YELLOW);}
+            
+            
+            if (Punch.lag.Encours){DrawRectangle(Punch.espace->positionX,Punch.espace->positionY,Punch.espace->taille,Punch.espace->largeur, PURPLE);}
+            if (Slash.lag.Encours){DrawRectangle(Slash.espace->positionX,Slash.espace->positionY,Slash.espace->taille,Slash.espace->largeur, PURPLE);}
+            if (Sandale.executer){DrawRectangle(Sandale.espace->positionX,Sandale.espace->positionY,Sandale.espace->taille,Sandale.espace->largeur, PINK);}
+            */
+    
+                                /*
+                    CompteFps=0; // reset pour pas que la mémoire explose
+                    joueur1.positionX = 50;
+                    joueur2.positionX = 660;
+                    joueur1.positionY = joueur2.positionY = 210;
+                    joueur1.sautable=joueur2.sautable=joueur2.touchable=true;
+                    joueur1.SAUT=joueur2.SAUT=0;
+                    joueur1.PV=joueur2.PV=100;*/

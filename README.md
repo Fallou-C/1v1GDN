@@ -10,7 +10,7 @@ Important : choisir le nombre max d'attaque !
 à faire : 
 
 - ajouter un vrai menu debug [facile]
-- généraliser tous en améliorant la structure des joueurs [ez_mais_chiant]
+- généraliser tous en améliorant la structure des joueurs [ez_mais_chiant] (pris en charge par le quoicoufouà)
 - lag aussi avant les attaques pas que après [fine]
 - durée pendant laquelle l'attaque ferra des dégats (entre les deux lags) [chiantouille]
 - dégât qui dure toutes la durée de l'attaque et pas que le début (mais considèrerer comme un seul coup sauf cas spécial) [moyen-chiant]

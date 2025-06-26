@@ -33,7 +33,7 @@ void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,
     DrawRectangle(j1->positionX,j1->positionY, 190.0f, 270.0f, RED); //joueur 1
     DrawRectangle(j2->positionX,j2->positionY, 190.0f, 270.0f, BLUE); //joueur2
     
-    DrawRectangle(20,555, 3*j1->PV, 40, GREEN); //pv joueur1
+    DrawRectangle(20,555, 3*(j1->PV), 40, GREEN); //pv joueur1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
     DrawRectangle(580,555, 3*j2->PV, 40, GREEN); //pv joueur2
 
     //affichage attaque
