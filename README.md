@@ -48,7 +48,7 @@ idée en vrac :
 
 * reflexion projectile si contrer au bon moment ?
 
-* invinsibilité si trop hit ? (mal imémenter)
+* invinsibilité si trop hit ? (mal implémenter)
 
 * Mettre en place un systeme client/serveur pour permettre de jouer online (quoicouidée) (ne pas oublier aussi dcp de gerer les probleme de difference de fps dans du online qui peut creer du nimportequoicoubeh)
 
