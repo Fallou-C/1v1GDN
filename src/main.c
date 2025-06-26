@@ -24,10 +24,8 @@
 *
 ********************************************************************************************/
 
-#include "../raylib/src/raylib.h"
-#include "mouvement.h"
-#include "attaque.h"
-#include "utility.h"
+#include "../../raylib/src/raylib.h"
+#include "../header/all.h"
 
 #include <stdbool.h>
 #include <stdlib.h>

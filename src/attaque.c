@@ -1,12 +1,10 @@
 //gère les attaques
+#include "../header/all.h"
 
-#include "attaque.h"
-#include "mouvement.h"
 #include <stdlib.h> 
 #include <stdio.h>
 #include <stdbool.h>
 #include "raylib.h"
-#include "utility.h"
 
 
 //pensez à ré-organiser les fonctions par thèmes 

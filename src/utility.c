@@ -1,9 +1,8 @@
 // fichier contenant tous les fonctions aucun rapport avec le système de combat (menu et debug)
 
 #include <stdbool.h>
-#include "mouvement.h"
+#include "../header/all.h"
 #include "raylib.h"
-#include "attaque.h"
 #include <stdlib.h>
 #include <stdio.h>
 

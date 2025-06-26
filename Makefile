@@ -6,9 +6,11 @@ CFLAGS  := -Wall -Wextra -O2
 LDFLAGS := -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
 # Source files and target
-SRC     := main.c attaque.c mouvement.c utility.c
+SRCFILE := main.c attaque.c mouvement.c utility.c
+SRCPATH := src/
+SRC     := $(addprefix $(SRCPATH),$(SRCFILE))
 OBJDIR  := bin
-OBJ     := $(SRC:%.c=$(OBJDIR)/%.o)
+OBJ     := $(SRCFILE:%.c=$(OBJDIR)/%.o)
 TARGET  := 1v1GDN
 
 # Default target
@@ -19,7 +21,7 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
 # Compile object files into bin/
-$(OBJDIR)/%.o: %.c | $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCPATH)%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Build target from object files
@@ -38,4 +40,4 @@ git:
 
 
 # Phony targets
-.PHONY: all clean
+.PHONY: all clean git
