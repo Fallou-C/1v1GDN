@@ -10,7 +10,8 @@ Important : choisir le nombre max d'attaque !
 à faire : 
 
 - ajouter un vrai menu debug [facile]
-- généraliser tous en améliorant la structure des joueurs [ez_mais_chiant] (pris en charge par le quoicoufouà)
+- on doit ne pouvoir faire qu'une action à la fois (sauf cas spéciales et par action j'entends attaque, bloqué PAS bouger ou sauter)
+- généraliser tous en améliorant la structure des joueurs [ez_mais_chiant] (pris en charge par le quoicoufou)
 - lag aussi avant les attaques pas que après [fine]
 - durée pendant laquelle l'attaque ferra des dégats (entre les deux lags) [chiantouille]
 - dégât qui dure toutes la durée de l'attaque et pas que le début (mais considèrerer comme un seul coup sauf cas spécial) [moyen-chiant]
