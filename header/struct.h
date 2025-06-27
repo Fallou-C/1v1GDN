@@ -24,7 +24,7 @@ typedef struct Positionnel_{
     int vitesseYMax; // vitesse max de déplacement
     int vitesseYMin; // vitesse min de déplacement
 
-    // Accélération
+    // Accélération (je pense pas que ça sera utile (Le F))
     int accelerationX; // accélération sur l'axe X
     int accelerationY; // accélération sur l'axe Y
     int accelerationXMax; // accélération max
@@ -39,12 +39,13 @@ typedef struct Positionnel_{
 typedef struct Frame_{ 
     // Choses basiques
     int recoveryFrame;
-    int atkFrame;
+    
+    int atkFrame; // j'ai l'impression qu'une des parties devrait direct être mit dans les attaques en faisant du lag avant et après l'attaque (F)
     int stunFrame;
     int idleFrame;
 
     // Lag
-    int offensiveLagFrame;
+    int offensiveLagFrame; // je pense aussi direct dans les attaques mais une condition qui fait qu'on puisse pas balancer 4 attaques en même temps (F)
     int defensiveLagFrame;
 
 
@@ -57,6 +58,7 @@ typedef struct Personnage_{
     int etat;
     int camp;
     int vie;
+    int vie_max; // j'ai rajouté ça car sinon c'est chiant pour les barres de vie (F)
     int status; // status du personnage (stun, mort, empoisonné, etc.)
     Positionnel position;
     Frame frame; // frame du personnage    
