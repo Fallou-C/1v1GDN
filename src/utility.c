@@ -25,15 +25,24 @@ void AfficheAcceuil(int screenWidth, int screenHeight)
     UnloadMusicStream(musicMenu);
 }
 
+int externe = 0;
+
 void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2) //amener à evoluer quand y'aura les sprites
 {
     //affichage joueur
-    Texture2D testure = LoadTexture("test_sprite/test3.png");
-    Rectangle frameRec = { 0, 0, 190, 270 }; // x y (coordonnée dans l'image) largeur longueur que l'on regarde dans l'image
-    Vector2 position = {j1->positionX,j1->positionY };
 
-    //DrawRectangle(j1->positionX,j1->positionY, 190.0f, 270.0f, RED); //joueur 1
-    DrawTextureRec(testure, frameRec, position, WHITE);
+    // charger les textures avant la boucle de jeu pour pas le recharger en boucle
+
+    /*
+    char* path = "test_sprite/test4.png";
+    Texture2D testure = LoadTexture(path);
+    Rectangle frameRec = { 190*externe, 0, 190, 270 }; // x y (coordonnée dans l'image) largeur longueur que l'on regarde dans l'image
+    Vector2 position = {j1->positionX,j1->positionY };
+    externe++;
+    if(externe>2){externe=0;}*/
+
+    DrawRectangle(j1->positionX,j1->positionY, 190.0f, 270.0f, RED); //joueur 1
+    //DrawTextureRec(testure, frameRec, position, WHITE);
 
     DrawRectangle(j2->positionX,j2->positionY, 190.0f, 270.0f, BLUE); //joueur2
     
@@ -65,7 +74,7 @@ void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,
             if (liste_atk2[i]->lag.Encours){DrawRectangle(liste_atk2[i]->espace->positionX,liste_atk2[i]->espace->positionY,liste_atk2[i]->espace->taille,liste_atk2[i]->espace->largeur, PURPLE);}
         }
     }
-    
+    //UnloadTexture(testure);
 }
 
 void MenuDebug()
