@@ -74,7 +74,26 @@ void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,
             if (liste_atk2[i]->lag.Encours){DrawRectangle(liste_atk2[i]->espace->positionX,liste_atk2[i]->espace->positionY,liste_atk2[i]->espace->taille,liste_atk2[i]->espace->largeur, PURPLE);}
         }
     }
-    //UnloadTexture(testure);
+}
+
+Texture2D* Load_texture(char** path_texture,int nb_elem) // renvoie un tableau de texture provenant du tableau de chemin fourit (dans le même ordre)
+{
+    Texture2D* tab_texture = (Texture2D*) malloc(nb_elem*sizeof(Texture2D));
+
+    for(int i = 0; i < nb_elem ; i++)
+    {
+        tab_texture[i] = LoadTexture(path_texture[i]);
+    }
+
+    return tab_texture;
+}
+
+void Unload_texture(Texture2D* tab_texture, int nb_elem)
+{
+    for(int i = 0; i < nb_elem ; i++)
+    {
+        UnloadTexture(tab_texture[i]);
+    }   
 }
 
 void MenuDebug()
@@ -122,13 +141,11 @@ void Reset_Combat(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Att
 }
 
 //faire une fonction pour l'animation avec en argument le (dossiers de sprite ou tableau des noms des sprites) et un tableau qui prend le nombre de frame entre chaque sprite
-void test_affichage(void)
+void test_affichage(Texture2D testure, int x , int y)
 {
-    Texture2D testure = LoadTexture("test_sprite/test.png");
+    //Texture2D testure = LoadTexture("test_sprite/test.png");
     Rectangle frameRec = { 0, 0, 190, 270 }; // x y largeur longueur 
-    Vector2 position = { 0, 0 };
-    frameRec.x = 0;
-    frameRec.y = 0;
+    Vector2 position = { x, y };
     DrawTextureRec(testure, frameRec, position, WHITE);
     //UnloadTexture(testure); 
 }

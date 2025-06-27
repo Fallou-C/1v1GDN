@@ -100,6 +100,9 @@ int main(void)
 
     long int CompteFps=0;
     
+    char* path[2] = {"test_sprite/test2.png","test_sprite/test4.png"};
+    Texture2D* tab_test = Load_texture(path,2);
+
     AfficheAcceuil(screenWidth,screenHeight);
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -152,7 +155,10 @@ int main(void)
             }
            
             AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
-            //test_affichage();
+
+            //test de truc
+            test_affichage(tab_test[0],0,0);
+            test_affichage(tab_test[1],190,0);
                
             if (joueur1.PV<=0 || joueur2.PV<=0)
             {
@@ -177,7 +183,7 @@ int main(void)
     
     
     }
-
+    Unload_texture(tab_test,2);
     UnloadMusicStream(music);
     CloseAudioDevice(); 
     // De-Initialization
