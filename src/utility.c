@@ -28,8 +28,13 @@ void AfficheAcceuil(int screenWidth, int screenHeight)
 void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2) //amener à evoluer quand y'aura les sprites
 {
     //affichage joueur
+    Texture2D testure = LoadTexture("test_sprite/test2.png");
+    Rectangle frameRec = { 0, 0, 200, 270 }; // x y (coordonnée dans l'image) largeur longueur que l'on regarde dans l'image
+    Vector2 position = {j1->positionX,j1->positionY };
 
-    DrawRectangle(j1->positionX,j1->positionY, 190.0f, 270.0f, RED); //joueur 1
+    //DrawRectangle(j1->positionX,j1->positionY, 190.0f, 270.0f, RED); //joueur 1
+    DrawTextureRec(testure, frameRec, position, WHITE);
+
     DrawRectangle(j2->positionX,j2->positionY, 190.0f, 270.0f, BLUE); //joueur2
     
     DrawRectangle(20,555, 3*(j1->PV), 40, GREEN); //pv joueur1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
@@ -105,4 +110,16 @@ void Reset_Combat(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Att
         liste_atk2[i]->lag.MemoFps = 0;
         liste_atk2[i]->lag.SaLag = 0;
     }
+}
+
+//faire une fonction pour l'animation avec en argument le (dossiers de sprite ou tableau des noms des sprites) et un tableau qui prend le nombre de frame entre chaque sprite
+void test_affichage(void)
+{
+    Texture2D testure = LoadTexture("test_sprite/test.png");
+    Rectangle frameRec = { 0, 0, 190, 270 }; // x y largeur longueur 
+    Vector2 position = { 0, 0 };
+    frameRec.x = 0;
+    frameRec.y = 0;
+    DrawTextureRec(testure, frameRec, position, WHITE);
+    //UnloadTexture(testure); 
 }

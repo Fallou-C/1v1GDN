@@ -152,6 +152,7 @@ int main(void)
             }
            
             AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
+            //test_affichage();
                
             if (joueur1.PV<=0 || joueur2.PV<=0)
             {
