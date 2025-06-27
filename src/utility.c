@@ -31,7 +31,7 @@ void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,
 {
     //affichage joueur
 
-    // charger les textures avant la boucle de jeu pour pas le recharger en boucle
+    // a transformer en menu debug quand on aura un debut de sprite et remplacer les rectangles par DrawRectangleLines
 
     /*
     char* path = "test_sprite/test4.png";
