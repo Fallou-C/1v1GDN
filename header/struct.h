@@ -16,7 +16,7 @@ typedef struct KeyMapping_{
     char lightAtk;
     char heavyAtk;
     char dash;
-}
+}KeyMapping;
 
 
 // DEFINITION DES POINTEURS DE FONCTION
