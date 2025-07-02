@@ -21,16 +21,16 @@ typedef struct KeyMapping_{
 
 // DEFINITION DES POINTEURS DE FONCTION
 
-typedef void (*Attaque)(Personnage * Personnage, GameInfo * gameInfo); //jsp si ça compile j'ai pas raylib sur WSL (Y)
+typedef void (*competence)(Personnage * Personnage, GameInfo * gameInfo); //jsp si ça compile j'ai pas raylib sur WSL (Y)
 
 
 // Creation d'une ""Classe"" Personnage"
 
 //Paquet de 3 attaques 
 typedef struct TriAttaque_{
-    Attaque neutral;
-    Attaque side;
-    Attaque down;
+    competence neutral;
+    competence side;
+    competence down;
 }TriAttaque;
 
 //Couple de paquet de 3 attaques
@@ -110,7 +110,7 @@ typedef struct Personnage_{
 
 typedef struct GameInfo_{
     KeyMapping TouchesJoueur1; // informations des touches
-    KeyMapping TouchesJoueur1;
+    KeyMapping TouchesJoueur2;
 
     bool p1EnLigne;  // Peut etre utile plus tard pour la version du code serveur jsp (Y)
     bool p2EnLigne;
