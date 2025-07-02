@@ -4,7 +4,7 @@
 #include <stdlib.h> 
 #include <stdio.h>
 #include <stdbool.h>
-#include "raylib.h"
+#include "../../raylib/src/raylib.h"
 
 
 //pensez à ré-organiser les fonctions par thèmes 

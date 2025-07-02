@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include "mouvement.h"
-#include "raylib.h"
+#include "../../raylib/src/raylib.h"
 #include <stdlib.h>
 #include <stdio.h>
 

@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 #include "../header/all.h"
-#include "raylib.h"
+#include "../../raylib/src/raylib.h"
 #include <stdlib.h>
 #include <stdio.h>
 

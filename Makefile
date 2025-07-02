@@ -3,15 +3,21 @@ CC      := gcc
 
 CFLAGS  := -Wall -Wextra -O2
 
-LDFLAGS := -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+LDFLAGS := -lraylib -lm -lpthread -ldl -lrt -lX11 -lGL
 
 # Source files and target
 SRCFILE := main.c attaque.c mouvement.c utility.c
 SRCPATH := src/
 SRC     := $(addprefix $(SRCPATH),$(SRCFILE))
 OBJDIR  := bin
-OBJ     := $(SRCFILE:%.c=$(OBJDIR)/%.o)
+OBJ     := $(addprefix $(OBJDIR)/,$(SRCFILE:.c=.o))
 TARGET  := 1v1GDN
+
+# Windows build settings
+WIN_CC := x86_64-w64-mingw32-gcc
+WIN_LDFLAGS := -lraylib -lm -lpthread 
+WIN_OBJDIR := bin_win
+WIN_OBJ := $(addprefix $(WIN_OBJDIR)/,$(SRCFILE:.c=.o))
 
 # Default target
 all: $(TARGET)
@@ -22,15 +28,26 @@ $(OBJDIR):
 
 # Compile object files into bin/
 $(OBJDIR)/%.o: $(SRCPATH)%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I"../raylib/src" -c $< -o $@
 
-# Build target from object files
+# Build target from object files (Linux)
 $(TARGET): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS)  $^ -o $@ $(LDFLAGS)
+
+# Windows build (creates 1v1GDN.exe in bin/)
+win: CFLAGS += -DPLATFORM_DESKTOP
+win: LDFLAGS := $(WIN_LDFLAGS)
+win: $(WIN_OBJ)
+	$(WIN_CC) $(CFLAGS) -I"../raylib/src" -L"../raylib/src" $^ -o $(TARGET).exe $(LDFLAGS)
+$(WIN_OBJDIR):
+	mkdir -p $(WIN_OBJDIR)
+
+$(WIN_OBJDIR)/%.o: $(SRCPATH)%.c | $(WIN_OBJDIR)
+	$(WIN_CC) $(CFLAGS) -c $< -o $@
 
 # Clean up build files
 clean:
-	rm -f $(TARGET) $(OBJ)
+	rm -f $(TARGET) $(OBJ) $(TARGET).exe $(WIN_OBJ)
 
 git:
 	@read -p "Commit message: " msg; \
@@ -40,4 +57,6 @@ git:
 
 
 # Phony targets
-.PHONY: all clean git
+.PHONY: all clean git win
+
+#x86_64-w64-mingw32-gcc -Wall -Wextra -O2 -DPLATFORM_DESKTOP bin_win/main.o bin_win/attaque.o bin_win/mouvement.o bin_win/utility.o -o 1v1GDN.exe -L../raylib/src/ -lraylib -lm -lpthread -I../raylib/src

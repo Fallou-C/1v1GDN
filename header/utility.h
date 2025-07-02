@@ -2,7 +2,7 @@
 #define UTILITY_H
 
 #include "mouvement.h"
-#include "raylib.h"
+#include "../../raylib/src/raylib.h"
 #include "attaque.h"
 #include <stdlib.h>
 #include <stdio.h>
