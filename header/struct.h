@@ -1,7 +1,50 @@
 #ifndef STRUCT_H
 #define STRUCT_H
+#include <stdbool.h>
+
+
+typedef struct Personnage_ Personnage; //je sais pas si ça compile j'ai aps raylib sur wsl (Y)
+typedef struct GameInfo_ GameInfo;
+
+// informations des touches
+typedef struct KeyMapping_{
+    char up;
+    char down;
+    char left;
+    char right;
+
+    char lightAtk;
+    char heavyAtk;
+    char dash;
+}
+
+
+// DEFINITION DES POINTEURS DE FONCTION
+
+typedef void (*Attaque)(Personnage * Personnage, GameInfo * gameInfo); //jsp si ça compile j'ai pas raylib sur WSL (Y)
+
 
 // Creation d'une ""Classe"" Personnage"
+
+//Paquet de 3 attaques 
+typedef struct TriAttaque_{
+    Attaque neutral;
+    Attaque side;
+    Attaque down;
+}TriAttaque;
+
+//Couple de paquet de 3 attaques
+typedef struct CoupleLegerLourd_{
+    TriAttaque light;
+    TriAttaque heavy;
+}CoupleLegerLourd;
+
+//Collection de toutes les attaques
+typedef struct Attaques_{
+    CoupleLegerLourd groundedAttacks; // Attaques au sol
+    CoupleLegerLourd airborneAttacks; // Attaques en l'air
+    CoupleLegerLourd crouchingAttacks; // Attaques accroupies
+}Attaques;
 
 typedef struct Positionnel_{
     // Position
@@ -61,7 +104,19 @@ typedef struct Personnage_{
     int vie_max; // j'ai rajouté ça car sinon c'est chiant pour les barres de vie (F)
     int status; // status du personnage (stun, mort, empoisonné, etc.)
     Positionnel position;
-    Frame frame; // frame du personnage    
+    Frame frame; // frame du personnage   
+    Attaques attaques; // Collection de toute les attaques en plusieurs etape pour juste avoir a taper la premiere lettre puis tab (Y) 
 } Personnage;
+
+typedef struct GameInfo_{
+    KeyMapping TouchesJoueur1; // informations des touches
+    KeyMapping TouchesJoueur1;
+
+    bool p1EnLigne;  // Peut etre utile plus tard pour la version du code serveur jsp (Y)
+    bool p2EnLigne;
+
+    int LobbyProprio; //1 pour joueur 1 et 2 pour joueur 2
+} GameInfo;
+
 
 #endif // STRUCT_H
