@@ -28,17 +28,17 @@ $(OBJDIR):
 
 # Compile object files into bin/
 $(OBJDIR)/%.o: $(SRCPATH)%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -I"../raylib/src" -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Build target from object files (Linux)
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS)  $^ -o $@ $(LDFLAGS)
 
-# Windows build (creates 1v1GDN.exe in bin/)
+# Windows build (creates 1v1GDN.exe in bin/) flemme faut recompiler raylib pour windows
 win: CFLAGS += -DPLATFORM_DESKTOP
 win: LDFLAGS := $(WIN_LDFLAGS)
-win: $(WIN_OBJ)
-	$(WIN_CC) $(CFLAGS) -I"../raylib/src" -L"../raylib/src" $^ -o $(TARGET).exe $(LDFLAGS)
+win: $(WIN_OBJDIR) $(WIN_OBJ)
+	$(WIN_CC) $(CFLAGS) $(WIN_OBJ) -I"../raylib/src" -L"../raylib/src" -o $(WIN_OBJDIR)/$(TARGET).exe $(LDFLAGS)
 $(WIN_OBJDIR):
 	mkdir -p $(WIN_OBJDIR)
 
@@ -58,5 +58,3 @@ git:
 
 # Phony targets
 .PHONY: all clean git win
-
-#x86_64-w64-mingw32-gcc -Wall -Wextra -O2 -DPLATFORM_DESKTOP bin_win/main.o bin_win/attaque.o bin_win/mouvement.o bin_win/utility.o -o 1v1GDN.exe -L../raylib/src/ -lraylib -lm -lpthread -I../raylib/src
