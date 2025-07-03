@@ -121,8 +121,8 @@ int main(void)
 
     long int CompteFps=0;
     
-    char* path[2] = {"test_sprite/test2.png","test_sprite/test4.png"};
-    Texture2D* tab_test = Load_texture(path,2);
+    char* path[3] = {"test_sprite/test2.png","test_sprite/test4.png","test_sprite/who.png"};
+    Texture2D* tab_test = Load_texture(path,3);
 
     AfficheAcceuil(screenWidth,screenHeight);
     // Main game loop
@@ -177,12 +177,17 @@ int main(void)
             DrawText(TextFormat("colision : %i",coli), 10, 40, 10, RED); // info colision
             DrawText(TextFormat("position du joueur: [%i, %i]", joueur1.positionX, joueur1.positionY), 10, 20, 10, RED); //position Joueur1
             DrawText(TextFormat("position du joueur2: [%i, %i]", joueur2.positionX, joueur2.positionY), 10, 30, 10, RED); //info position joueur2-
+
+            test_affichage(tab_test[2],joueur1.positionX + 65,joueur1.positionY - 65,0,0,65,45);
+            test_affichage(tab_test[2],joueur2.positionX + 65,joueur2.positionY - 65,65,0,65,45);
+
             }
            
             AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
 
             //test de truc
 
+            
             //test_affichage(tab_test[0],0,0);
             //test_affichage(tab_test[1],190,0);
                
@@ -209,7 +214,7 @@ int main(void)
     
     
     }
-    Unload_texture(tab_test,2);
+    Unload_texture(tab_test,3);
     UnloadMusicStream(music);
     CloseAudioDevice(); 
     // De-Initialization

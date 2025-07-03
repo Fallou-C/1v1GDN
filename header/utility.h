@@ -15,7 +15,7 @@ void Reset_Combat(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Att
 
 Texture2D* Load_texture(char** path_texture,int nb_elem); // renvoie un tableau de texture provenant du tableau de chemin fourit (dans le même ordre)
 
-void test_affichage(Texture2D testure,int x , int y); // censé être du test mais en vrai sert de fou à afficher les sprites
+void test_affichage(Texture2D testure, int x , int y, int x_sprite, int y_sprite, int largeur , int longueur) ; // censé être du test mais en vrai sert de fou à afficher les sprites
 
 void Unload_texture(Texture2D* tab_texture, int nb_elem); // on décharge tous par politesse
 

@@ -143,9 +143,9 @@ void Reset_Combat(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Att
 }
 
 //faire une fonction pour l'animation avec en argument le (dossiers de sprite ou tableau des noms des sprites) et un tableau qui prend le nombre de frame entre chaque sprite
-void test_affichage(Texture2D testure, int x , int y)
+void test_affichage(Texture2D testure, int x , int y, int x_sprite, int y_sprite, int largeur , int longueur)
 {
-    Rectangle frameRec = { 0, 0, 190, 270 }; // x y largeur longueur 
+    Rectangle frameRec = { x_sprite, y_sprite, largeur, longueur }; // x y largeur longueur 
     Vector2 position = { x, y };
     DrawTextureRec(testure, frameRec, position, WHITE);
 }
