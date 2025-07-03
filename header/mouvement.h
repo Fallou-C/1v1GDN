@@ -15,6 +15,7 @@ typedef struct _Joueur {
     int PV; // créer struct personnage où on met toutes les infos ou le nom et on regarde dans un dossier où y'a tous
     bool touchable;
     int cpt_invinsible; // valeurs avant laquelle on devient invincible à mettre à 0 
+    bool estGauche;
 } Joueur ;
 
 void Bouge(Joueur *joueur,bool colision); //gère le mouvement du joueur à gauche

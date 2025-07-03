@@ -51,4 +51,6 @@ void Iniatk(Attaque *atk, int* info_atk); // initialise une attaque en fonction 
 
 void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, bool estj2); // fonctionne partiellement 
 
+void Grab(Joueur *j1, Joueur *j2); // échange les positions des joueurs et infligents des degs
+
 #endif //ATTACK_H

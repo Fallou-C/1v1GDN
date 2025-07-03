@@ -12,13 +12,13 @@ float delta=0.03;
 
 void Bouge(Joueur *joueur,bool colision)
 {
-    if (IsKeyDown(KEY_LEFT) && (joueur->positionX>0) && !IsKeyDown(KEY_RIGHT))  
+    if (IsKeyDown(KEY_LEFT) && (joueur->positionX>0) && !IsKeyDown(KEY_RIGHT) && (!colision || joueur->estGauche) )  
     {
-        joueur->positionX -= PLAYER_HOR_SPD*delta*2/3;
+        if(!joueur->estGauche){joueur->positionX -= PLAYER_HOR_SPD*delta;}else{joueur->positionX -= PLAYER_HOR_SPD*delta*2/3;} // on regarde de quelle côté on est pour être plus lent si on recule
     }
-    if (IsKeyDown(KEY_RIGHT) && !colision && !IsKeyDown(KEY_LEFT))
+    if (IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT) && (!colision || !joueur->estGauche) && (joueur->positionX <= 900-190) )
     {
-        joueur->positionX += PLAYER_HOR_SPD*delta;
+        if(joueur->estGauche){joueur->positionX += PLAYER_HOR_SPD*delta;}else{joueur->positionX += PLAYER_HOR_SPD*delta*2/3;}
     }
     if (IsKeyDown(KEY_UP) && (joueur->sautable))
     {
@@ -38,13 +38,13 @@ void Bouge(Joueur *joueur,bool colision)
 
 void Bouge2(Joueur *joueur, bool colision)
 {
-    if (IsKeyDown(KEY_A) && !colision && !IsKeyDown(KEY_D))
+    if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D) && (!colision || joueur->estGauche) && (joueur->positionX>0))
     {
-        joueur->positionX -= PLAYER_HOR_SPD*delta;
+        if(!joueur->estGauche){joueur->positionX -= PLAYER_HOR_SPD*delta;}else{joueur->positionX -= PLAYER_HOR_SPD*delta*2/3;}
     }
-    if (IsKeyDown(KEY_D) && (joueur->positionX <= 900-190) && !IsKeyDown(KEY_A)) //pour pas sortir du terrain
+    if (IsKeyDown(KEY_D) && (joueur->positionX <= 900-190) && !IsKeyDown(KEY_A) && (!colision || !joueur->estGauche)) //pour pas sortir du terrain
     {
-        joueur->positionX += PLAYER_HOR_SPD*delta*2/3;
+        if(joueur->estGauche){joueur->positionX += PLAYER_HOR_SPD*delta;}else{joueur->positionX += PLAYER_HOR_SPD*delta*2/3;}
     }
     if (IsKeyDown(KEY_W) && joueur->sautable)
     {

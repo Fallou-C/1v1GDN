@@ -46,6 +46,7 @@ int main(void)
     PlayMusicStream(music);  
 
     bool debug = false;
+    bool tamp_p = false, tamp_l = false;
 
     SetTargetFPS(60);            
     bool coli;
@@ -59,6 +60,8 @@ int main(void)
     joueur1.sautable=joueur2.sautable=joueur2.touchable=true;
     joueur1.SAUT=joueur2.SAUT=0;
     joueur1.PV=joueur2.PV=100;
+    joueur1.estGauche = true;
+    joueur2.estGauche = false;
     
     // initialisation des attaques
     Attaque Escarm;
@@ -104,7 +107,6 @@ int main(void)
     Texture2D* tab_test = Load_texture(path,2);
 
     AfficheAcceuil(screenWidth,screenHeight);
-    bool tamp_p = false;
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -140,6 +142,9 @@ int main(void)
         ExecuteAttaque2(&joueur1,&Slash,IsKeyDown(KEY_O));
         AttaqueDistance2(&joueur2,&joueur1,&Sandale,IsKeyDown(KEY_U));
         
+        if(IsKeyDown(KEY_L) && tamp_l != IsKeyDown(KEY_L) ){Grab(&joueur1,&joueur2);}
+        tamp_l = IsKeyDown(KEY_L);
+
         BeginDrawing(); 
             ClearBackground(WHITE);
             DrawTexture(texture, screenWidth/2 - texture.width/2, screenHeight/2 - texture.height/2 - 40, WHITE);
