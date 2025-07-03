@@ -40,9 +40,7 @@ Important : choisir le nombre max d'attaque !
 
 bug à corriger : 
 
-- regler pb recule pour se défendre quand on change de côté
-- regler les collisions quand changement de côté 
-
+- regler les collisions quand changement de côté - pb sur la touche de garde
 idée en vrac :
 
 * faire un dossier par perso en mettant en argument un chaine de charactere de type "KEY_X" et remplacer X en fonction de si on joue en j1 ou j2

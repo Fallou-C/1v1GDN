@@ -23,19 +23,21 @@ bool AtkToucheY(Joueur* j,Attaque* atk1, Attaque* atk2) // renvoie si un joueur 
 
 void ColisionAtk(Joueur *joueur, Attaque *attaque)
 {
-    if ( abs(joueur->positionX - attaque->espace->positionX ) <= attaque->espace->taille) // on prend la position du joueur par rapport à x 
+    if(!joueur->estGauche) // on regarde de quel côté du terrain le joueur se trouve
     {
-        if( AtkToucheY(joueur,attaque,NULL) && (abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur)) & !IsKeyDown(KEY_D)) //on regarde si l'attaque a pas été lancé trop haut
-        {joueur->PV -= attaque->degat;}
+        if ( abs(joueur->positionX - attaque->espace->positionX ) <= attaque->espace->taille) // on prend la position du joueur par rapport à x 
+        {
+            if( AtkToucheY(joueur,attaque,NULL) && (abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur)) & !IsKeyDown(KEY_D)) //on regarde si l'attaque a pas été lancé trop haut
+            {joueur->PV -= attaque->degat;}
+        }
     }
-}
-
-void ColisionAtk2(Joueur *joueur, Attaque *attaque)
-{
-    if ( abs(joueur->positionX - attaque->espace->positionX ) <= 190) // on prend la position du joueur par rapport à x avec largeur du joueur (important si attaque joueur à gauche)
+    else
     {
-        if( AtkToucheY(joueur,attaque,NULL) && abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur) & !IsKeyDown(KEY_LEFT))
-        {joueur->PV -= attaque->degat;}
+        if ( abs(joueur->positionX - attaque->espace->positionX ) <= 190) // on prend la position du joueur par rapport à x avec largeur du joueur (important si attaque joueur à gauche)
+        {
+            if( AtkToucheY(joueur,attaque,NULL) && abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur) & !IsKeyDown(KEY_LEFT))
+            {joueur->PV -= attaque->degat;}
+        }
     }
 }
 
@@ -70,18 +72,6 @@ void ExecuteAttaque(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquant
     }
 }
 
-void ExecuteAttaque2(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquant attaqué attaque touche mais on utilise colision2
-{
-    if (IsKeyDown & !attaque->lag.Encours)
-    {
-        if (!(attaque->lag.Encours))
-        {
-            attaque->lag.Encours = true;
-            ColisionAtk2(joueur,attaque);
-        }
-    }
-}
-
 
 // faire en sorte quelles se détruisent mutuellement (chiant car regarder pour toutes les attaques mais y'a des listes doc c'est ok)
 
@@ -94,48 +84,29 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
         if (!j1->estGauche){ direction = -1;} // de quel sens on tire
 
         if ((attaque->lag.Encours ) || attaque->espace->positionX > 900  || attaque->espace->positionX < 0) //  on regarde si l'attaque est fini ou si elle est trop loin
-        {   // si ça touche ou qu'on sort de l'écran on arrête et on reset tous
+        {   // si ça touche ou qu'on sort de l'écran on arrête de l'exécuter (tous les reset des emplacement sont fait à part)
             attaque->executer=false;
-            attaque->espace->positionX=j1->positionX + 190;
-            attaque->espace->positionY=j1->positionY;
         }
         else
         {
             attaque->executer=true;
             attaque->espace->positionX += 12*direction;
-            if (AtkToucheY(j2,attaque,NULL) && (abs(j2->positionX - attaque->espace->positionX ) <= attaque->espace->taille) && !attaque->lag.Encours ) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
-            {
-                ColisionAtk(j2,attaque);
-                attaque->executer=false;
-                attaque->lag.Encours=true;
+            
+            if (j1->estGauche){
+                if (AtkToucheY(j2,attaque,NULL) && (abs(j2->positionX - attaque->espace->positionX ) <= attaque->espace->taille) && !attaque->lag.Encours ) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
+                {
+                    ColisionAtk(j2,attaque);
+                    attaque->executer=false;
+                    attaque->lag.Encours=true;
+                }
             }
-        }
-    }
-}
-
-void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque lancé part la joueur 2
-{
-    int direction = 1;
-
-    if (Key || attaque->executer)
-    {
-        if (j2->estGauche){ direction = -1;} // de quel sens on tire
-
-        if (attaque->lag.Encours || attaque->espace->positionX < 0 || attaque->espace->positionX > 900)
-        {
-            attaque->executer=false;
-            attaque->espace->positionX=j2->positionX - attaque->espace->taille;
-            attaque->espace->positionY=j2->positionY;
-        }// si ça touche ou qu'on sort de l'écran on arrête et on reset tous
-        else
-        {
-            attaque->executer=true;
-            attaque->espace->positionX -= 12*direction;
-            if ( AtkToucheY(j1,attaque,NULL) && (abs(j1->positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) ) //si on est assez proche et qu'on a pas touché y'a colision
-            {
-                ColisionAtk2(j1,attaque);
-                attaque->lag.Encours=true;
-                attaque->executer=false;
+            else{
+                if ( AtkToucheY(j2,attaque,NULL) && (abs(j2->positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) ) //si on est assez proche et qu'on a pas touché y'a colision
+                {
+                    ColisionAtk(j2,attaque);
+                    attaque->lag.Encours=true;
+                    attaque->executer=false;
+                }
             }
         }
     }

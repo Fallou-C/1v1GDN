@@ -156,9 +156,9 @@ int main(void)
         AttaqueDistance(&joueur1,&joueur2,&Pigeon,IsKeyDown(KEY_X));
         
         //j2
-        ExecuteAttaque2(&joueur1,&Punch,IsKeyDown(KEY_I));
-        ExecuteAttaque2(&joueur1,&Slash,IsKeyDown(KEY_O));
-        AttaqueDistance2(&joueur2,&joueur1,&Sandale,IsKeyDown(KEY_U));
+        ExecuteAttaque(&joueur1,&Punch,IsKeyDown(KEY_I));
+        ExecuteAttaque(&joueur1,&Slash,IsKeyDown(KEY_O));
+        AttaqueDistance(&joueur2,&joueur1,&Sandale,IsKeyDown(KEY_U));
         
         if(IsKeyDown(KEY_L) && tamp_l != IsKeyDown(KEY_L) ){Grab(&joueur1,&joueur2);}
         tamp_l = IsKeyDown(KEY_L);
@@ -184,12 +184,6 @@ int main(void)
             }
            
             AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
-
-            //test de truc
-
-            
-            //test_affichage(tab_test[0],0,0);
-            //test_affichage(tab_test[1],190,0);
                
             if (joueur1.PV<=0 || joueur2.PV<=0)
             {

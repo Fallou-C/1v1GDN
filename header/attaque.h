@@ -33,16 +33,13 @@ typedef struct Attaque_ {
 
 bool AtkToucheY(Joueur *j,Attaque *atk1, Attaque *atk2); // renvoie si un joueur se fait toucher par atk1 en Y ou si atk1 touche atk2 en Y si joueur null
 
-void ColisionAtk(Joueur *joueur, Attaque *attaque); //colision pour joueur 1
-void ColisionAtk2(Joueur *joueur, Attaque *attaque); //colision pour joueur 2   
+void ColisionAtk(Joueur *joueur, Attaque *attaque); //colision entre joueur et attaque
 
 void HitLagTemps(Attaque *attaque,long int fpstour,int DureeLag); //gère le temps de lag
 
 void ExecuteAttaque(Joueur *joueur2,Attaque *attaque,bool IsKeyDown); // on exécute l'attaque de Key sur le joueur
-void ExecuteAttaque2(Joueur *joueur2,Attaque *attaque,bool IsKeyDown); // on exécute l'attaque de Key sur le joueur mais pour j2
 
-void AttaqueDistance(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance pour joueur 1
-void AttaqueDistance2(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance pour joueur 2
+void AttaqueDistance(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance de j1 sur j2
 
 void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'attaque*/, int nb_atk, int CompteFps); // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
 
