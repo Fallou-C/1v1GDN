@@ -118,6 +118,8 @@ void Reset_Combat(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Att
     j1->sautable = j2->sautable = j2->touchable = true;
     j1->SAUT = j2->SAUT = 0;
     j1->PV = j2->PV = 100;
+    j1->estGauche = true;
+    j2->estGauche = false;
 
     // re-initialisation des attaques
 

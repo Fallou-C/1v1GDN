@@ -5,7 +5,7 @@ j1 est le joueur à gauche et j2 est le joueur à droite
 Chose à faire ranger par ordre de priorité/type de truc [diffilculté supposé]
 
 Important : choisir le nombre max d'attaque !
-            Le KEY_M ne marche pas ???
+            les touches sont fait pour un clavier qwerty !
 
 à faire : 
 
@@ -29,7 +29,7 @@ Important : choisir le nombre max d'attaque !
 - mouvement de caméra (=> scrolling maaais différents ça rend le jeu plus dynamique si bien fait) 
 - faire en sorte que les personnages puissent changer de côté de terrain
 - améliorer les attaques déjà existantes
-- différents personnage
+- différents personnages
 - ajouter des sprites
 - animation  en régle générale
 - menu de selections des personnages
@@ -40,7 +40,8 @@ Important : choisir le nombre max d'attaque !
 
 bug à corriger : 
 
-- faire en sorte de faire tourner les attaques quand on est dans l'autre sens
+- regler pb recule pour se défendre quand on change de côté
+- regler les collisions quand changement de côté 
 
 idée en vrac :
 

@@ -141,8 +141,8 @@ int main(void)
         
         // mise à jour de la position des attaques et du lag
 
-        MiseAJourAtk(&joueur1,atk_j1,3,true,CompteFps); // maj j1
-        MiseAJourAtk(&joueur2,atk_j2,3,false,CompteFps); // maj j2
+        MiseAJourAtk(&joueur1,atk_j1,3,CompteFps); // maj j1
+        MiseAJourAtk(&joueur2,atk_j2,3,CompteFps); // maj j2
 
         DestructionProjectile(&Pigeon ,atk_j2,3,true);
         DestructionProjectile(&Sandale ,atk_j1,3,false);
@@ -271,9 +271,7 @@ int main(void)
             if (Punch.lag.Encours){DrawRectangle(Punch.espace->positionX,Punch.espace->positionY,Punch.espace->taille,Punch.espace->largeur, PURPLE);}
             if (Slash.lag.Encours){DrawRectangle(Slash.espace->positionX,Slash.espace->positionY,Slash.espace->taille,Slash.espace->largeur, PURPLE);}
             if (Sandale.executer){DrawRectangle(Sandale.espace->positionX,Sandale.espace->positionY,Sandale.espace->taille,Sandale.espace->largeur, PINK);}
-            */
-    
-                                /*
+
                     CompteFps=0; // reset pour pas que la mémoire explose
                     joueur1.positionX = 50;
                     joueur2.positionX = 660;

@@ -87,9 +87,13 @@ void ExecuteAttaque2(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquan
 
 void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque lancé part le joueur 1
 {
+    int direction = 1;
+
     if (Key || attaque->executer)
     {
-        if ((attaque->lag.Encours ) || attaque->espace->positionX > 900 ) //  on regarde si l'attaque est fini ou si elle est trop loin
+        if (!j1->estGauche){ direction = -1;} // de quel sens on tire
+
+        if ((attaque->lag.Encours ) || attaque->espace->positionX > 900  || attaque->espace->positionX < 0) //  on regarde si l'attaque est fini ou si elle est trop loin
         {   // si ça touche ou qu'on sort de l'écran on arrête et on reset tous
             attaque->executer=false;
             attaque->espace->positionX=j1->positionX + 190;
@@ -98,7 +102,7 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
         else
         {
             attaque->executer=true;
-            attaque->espace->positionX += 12;
+            attaque->espace->positionX += 12*direction;
             if (AtkToucheY(j2,attaque,NULL) && (abs(j2->positionX - attaque->espace->positionX ) <= attaque->espace->taille) && !attaque->lag.Encours ) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
             {
                 ColisionAtk(j2,attaque);
@@ -111,9 +115,13 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
 
 void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque lancé part la joueur 2
 {
+    int direction = 1;
+
     if (Key || attaque->executer)
     {
-        if (attaque->lag.Encours || attaque->espace->positionX < 0)
+        if (j2->estGauche){ direction = -1;} // de quel sens on tire
+
+        if (attaque->lag.Encours || attaque->espace->positionX < 0 || attaque->espace->positionX > 900)
         {
             attaque->executer=false;
             attaque->espace->positionX=j2->positionX - attaque->espace->taille;
@@ -122,7 +130,7 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
         else
         {
             attaque->executer=true;
-            attaque->espace->positionX -= 12;
+            attaque->espace->positionX -= 12*direction;
             if ( AtkToucheY(j1,attaque,NULL) && (abs(j1->positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) ) //si on est assez proche et qu'on a pas touché y'a colision
             {
                 ColisionAtk2(j1,attaque);
@@ -133,13 +141,13 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
     }
 }
 
-void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'attaque*/, int nb_atk, bool est_j1,int CompteFps ) // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
+void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'attaque*/, int nb_atk,int CompteFps ) // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
 {
     for(int i = 0; i < nb_atk; i++)
     {
         if (!liste_atk[i]->executer) // à cause de ça
         {
-            if (est_j1)
+            if (joueur->estGauche)
             {
                 liste_atk[i]->espace->positionX = joueur->positionX + 190;
                 liste_atk[i]->espace->positionY = joueur->positionY + liste_atk[i]->espace->pos_relatif; // ajouter la position de l'attaque relatif au personnage
@@ -187,7 +195,7 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
             {
                 if (estj2)
                 {
-                    if (  (-(attaque->espace->positionX + attaque->espace->taille - liste_atk[i]->espace->positionX) < 1)) // si collision on la détruit 
+                    if (  (abs(attaque->espace->positionX - liste_atk[i]->espace->positionX) < attaque->espace->taille)) // si collision on la détruit 
                     {
                         attaque->executer=false;
                         attaque->lag.Encours=true;

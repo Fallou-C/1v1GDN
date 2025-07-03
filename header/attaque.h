@@ -44,7 +44,7 @@ void ExecuteAttaque2(Joueur *joueur2,Attaque *attaque,bool IsKeyDown); // on ex�
 void AttaqueDistance(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance pour joueur 1
 void AttaqueDistance2(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance pour joueur 2
 
-void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'attaque*/, int nb_atk, bool est_j1, int CompteFps); // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
+void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'attaque*/, int nb_atk, int CompteFps); // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
 
 // init attaque avec une liste du format : [degat,posX,posY,taille,largeur,pos-relatif,durrelag]
 void Iniatk(Attaque *atk, int* info_atk); // initialise une attaque en fonction des valeurs données
