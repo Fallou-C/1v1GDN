@@ -104,10 +104,12 @@ int main(void)
     Texture2D* tab_test = Load_texture(path,2);
 
     AfficheAcceuil(screenWidth,screenHeight);
+    bool tamp_p = false;
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-        if(IsKeyDown(KEY_P)){debug = !debug;}
+        if(IsKeyDown(KEY_P) && tamp_p != IsKeyDown(KEY_P)){debug = !debug; }
+        tamp_p = IsKeyDown(KEY_P);
 
         UpdateMusicStream(music);
         CompteFps++;
@@ -157,8 +159,9 @@ int main(void)
             AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
 
             //test de truc
-            test_affichage(tab_test[0],0,0);
-            test_affichage(tab_test[1],190,0);
+
+            //test_affichage(tab_test[0],0,0);
+            //test_affichage(tab_test[1],190,0);
                
             if (joueur1.PV<=0 || joueur2.PV<=0)
             {

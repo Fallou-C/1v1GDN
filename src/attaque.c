@@ -85,7 +85,7 @@ void ExecuteAttaque2(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquan
 
 // faire en sorte quelles se détruisent mutuellement (chiant car regarder pour toutes les attaques mais y'a des listes doc c'est ok)
 
-void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque lancé part la joueur 1
+void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque lancé part le joueur 1
 {
     if (Key || attaque->executer)
     {
@@ -99,7 +99,7 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
         {
             attaque->executer=true;
             attaque->espace->positionX += 12;
-            if (AtkToucheY(j2,attaque,NULL) && (abs(j2->positionX - attaque->espace->positionX ) <= attaque->espace->taille) && !attaque->lag.Encours & !IsKeyDown(KEY_D)) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
+            if (AtkToucheY(j2,attaque,NULL) && (abs(j2->positionX - attaque->espace->positionX ) <= attaque->espace->taille) && !attaque->lag.Encours ) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
             {
                 ColisionAtk(j2,attaque);
                 attaque->executer=false;
@@ -123,7 +123,7 @@ void AttaqueDistance2(Joueur *j2,Joueur *j1,Attaque *attaque,bool Key) //attaque
         {
             attaque->executer=true;
             attaque->espace->positionX -= 12;
-            if ( AtkToucheY(j1,attaque,NULL) && (abs(j1->positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) & !IsKeyDown(KEY_LEFT)) //si on est assez proche et qu'on a pas touché y'a colision
+            if ( AtkToucheY(j1,attaque,NULL) && (abs(j1->positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) ) //si on est assez proche et qu'on a pas touché y'a colision
             {
                 ColisionAtk2(j1,attaque);
                 attaque->lag.Encours=true;
