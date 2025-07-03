@@ -40,7 +40,7 @@ Important : choisir le nombre max d'attaque !
 
 bug à corriger : 
 
--
+- faire en sorte de faire tourner les attaques quand on est dans l'autre sens
 
 idée en vrac :
 

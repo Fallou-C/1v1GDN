@@ -31,6 +31,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/*
+* touche : J1 deplacement fleche directionnelles
+*
+* - Attaque : Escarmouche (C)
+* - Attaque : Babouche (V)
+* - Attaque : Pigeon (X)
+* - Saut : Espace
+*
+* touche : J2 deplacement ZQSD
+*
+* - Attaque : Punch (I)
+* - Attaque : Slash (O)
+* - Attaque : Sandale (U)
+* - Saut : Espace
+*/
+// touche debug : P
+// touche echanger place : N
+
 int main(void)
 {
     const int screenWidth = 900;
