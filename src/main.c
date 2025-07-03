@@ -121,10 +121,13 @@ int main(void)
 
     long int CompteFps=0;
     
-    char* path[3] = {"test_sprite/test2.png","test_sprite/test4.png","test_sprite/who.png"};
+    char* path[3] = {"test_sprite/test2.png","test_sprite/doggo_kurukuru.png","test_sprite/who.png"};
     Texture2D* tab_test = Load_texture(path,3);
 
     AfficheAcceuil(screenWidth,screenHeight);
+
+    int memo_doggo=0;
+    int cmp_doggo=0;
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -182,7 +185,13 @@ int main(void)
             test_affichage(tab_test[2],joueur2.positionX + 65,joueur2.positionY - 65,65,0,65,45);
 
             }
-           
+            
+            if(cmp_doggo>=4){cmp_doggo=0;} // car on a que 4 images
+            if (memo_doggo <= CompteFps) {
+                cmp_doggo ++;
+                memo_doggo = CompteFps + 8;} // la constante c'est la vitesse
+                test_affichage(tab_test[1],860,10,40*cmp_doggo,40,40,40);
+
             AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
                
             if (joueur1.PV<=0 || joueur2.PV<=0)
