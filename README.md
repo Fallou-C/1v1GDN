@@ -41,6 +41,8 @@ Important : choisir le nombre max d'attaque !
 bug à corriger : 
 
 - regler les collisions quand changement de côté - pb sur la touche de garde
+- mettre le lag direct sur l'attaque à distance ?
+
 idée en vrac :
 
 * faire un dossier par perso en mettant en argument un chaine de charactere de type "KEY_X" et remplacer X en fonction de si on joue en j1 ou j2
@@ -51,6 +53,8 @@ idée en vrac :
 * invinsibilité si trop hit ? (mal implémenter)
 
 * Mettre en place un systeme client/serveur pour permettre de jouer online (quoicouidée) (ne pas oublier aussi dcp de gerer les probleme de difference de fps dans du online qui peut creer du nimportequoicoubeh)
+
+* pouvoir lancer plusieurs projectile en même temps?
 
 ⣿⣿⣿⣿⡏⠅⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠚⢿⣿⣿⣿⣿
 ⣿⣿⣿⡿⢈⠀⠀⠀⣴⠀⢠⢀⡄⢀⣴⣶⣶⣶⣶⣶⣻⣷⠆⠀⣷⡎⢻⣿⣿⣿

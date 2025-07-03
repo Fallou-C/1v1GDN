@@ -27,7 +27,7 @@ void ColisionAtk(Joueur *joueur, Attaque *attaque)
     {
         if ( abs(joueur->positionX - attaque->espace->positionX ) <= attaque->espace->taille) // on prend la position du joueur par rapport à x 
         {
-            if( AtkToucheY(joueur,attaque,NULL) && (abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur)) & !IsKeyDown(KEY_D)) //on regarde si l'attaque a pas été lancé trop haut
+            if( AtkToucheY(joueur,attaque,NULL) && (abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur)) && (!IsKeyDown(KEY_D)) )//on regarde si l'attaque a pas été lancé trop haut
             {joueur->PV -= attaque->degat;}
         }
     }
@@ -35,7 +35,7 @@ void ColisionAtk(Joueur *joueur, Attaque *attaque)
     {
         if ( abs(joueur->positionX - attaque->espace->positionX ) <= 190) // on prend la position du joueur par rapport à x avec largeur du joueur (important si attaque joueur à gauche)
         {
-            if( AtkToucheY(joueur,attaque,NULL) && abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur) & !IsKeyDown(KEY_LEFT))
+            if( AtkToucheY(joueur,attaque,NULL) && abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur) && (!IsKeyDown(KEY_LEFT)) )
             {joueur->PV -= attaque->degat;}
         }
     }
