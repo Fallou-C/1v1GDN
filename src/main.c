@@ -200,16 +200,13 @@ int main(void)
                 //texture disant d'appuyer sur R
                 DrawText(TextFormat("PRESS R TO RESTART"), 20 + 5, 300, 70, WHITE);
                 DrawText(TextFormat("PRESS R TO RESTART"), 20, 300, 70, BLACK);                
-                if (IsKeyDown(KEY_R))
-                {
-                    Reset_Combat(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3,&CompteFps);
-
-                }
             }
 
             if (IsKeyDown(KEY_R))
                 {
                     Reset_Combat(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3,&CompteFps);
+                    cmp_doggo = 0;
+                    memo_doggo = 0;
                 }
     
         EndDrawing();

@@ -202,9 +202,7 @@ void Grab(Joueur *j1, Joueur *j2)
 {
     int x = j1->positionX , y = j1->positionY;
     j1->positionX = j2->positionX;
-    j1->positionY = j2->positionY;
     j2->positionX = x;
-    j2->positionY = y;
     j1->estGauche ^= 1;
     j2->estGauche ^= 1;
 }
