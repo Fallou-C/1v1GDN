@@ -18,6 +18,37 @@ typedef struct KeyMapping_{
     char dash;
 }KeyMapping;
 
+// PROJECTILES
+
+
+typedef struct Projectile_{
+    int idProjectile; // id du type de projectile
+
+    int directionX;
+    int directionY; // vecteur
+
+    void * sousProjectile; // Contiendra un pointeur vers la structure specifique du projectile choisi pour gerer les difference
+    Positionnel position;
+    Frame frame;
+    int etat; // Etat du projectile (en vol, en collision, etc.)
+    void (*onHit)(Personnage * target, Personnage * source, GameInfo * gameInfo); // Fonction appelée lors d'une collision avec un personnage
+    int damage; // Dégâts infligés par le projectile
+    int speed; // Vitesse du projectile
+
+    int originPositionX; // Position d'origine du projectile (pour le calcul de la portée)
+    int originPositionY; // Position d'origine du projectile (pour le calcul de la portée
+    int range; // Portée du projectile
+
+
+    int lifetime; // Durée de vie du projectile avant de disparaître
+    int lifetimeCounter; // Compteur de durée de vie du projectile
+
+    int camp; // Camp du projectile (allié ou ennemi)
+} Projectile;
+
+
+// SOUS PERSONNAGES (CHAQUE PERSONNAGE JOUABLE)
+
 
 // DEFINITION DES POINTEURS DE FONCTION
 
