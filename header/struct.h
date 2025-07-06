@@ -1,10 +1,30 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 #include <stdbool.h>
+#include "../../raylib/src/raylib.h"
 
 
 typedef struct Personnage_ Personnage; //je sais pas si ça compile j'ai aps raylib sur wsl (Y)
 typedef struct GameInfo_ GameInfo;
+
+
+
+// SURFACES
+
+//Rectangle existe deja depuis raylib
+
+typedef struct CollectionRectangle_{
+    const int nombreRectangle;
+    Rectangle * collection;
+} CollectionRectangle;
+
+// Le but sera aussi de pouvoir reutiliser cette structure pour des elements du jeu qui n'ont pas une animation definie des la generation (genre un projectile on pourra peut etre faire une boucle sur la hitbox ?) (Y)
+typedef struct EnsembleCollectionRectangle_{ //Desolé j'arrive vrm pas a trouver de nom mdrrrrrrrrrrrrr (Y)
+    const int nombreFrame;
+    CollectionRectangle * ensemble;
+} EnsembleCollectionRectangle;
+
+
 
 // informations des touches
 typedef struct KeyMapping_{
@@ -18,64 +38,30 @@ typedef struct KeyMapping_{
     char dash;
 }KeyMapping;
 
-// PROJECTILES
+
+// FRAME
 
 
-typedef struct Projectile_{
-    int idProjectile; // id du type de projectile
 
-    int directionX;
-    int directionY; // vecteur
+// Donne un compte rendu de l'etat en terme de frame en fonction de l'état d'action du personnage
+// Les frames max seront definies avec des define et des fonctions ""d'interface"" s'occuperont de savoir pour quel personnage quel define regarder
+typedef struct Frame_{ 
+    // Choses basiques
+    int recoveryFrame;
+    
+    int atkFrame; // j'ai l'impression qu'une des parties devrait direct être mit dans les attaques en faisant du lag avant et après l'attaque (F)
+    int stunFrame;
+    int idleFrame;
 
-    void * sousProjectile; // Contiendra un pointeur vers la structure specifique du projectile choisi pour gerer les difference
-    Positionnel position;
-    Frame frame;
-    int etat; // Etat du projectile (en vol, en collision, etc.)
-    void (*onHit)(Personnage * target, Personnage * source, GameInfo * gameInfo); // Fonction appelée lors d'une collision avec un personnage
-    int damage; // Dégâts infligés par le projectile
-    int speed; // Vitesse du projectile
-
-    int originPositionX; // Position d'origine du projectile (pour le calcul de la portée)
-    int originPositionY; // Position d'origine du projectile (pour le calcul de la portée
-    int range; // Portée du projectile
+    // Lag
+    int offensiveLagFrame; // je pense aussi direct dans les attaques mais une condition qui fait qu'on puisse pas balancer 4 attaques en même temps (F) : Ajout de champs d'un pseudo cooldown pour chaque attaque
+    int defensiveLagFrame;
 
 
-    int lifetime; // Durée de vie du projectile avant de disparaître
-    int lifetimeCounter; // Compteur de durée de vie du projectile
+} Frame;
 
-    int camp; // Camp du projectile (allié ou ennemi)
-} Projectile;
+// POSITIONNEL
 
-
-// SOUS PERSONNAGES (CHAQUE PERSONNAGE JOUABLE)
-
-
-// DEFINITION DES POINTEURS DE FONCTION
-
-typedef void (*competence)(Personnage * Personnage, GameInfo * gameInfo); //jsp si ça compile j'ai pas raylib sur WSL (Y)
-
-
-// Creation d'une ""Classe"" Personnage"
-
-//Paquet de 3 attaques 
-typedef struct TriAttaque_{
-    competence neutral;
-    competence side;
-    competence down;
-}TriAttaque;
-
-//Couple de paquet de 3 attaques
-typedef struct CoupleLegerLourd_{
-    TriAttaque light;
-    TriAttaque heavy;
-}CoupleLegerLourd;
-
-//Collection de toutes les attaques
-typedef struct Attaques_{
-    CoupleLegerLourd groundedAttacks; // Attaques au sol
-    CoupleLegerLourd airborneAttacks; // Attaques en l'air
-    CoupleLegerLourd crouchingAttacks; // Attaques accroupies
-}Attaques;
 
 typedef struct Positionnel_{
     // Position
@@ -108,35 +94,89 @@ typedef struct Positionnel_{
 } Positionnel;
 
 
-// Donne un compte rendu de l'etat en terme de frame en fonction de l'état d'action du personnage
-// Les frames max seront definies avec des define et des fonctions ""d'interface"" s'occuperont de savoir pour quel personnage quel define regarder
-typedef struct Frame_{ 
-    // Choses basiques
-    int recoveryFrame;
-    
-    int atkFrame; // j'ai l'impression qu'une des parties devrait direct être mit dans les attaques en faisant du lag avant et après l'attaque (F)
-    int stunFrame;
-    int idleFrame;
-
-    // Lag
-    int offensiveLagFrame; // je pense aussi direct dans les attaques mais une condition qui fait qu'on puisse pas balancer 4 attaques en même temps (F)
-    int defensiveLagFrame;
+// PROJECTILES
 
 
-} Frame;
+typedef struct Projectile_{
+    const int idProjectile; // id du type de projectile
+
+    int directionX;
+    int directionY; // vecteur
+
+    void * sousProjectile; // Contiendra un pointeur vers la structure specifique du projectile choisi pour gerer les difference
+    Positionnel position;
+    Frame frame;
+    int etat; // Etat du projectile (en vol, en collision, etc.)
+    void (*onHit)(Personnage * target, Personnage * source, GameInfo * gameInfo); // Fonction appelée lors d'une collision avec un personnage
+    int damage; // Dégâts infligés par le projectile
+    int speed; // Vitesse du projectile (norme du vecteur vitesse, pas de decomposition en X et Y)
+
+    int originPositionX; // Position d'origine du projectile (pour le calcul de la portée)
+    int originPositionY; // Position d'origine du projectile (pour le calcul de la portée
+    int range; // Portée du projectile
+
+
+    int lifetime; // Durée de vie du projectile avant de disparaître
+    int lifetimeCounter; // Compteur de durée de vie du projectile
+
+    int camp; // Camp du projectile (allié ou ennemi)
+} Projectile;
+
+
+// SOUS PERSONNAGES (CHAQUE PERSONNAGE JOUABLE)
+
+
+// DEFINITION DES POINTEURS DE FONCTION
+
+typedef void (*competence)(Personnage * Personnage, GameInfo * gameInfo); //jsp si ça compile j'ai pas raylib sur WSL (Y)
+
+
+// Creation d'une ""Classe"" Personnage"
+
+//Paquet de 3 attaques 
+typedef struct TriAttaque_{
+    competence neutral;
+    const int frameNeutral; // max frame pour l'etat neutral
+    const int pseudoCooldownNeutral; // pseudo cooldown pour l'etat neutral
+    int frameSinceLastNeutral;
+
+    competence side;
+    const int frameSide; // max frame pour l'etat side
+    const int pseudoCooldownSide;
+    int frameSinceLastSide;
+
+    competence down;
+    const int frameDown; // max frame pour l'etat down
+    const int pseudoCooldownDown; // pseudo cooldown pour l'etat down
+    int frameSinceLastDown;
+}TriAttaque;
+
+//Couple de paquet de 3 attaques
+typedef struct CoupleLegerLourd_{
+    TriAttaque light;
+    TriAttaque heavy;
+}CoupleLegerLourd;
+
+//Collection de toutes les attaques
+typedef struct Attaques_{
+    CoupleLegerLourd groundedAttacks; // Attaques au sol
+    CoupleLegerLourd airborneAttacks; // Attaques en l'air
+    CoupleLegerLourd crouchingAttacks; // Attaques accroupies
+}Attaques;
+
 
 
 typedef struct Personnage_{
-    int idPersonnage; // id du type de personnage choisit (pour pouvoir reconnaitre sousPersonnage)
+    const int idPersonnage; // id du type de personnage choisit (pour pouvoir reconnaitre sousPersonnage)
     void * sousPersonnage; //Contiendra un pointeur vers la structure specifique du personnage choisi pour gerer les difference
     int etat;
     int camp;
     int vie;
-    int vie_max; // j'ai rajouté ça car sinon c'est chiant pour les barres de vie (F)
+    const int vie_max; // j'ai rajouté ça car sinon c'est chiant pour les barres de vie (F)
     int status; // status du personnage (stun, mort, empoisonné, etc.)
     Positionnel position;
     Frame frame; // frame du personnage   
-    Attaques attaques; // Collection de toute les attaques en plusieurs etape pour juste avoir a taper la premiere lettre puis tab (Y) 
+    Attaques attaques; // Collection de toute les attaques en plusieurs etape pour juste avoir a taper la premiere lettre puis tab, contient aussi le max frame ammount (Y)
 } Personnage;
 
 typedef struct GameInfo_{
