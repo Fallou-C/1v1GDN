@@ -171,7 +171,7 @@ typedef struct Attaques_{
 }Attaques;
 
 typedef struct ArgenteLigne6_{
-    Projectile pailletteDownLightAir; //Balance des paillettes qui stagger pour rentrer un combo
+    Projectile pailletteDownLightAir; //Balance des paillettes qui stagger pour rentrer un combo (Y)
     Projectile caddieDownHeavyGround; //Elle balance son caddie, pour l'instant jsp si elle rearme direct ou si elle switch en mode de combat main nu avant de recup (Y)
     Projectile caddieDownHeavyAir; // Idem sauf que la elle balance en diagonale depuis les air bon le move est mid asf en vrai d'un pdv strat a moins qu'on mette de l'animation cancel auquel cas ça sera broken jsp pk j'en parle on s'en fou la verité j'ai tjrs pas de perso qui marche (Y)
 } ArgenteLigne6;
