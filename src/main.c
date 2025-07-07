@@ -80,6 +80,8 @@ int main(void)
     joueur1.PV=joueur2.PV=100;
     joueur1.estGauche = true;
     joueur2.estGauche = false;
+    joueur1.estj1 = true;
+    joueur2.estj1 = false;
     
     // initialisation des attaques
     Attaque Escarm;

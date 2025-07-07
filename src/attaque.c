@@ -27,7 +27,7 @@ void ColisionAtk(Joueur *joueur, Attaque *attaque)
     {
         if ( abs(joueur->positionX - attaque->espace->positionX ) <= attaque->espace->taille) // on prend la position du joueur par rapport à x 
         {
-            if( AtkToucheY(joueur,attaque,NULL) && (abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur)) && (!IsKeyDown(KEY_D)) )//on regarde si l'attaque a pas été lancé trop haut
+            if( AtkToucheY(joueur,attaque,NULL) && (abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur)) && (!IsKeyDown(KEY_D) ))//on regarde si l'attaque a pas été lancé trop haut || !IsKeyDown(KEY_RIGHT))
             {joueur->PV -= attaque->degat;}
         }
     }
@@ -200,7 +200,7 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
 
 void Grab(Joueur *j1, Joueur *j2)
 {
-    int x = j1->positionX , y = j1->positionY;
+    int x = j1->positionX;
     j1->positionX = j2->positionX;
     j2->positionX = x;
     j1->estGauche ^= 1;
