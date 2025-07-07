@@ -105,7 +105,7 @@ typedef struct Projectile_{
 
     void * sousProjectile; // Contiendra un pointeur vers la structure specifique du projectile choisi pour gerer les difference
     Positionnel position;
-    Frame frame;
+    Frame frame; //Jsp pk j'ai mi ça je laisse au cas ou (Y)
     int etat; // Etat du projectile (en vol, en collision, etc.)
     void (*onHit)(Personnage * target, Personnage * source, GameInfo * gameInfo); // Fonction appelée lors d'une collision avec un personnage
     int damage; // Dégâts infligés par le projectile
@@ -120,6 +120,9 @@ typedef struct Projectile_{
     int lifetimeCounter; // Compteur de durée de vie du projectile
 
     int camp; // Camp du projectile (allié ou ennemi)
+
+
+    EnsembleCollectionRectangle hitbox; // Contient les hitbox du projectile (Y)
 } Projectile;
 
 
@@ -139,16 +142,19 @@ typedef struct TriAttaque_{
     const int frameNeutral; // max frame pour l'etat neutral
     const int pseudoCooldownNeutral; // pseudo cooldown pour l'etat neutral
     int frameSinceLastNeutral;
+    EnsembleCollectionRectangle hitboxNeutral;
 
     competence side;
     const int frameSide; // max frame pour l'etat side
     const int pseudoCooldownSide;
     int frameSinceLastSide;
+    EnsembleCollectionRectangle hitboxSide;
 
     competence down;
     const int frameDown; // max frame pour l'etat down
     const int pseudoCooldownDown; // pseudo cooldown pour l'etat down
     int frameSinceLastDown;
+    EnsembleCollectionRectangle hitboxDown;
 }TriAttaque;
 
 //Couple de paquet de 3 attaques
@@ -164,7 +170,11 @@ typedef struct Attaques_{
     CoupleLegerLourd crouchingAttacks; // Attaques accroupies
 }Attaques;
 
-
+typedef struct ArgenteLigne6_{
+    Projectile pailletteDownLightAir; //Balance des paillettes qui stagger pour rentrer un combo
+    Projectile caddieDownHeavyGround; //Elle balance son caddie, pour l'instant jsp si elle rearme direct ou si elle switch en mode de combat main nu avant de recup (Y)
+    Projectile caddieDownHeavyAir; // Idem sauf que la elle balance en diagonale depuis les air bon le move est mid asf en vrai d'un pdv strat a moins qu'on mette de l'animation cancel auquel cas ça sera broken jsp pk j'en parle on s'en fou la verité j'ai tjrs pas de perso qui marche (Y)
+} ArgenteLigne6;
 
 typedef struct Personnage_{
     const int idPersonnage; // id du type de personnage choisit (pour pouvoir reconnaitre sousPersonnage)
@@ -177,6 +187,7 @@ typedef struct Personnage_{
     Positionnel position;
     Frame frame; // frame du personnage   
     Attaques attaques; // Collection de toute les attaques en plusieurs etape pour juste avoir a taper la premiere lettre puis tab, contient aussi le max frame ammount (Y)
+    EnsembleCollectionRectangle hurtBox; // Vu que je suis un golmon pour moi hurtbox c'est la zone de vulnerabilité du perso dsl c'est des automatismes de 2017 (Y)
 } Personnage;
 
 typedef struct GameInfo_{
