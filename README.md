@@ -18,7 +18,6 @@ Important : choisir le nombre max d'attaque !
 - dégât qui dure toutes la durée de l'attaque et pas que le début (mais considèrerer comme un seul coup sauf cas spécial) [moyen-chiant]
 - fonction avec matrice des attaques en entrée qui initialise toutes les attaques et rennvoie la liste des attaques des deux joueurs (permet de stocker les infos de chaque joueurs sous forme de matrice + associés à une liste pour le nom des attaques) [facile-moyen]
 - pas faire plusieurs atttaque en même temps [facile]
-- scrolling de la map [dunno]
 
 - faire du knockback [trql]
 - deux coups de même puissance s'annule aussi [moyen]
@@ -28,7 +27,6 @@ Important : choisir le nombre max d'attaque !
 - faire en sorte de pouvoir stun les gens quand on les attaques (stun dépend du coup)
 - ajouter de l'armure (super armor pour pas que tu te fasses cancel quand tu fais un gros coup)
 - mouvement de caméra (=> scrolling maaais différents ça rend le jeu plus dynamique si bien fait) 
-- faire en sorte que les personnages puissent changer de côté de terrain
 - améliorer les attaques déjà existantes
 - différents personnages
 - ajouter des sprites
