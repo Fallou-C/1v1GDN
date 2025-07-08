@@ -41,7 +41,6 @@ Important : choisir le nombre max d'attaque !
 
 bug à corriger : 
 
-- regler les collisions quand changement de côté - pb sur la touche de garde
 - mettre le lag direct sur l'attaque à distance ?
 
 idée en vrac :
