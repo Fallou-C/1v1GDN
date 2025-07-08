@@ -179,7 +179,7 @@ int main(void)
         if(IsKeyDown(KEY_L) && tamp_l != IsKeyDown(KEY_L) ){Grab(&joueur1,&joueur2);}
         tamp_l = IsKeyDown(KEY_L);
 
-        camx = joueur1.positionX + abs(joueur1.positionX - joueur2.positionX)/2 - screenWidth/2;
+        camx = position_camera(&joueur1,&joueur2);
         if(camx > -1145 && camx < 1145) {test_cam.target = (Vector2){camx,0};}
 
         BeginDrawing(); 
@@ -217,8 +217,22 @@ int main(void)
             {
             
                 //texture disant d'appuyer sur R
-                DrawText(TextFormat("PRESS R TO RESTART"), 20 + 5, 300, 70, WHITE);
-                DrawText(TextFormat("PRESS R TO RESTART"), 20, 300, 70, BLACK);                
+                if(camx > -1145 && camx < 1145)
+                {
+                    DrawText(TextFormat("PRESS R TO RESTART"),camx + 20 + 5, 300, 70, WHITE);
+                    DrawText(TextFormat("PRESS R TO RESTART"),camx + 20, 300, 70, BLACK);  
+                }
+                else if (camx < -1145)
+                {
+                    DrawText(TextFormat("PRESS R TO RESTART"),-1145 + 20 + 5, 300, 70, WHITE);
+                    DrawText(TextFormat("PRESS R TO RESTART"),-1145 + 20, 300, 70, BLACK);  
+                }
+                else
+                {
+                    DrawText(TextFormat("PRESS R TO RESTART"),1145 + 20 + 5, 300, 70, WHITE);
+                    DrawText(TextFormat("PRESS R TO RESTART"),1145 + 20, 300, 70, BLACK);  
+                }
+
             }
 
             if (IsKeyDown(KEY_R))
@@ -226,6 +240,7 @@ int main(void)
                     Reset_Combat(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3,&CompteFps);
                     cmp_doggo = 0;
                     memo_doggo = 0;
+                    camx = 0;
                 }
         EndMode2D();
 

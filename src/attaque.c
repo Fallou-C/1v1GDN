@@ -8,7 +8,8 @@
 
 
 //pensez à ré-organiser les fonctions par thèmes 
-
+float min_Xx = -1140;
+float max_Xx = 1826;
 
 bool AtkToucheY(Joueur* j,Attaque* atk1, Attaque* atk2) // renvoie si un joueur se fait toucher par atk1 en Y ou si atk1 touche atk2 en Y si joueur null
 {
@@ -114,7 +115,7 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
     {
         if (!j1->estGauche){ direction = -1;} // de quel sens on tire
 
-        if ((attaque->lag.Encours ) || attaque->espace->positionX > 900  || attaque->espace->positionX < 0) //  on regarde si l'attaque est fini ou si elle est trop loin
+        if ((attaque->lag.Encours ) || attaque->espace->positionX > max_Xx  || attaque->espace->positionX < min_Xx) //  on regarde si l'attaque est fini ou si elle est trop loin
         {   // si ça touche ou qu'on sort de l'écran on arrête de l'exécuter (tous les reset des emplacement sont fait à part)
             attaque->executer=false;
         }
@@ -151,7 +152,7 @@ void AttaqueDistance2(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque
     {
         if (!j1->estGauche){ direction = -1;} // de quel sens on tire
 
-        if ((attaque->lag.Encours ) || attaque->espace->positionX > 900  || attaque->espace->positionX < 0) //  on regarde si l'attaque est fini ou si elle est trop loin
+        if ((attaque->lag.Encours ) || attaque->espace->positionX > max_Xx  || attaque->espace->positionX < min_Xx) //  on regarde si l'attaque est fini ou si elle est trop loin
         {   // si ça touche ou qu'on sort de l'écran on arrête de l'exécuter (tous les reset des emplacement sont fait à part)
             attaque->executer=false;
         }

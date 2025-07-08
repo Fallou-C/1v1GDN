@@ -9,6 +9,8 @@
 
 void AfficheAcceuil(int screenWidth, int screenHeight); // affiche l'ecran d'accueil
 
+float position_camera(Joueur* j1,Joueur* j2); // renvoie la position en x de la caméra 
+
 void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2); // affiche les sprites (que les hitbox pour le moment)
 
 void Reset_Combat(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2,long int* CompteFps); // permet de tous reset rapidement en initalisent le combat par rapport à certains paramètre d'origine
@@ -18,6 +20,5 @@ Texture2D* Load_texture(char** path_texture,int nb_elem); // renvoie un tableau 
 void test_affichage(Texture2D testure, int x , int y, int x_sprite, int y_sprite, int largeur , int longueur) ; // censé être du test mais en vrai sert de fou à afficher les sprites
 
 void Unload_texture(Texture2D* tab_texture, int nb_elem); // on décharge tous par politesse
-
 
 #endif // UTILITY_H

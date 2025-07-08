@@ -26,6 +26,16 @@ void AfficheAcceuil(int screenWidth, int screenHeight)
 }
 
 int externe = 0;
+int screenWidth = 900;
+
+float position_camera(Joueur* j1,Joueur* j2)
+{
+    if( j1->positionX < j2->positionX )
+    {
+        return j1->positionX + abs(j1->positionX - j2->positionX)/2 - screenWidth/2;
+    }
+    return j2->positionX + abs(j2->positionX - j1->positionX)/2 - screenWidth/2;
+}
 
 void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2) //amener à evoluer quand y'aura les sprites
 {
@@ -46,8 +56,7 @@ void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,
 
     DrawRectangle(j2->positionX,j2->positionY, 190.0f, 270.0f, BLUE); //joueur2
     
-    float camx = j1->positionX + abs(j1->positionX - j2->positionX)/2 - 900/2;
-
+    float camx = position_camera(j1,j2);
 
     if(camx > -1145 && camx < 1145)
     {
@@ -166,30 +175,3 @@ void test_affichage(Texture2D testure, int x , int y, int x_sprite, int y_sprite
     Vector2 position = { x, y };
     DrawTextureRec(testure, frameRec, position, WHITE);
 }
-
-float position_camera(Joueur* j1,Joueur* j2)
-{
-    if( j1->positionX < j2->positionY )
-    {
-        return 2*j1->positionX - j2->positionX;
-    }
-    return 2*j2->positionX - j1->positionX;
-}
-
-/*
-if(camx > -1145 && camx < 1145)
-    {
-        DrawRectangle(camx + 20,555, 3*(j1->PV), 40, GREEN); //pv joueur1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
-        DrawRectangle(camx + 580,555, 3*j2->PV, 40, GREEN); //pv joueur2
-    }
-    else if (camx > -1145)
-    {
-        DrawRectangle(-1145 + 20,555, 3*(j1->PV), 40, GREEN); 
-        DrawRectangle(-1145 + 580,555, 3*j2->PV, 40, GREEN);
-    }
-    else
-    {
-        DrawRectangle(1145 + 20,555, 3*(j1->PV), 40, GREEN); 
-        DrawRectangle(1145 + 580,555, 3*j2->PV, 40, GREEN);
-    }
-        */
