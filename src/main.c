@@ -180,8 +180,7 @@ int main(void)
         tamp_l = IsKeyDown(KEY_L);
 
         camx = joueur1.positionX + abs(joueur1.positionX - joueur2.positionX)/2 - screenWidth/2;
-        test_cam.target = (Vector2){camx,0};
-        //if (KEY_P){ test_cam.target = (Vector2){ 0,0}; }
+        if(camx > -1145 && camx < 1145) {test_cam.target = (Vector2){camx,0};}
 
         BeginDrawing(); 
             BeginMode2D(test_cam);
@@ -193,12 +192,13 @@ int main(void)
             //info debug
             
             if (debug){
-            DrawText(TextFormat("testmemo?: %i,%i", Escarm.lag.MemoFps, Escarm.lag.SaLag), 10,50, 10, BLACK);
-            DrawText(TextFormat("atk?touché? : %i, %i ", IsKeyDown(KEY_T), joueur2.touchable), 10,60, 10, BLACK);
-            DrawText(TextFormat("où est la souris: [%i, %i]", GetMouseX(), GetMouseY()), 10, 10, 10, RED); //info position souris
-            DrawText(TextFormat("colision : %i",coli), 10, 40, 10, RED); // info colision
-            DrawText(TextFormat("position du joueur: [%i, %i]", joueur1.positionX, joueur1.positionY), 10, 20, 10, RED); //position Joueur1
-            DrawText(TextFormat("position du joueur2: [%i, %i]", joueur2.positionX, joueur2.positionY), 10, 30, 10, RED); //info position joueur2-
+            DrawText(TextFormat("testmemo?: %i,%i", Escarm.lag.MemoFps, Escarm.lag.SaLag), camx + 10,50, 10, BLACK);
+            DrawText(TextFormat("atk?touché? : %i, %i ", IsKeyDown(KEY_T), joueur2.touchable),camx +  10,60, 10, BLACK);
+            DrawText(TextFormat("où est la souris: [%i, %i]", GetMouseX(), GetMouseY()),camx +  10, 10, 10, RED); //info position souris
+            DrawText(TextFormat("colision : %i",coli),camx +  10, 40, 10, RED); // info colision
+            DrawText(TextFormat("position du joueur: [%i, %i]", joueur1.positionX, joueur1.positionY),camx +  10, 20, 10, RED); //position Joueur1
+            DrawText(TextFormat("position du joueur2: [%i, %i]", joueur2.positionX, joueur2.positionY),camx +  10, 30, 10, RED); //info position joueur2-
+            DrawText(TextFormat("position caméra: [%f, %i]", camx, 0),camx + 10, 70, 10, BLACK); //info caméra
 
             test_affichage(tab_test[2],joueur1.positionX + 65,joueur1.positionY - 65,0,0,65,45);
             test_affichage(tab_test[2],joueur2.positionX + 65,joueur2.positionY - 65,65,0,65,45);

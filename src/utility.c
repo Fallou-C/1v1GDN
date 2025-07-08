@@ -48,8 +48,22 @@ void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,
     
     float camx = j1->positionX + abs(j1->positionX - j2->positionX)/2 - 900/2;
 
-    DrawRectangle(camx + 20,555, 3*(j1->PV), 40, GREEN); //pv joueur1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
-    DrawRectangle(camx + 580,555, 3*j2->PV, 40, GREEN); //pv joueur2
+
+    if(camx > -1145 && camx < 1145)
+    {
+        DrawRectangle(camx + 20,555, 3*(j1->PV), 40, GREEN); //pv joueur1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
+        DrawRectangle(camx + 580,555, 3*j2->PV, 40, GREEN); //pv joueur2
+    }
+    else if (camx < -1145)
+    {
+        DrawRectangle(-1145 + 20,555, 3*(j1->PV), 40, GREEN); 
+        DrawRectangle(-1145 + 580,555, 3*j2->PV, 40, GREEN);
+    }
+    else
+    {
+        DrawRectangle(1145 + 20,555, 3*(j1->PV), 40, GREEN); 
+        DrawRectangle(1145 + 580,555, 3*j2->PV, 40, GREEN);
+    }
     // généralsier pour que tous s'adapte en fonction de la taille de l'ecran choisi
 
     //affichage attaque
@@ -161,3 +175,21 @@ float position_camera(Joueur* j1,Joueur* j2)
     }
     return 2*j2->positionX - j1->positionX;
 }
+
+/*
+if(camx > -1145 && camx < 1145)
+    {
+        DrawRectangle(camx + 20,555, 3*(j1->PV), 40, GREEN); //pv joueur1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
+        DrawRectangle(camx + 580,555, 3*j2->PV, 40, GREEN); //pv joueur2
+    }
+    else if (camx > -1145)
+    {
+        DrawRectangle(-1145 + 20,555, 3*(j1->PV), 40, GREEN); 
+        DrawRectangle(-1145 + 580,555, 3*j2->PV, 40, GREEN);
+    }
+    else
+    {
+        DrawRectangle(1145 + 20,555, 3*(j1->PV), 40, GREEN); 
+        DrawRectangle(1145 + 580,555, 3*j2->PV, 40, GREEN);
+    }
+        */
