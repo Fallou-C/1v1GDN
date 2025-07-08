@@ -46,8 +46,11 @@ void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,
 
     DrawRectangle(j2->positionX,j2->positionY, 190.0f, 270.0f, BLUE); //joueur2
     
-    DrawRectangle(20,555, 3*(j1->PV), 40, GREEN); //pv joueur1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
-    DrawRectangle(580,555, 3*j2->PV, 40, GREEN); //pv joueur2
+    float camx = j1->positionX + abs(j1->positionX - j2->positionX)/2 - 900/2;
+
+    DrawRectangle(camx + 20,555, 3*(j1->PV), 40, GREEN); //pv joueur1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
+    DrawRectangle(camx + 580,555, 3*j2->PV, 40, GREEN); //pv joueur2
+    // généralsier pour que tous s'adapte en fonction de la taille de l'ecran choisi
 
     //affichage attaque
 
@@ -148,4 +151,13 @@ void test_affichage(Texture2D testure, int x , int y, int x_sprite, int y_sprite
     Rectangle frameRec = { x_sprite, y_sprite, largeur, longueur }; // x y largeur longueur 
     Vector2 position = { x, y };
     DrawTextureRec(testure, frameRec, position, WHITE);
+}
+
+float position_camera(Joueur* j1,Joueur* j2)
+{
+    if( j1->positionX < j2->positionY )
+    {
+        return 2*j1->positionX - j2->positionX;
+    }
+    return 2*j2->positionX - j1->positionX;
 }

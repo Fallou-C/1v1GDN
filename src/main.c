@@ -55,7 +55,7 @@ int main(void)
     const int screenHeight = 600;
 
     InitWindow(screenWidth, screenHeight, "1v1GDN");
-    Image fond = LoadImage("fond/resoucres___subway_by_shirouu_kun_d9x3kdx.png");
+    Image fond = LoadImage("fond/resoucres___subway_by_shirouu_kun_d9x3kdx.png"); // le 0 0 c'est le centre de l'image btw
     Texture2D texture = LoadTextureFromImage(fond);
     UnloadImage(fond);
     
@@ -128,9 +128,22 @@ int main(void)
 
     int memo_doggo=0;
     int cmp_doggo=0;
+
+    Camera2D test_cam;
+    float camx = 0,camy = 0;
+
+    test_cam.zoom = 1;
+    test_cam.offset = (Vector2){0,0};
+    test_cam.rotation = 0;
+    test_cam.target = (Vector2){camx,camy};
+
+
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
+        
+        
+
         if(IsKeyDown(KEY_P) && tamp_p != IsKeyDown(KEY_P)){debug = !debug; }
         tamp_p = IsKeyDown(KEY_P);
 
@@ -166,7 +179,13 @@ int main(void)
         if(IsKeyDown(KEY_L) && tamp_l != IsKeyDown(KEY_L) ){Grab(&joueur1,&joueur2);}
         tamp_l = IsKeyDown(KEY_L);
 
+        camx = joueur1.positionX + abs(joueur1.positionX - joueur2.positionX)/2 - screenWidth/2;
+        test_cam.target = (Vector2){camx,0};
+        //if (KEY_P){ test_cam.target = (Vector2){ 0,0}; }
+
         BeginDrawing(); 
+            BeginMode2D(test_cam);
+
             ClearBackground(WHITE);
             DrawTexture(texture, screenWidth/2 - texture.width/2, screenHeight/2 - texture.height/2 - 40, WHITE);
             
@@ -190,7 +209,7 @@ int main(void)
             if (memo_doggo <= CompteFps) {
                 cmp_doggo ++;
                 memo_doggo = CompteFps + 8;} // la constante c'est la vitesse
-                test_affichage(tab_test[1],860,10,40*cmp_doggo,40,40,40);
+                test_affichage(tab_test[1],camx + 860,10,40*cmp_doggo,40,40,40);
 
             AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
                
@@ -208,7 +227,8 @@ int main(void)
                     cmp_doggo = 0;
                     memo_doggo = 0;
                 }
-    
+        EndMode2D();
+
         EndDrawing();
         //----------------------------------------------------------------------------------
     
