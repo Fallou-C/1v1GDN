@@ -80,8 +80,6 @@ int main(void)
     joueur1.PV=joueur2.PV=100;
     joueur1.estGauche = true;
     joueur2.estGauche = false;
-    joueur1.estj1 = true;
-    joueur2.estj1 = false;
     
     // initialisation des attaques
     Attaque Escarm;
@@ -161,9 +159,9 @@ int main(void)
         AttaqueDistance(&joueur1,&joueur2,&Pigeon,IsKeyDown(KEY_X));
         
         //j2
-        ExecuteAttaque(&joueur1,&Punch,IsKeyDown(KEY_I));
-        ExecuteAttaque(&joueur1,&Slash,IsKeyDown(KEY_O));
-        AttaqueDistance(&joueur2,&joueur1,&Sandale,IsKeyDown(KEY_U));
+        ExecuteAttaque2(&joueur1,&Punch,IsKeyDown(KEY_I));
+        ExecuteAttaque2(&joueur1,&Slash,IsKeyDown(KEY_O));
+        AttaqueDistance2(&joueur2,&joueur1,&Sandale,IsKeyDown(KEY_U));
         
         if(IsKeyDown(KEY_L) && tamp_l != IsKeyDown(KEY_L) ){Grab(&joueur1,&joueur2);}
         tamp_l = IsKeyDown(KEY_L);

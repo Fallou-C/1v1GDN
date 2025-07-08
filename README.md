@@ -9,6 +9,7 @@ Important : choisir le nombre max d'attaque !
 
 à faire : 
 
+- généraliser colisionATK car flm d'en avoir deux 
 - ajouter un vrai menu debug [facile]
 - on doit ne pouvoir faire qu'une action à la fois (sauf cas spéciales et par action j'entends attaque, bloqué PAS bouger ou sauter)
 - généraliser tous en améliorant la structure des joueurs [ez_mais_chiant] (pris en charge par le quoicoufou)

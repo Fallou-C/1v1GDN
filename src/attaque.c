@@ -35,6 +35,26 @@ void ColisionAtk(Joueur *joueur, Attaque *attaque)
     {
         if ( abs(joueur->positionX - attaque->espace->positionX ) <= 190) // on prend la position du joueur par rapport à x avec largeur du joueur (important si attaque joueur à gauche)
         {
+            if( AtkToucheY(joueur,attaque,NULL) && abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur) && (!IsKeyDown(KEY_A)) )
+            {joueur->PV -= attaque->degat;}
+        }
+    }
+}
+
+void ColisionAtk2(Joueur *joueur, Attaque *attaque)
+{
+    if(!joueur->estGauche) // on regarde de quel côté du terrain le joueur se trouve
+    {
+        if ( abs(joueur->positionX - attaque->espace->positionX ) <= attaque->espace->taille) // on prend la position du joueur par rapport à x 
+        {
+            if( AtkToucheY(joueur,attaque,NULL) && (abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur)) && (!IsKeyDown(KEY_RIGHT)) )//on regarde si l'attaque a pas été lancé trop haut || !IsKeyDown(KEY_RIGHT))
+            {joueur->PV -= attaque->degat;}
+        }
+    }
+    else
+    {
+        if ( abs(joueur->positionX - attaque->espace->positionX ) <= 190) // on prend la position du joueur par rapport à x avec largeur du joueur (important si attaque joueur à gauche)
+        {
             if( AtkToucheY(joueur,attaque,NULL) && abs(joueur->positionY - attaque->espace->positionY <= attaque->espace->largeur) && (!IsKeyDown(KEY_LEFT)) )
             {joueur->PV -= attaque->degat;}
         }
@@ -72,6 +92,17 @@ void ExecuteAttaque(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquant
     }
 }
 
+void ExecuteAttaque2(Joueur *joueur,Attaque *attaque,bool IsKeyDown) // attaquant attaqué attaque touche
+{
+    if (IsKeyDown & !attaque->lag.Encours)
+    {
+        if (!(attaque->lag.Encours))
+        {
+            attaque->lag.Encours = true;
+            ColisionAtk2(joueur,attaque);
+        }
+    }
+}
 
 // faire en sorte quelles se détruisent mutuellement (chiant car regarder pour toutes les attaques mais y'a des listes doc c'est ok)
 
@@ -104,6 +135,43 @@ void AttaqueDistance(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque 
                 if ( AtkToucheY(j2,attaque,NULL) && (abs(j2->positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) ) //si on est assez proche et qu'on a pas touché y'a colision
                 {
                     ColisionAtk(j2,attaque);
+                    attaque->lag.Encours=true;
+                    attaque->executer=false;
+                }
+            }
+        }
+    }
+}
+
+void AttaqueDistance2(Joueur *j1,Joueur *j2,Attaque *attaque,bool Key) //attaque lancé part le joueur 1
+{
+    int direction = 1;
+
+    if (Key || attaque->executer)
+    {
+        if (!j1->estGauche){ direction = -1;} // de quel sens on tire
+
+        if ((attaque->lag.Encours ) || attaque->espace->positionX > 900  || attaque->espace->positionX < 0) //  on regarde si l'attaque est fini ou si elle est trop loin
+        {   // si ça touche ou qu'on sort de l'écran on arrête de l'exécuter (tous les reset des emplacement sont fait à part)
+            attaque->executer=false;
+        }
+        else
+        {
+            attaque->executer=true;
+            attaque->espace->positionX += 12*direction;
+            
+            if (j1->estGauche){
+                if (AtkToucheY(j2,attaque,NULL) && (abs(j2->positionX - attaque->espace->positionX ) <= attaque->espace->taille) && !attaque->lag.Encours ) //si on est assez proche et qu'on a pas touché y'a colision + esquive si recule
+                {
+                    ColisionAtk2(j2,attaque);
+                    attaque->executer=false;
+                    attaque->lag.Encours=true;
+                }
+            }
+            else{
+                if ( AtkToucheY(j2,attaque,NULL) && (abs(j2->positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) ) //si on est assez proche et qu'on a pas touché y'a colision
+                {
+                    ColisionAtk2(j2,attaque);
                     attaque->lag.Encours=true;
                     attaque->executer=false;
                 }
