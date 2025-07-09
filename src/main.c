@@ -151,8 +151,8 @@ int main(void)
         CompteFps++;
         
         coli = colision(&joueur1,&joueur2);
-        Bouge(&joueur1,coli);
-        Bouge2(&joueur2,coli);
+        Bouge(&joueur1,coli,camx);
+        Bouge2(&joueur2,coli, camx);
         
         
         // mise à jour de la position des attaques et du lag
@@ -180,7 +180,9 @@ int main(void)
         tamp_l = IsKeyDown(KEY_L);
 
         camx = position_camera(&joueur1,&joueur2);
-        if(camx > -1145 && camx < 1145) {test_cam.target = (Vector2){camx,0};}
+        if(camx < -1145 ) {camx = -1145;}
+        else if ( camx > 1145){camx = 1145;}
+        test_cam.target = (Vector2){camx,0};
 
         BeginDrawing(); 
             BeginMode2D(test_cam);
@@ -215,23 +217,9 @@ int main(void)
                
             if (joueur1.PV<=0 || joueur2.PV<=0)
             {
-            
                 //texture disant d'appuyer sur R
-                if(camx > -1145 && camx < 1145)
-                {
-                    DrawText(TextFormat("PRESS R TO RESTART"),camx + 20 + 5, 300, 70, WHITE);
-                    DrawText(TextFormat("PRESS R TO RESTART"),camx + 20, 300, 70, BLACK);  
-                }
-                else if (camx < -1145)
-                {
-                    DrawText(TextFormat("PRESS R TO RESTART"),-1145 + 20 + 5, 300, 70, WHITE);
-                    DrawText(TextFormat("PRESS R TO RESTART"),-1145 + 20, 300, 70, BLACK);  
-                }
-                else
-                {
-                    DrawText(TextFormat("PRESS R TO RESTART"),1145 + 20 + 5, 300, 70, WHITE);
-                    DrawText(TextFormat("PRESS R TO RESTART"),1145 + 20, 300, 70, BLACK);  
-                }
+                DrawText(TextFormat("PRESS R TO RESTART"),camx + 20 + 5, 300, 70, WHITE);
+                DrawText(TextFormat("PRESS R TO RESTART"),camx + 20, 300, 70, BLACK);  
 
             }
 

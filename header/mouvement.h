@@ -18,8 +18,8 @@ typedef struct _Joueur {
     bool estGauche;
 } Joueur ;
 
-void Bouge(Joueur *joueur,bool colision); //gère le mouvement du joueur à gauche
-void Bouge2(Joueur *joueur, bool colision); //gère le mouvement du joueur à droite
+void Bouge(Joueur *joueur,bool colision,float camx); //gère le mouvement du joueur à gauche
+void Bouge2(Joueur *joueur, bool colision,float camx); //gère le mouvement du joueur à droite
 
 bool colision(Joueur *joueur1,Joueur *joueur2); // on se touche ouuu
 

@@ -32,9 +32,9 @@ float position_camera(Joueur* j1,Joueur* j2)
 {
     if( j1->positionX < j2->positionX )
     {
-        return j1->positionX + abs(j1->positionX - j2->positionX)/2 - screenWidth/2;
+        return j1->positionX + abs(j1->positionX -190 - j2->positionX)/2 - screenWidth/2;
     }
-    return j2->positionX + abs(j2->positionX - j1->positionX)/2 - screenWidth/2;
+    return j2->positionX + abs(j2->positionX - 190 - j1->positionX)/2 - screenWidth/2;
 }
 
 void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2) //amener à evoluer quand y'aura les sprites
@@ -58,7 +58,7 @@ void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,
     
     float camx = position_camera(j1,j2);
 
-    if(camx > -1145 && camx < 1145)
+    if(camx >= -1145 && camx < 1145)
     {
         DrawRectangle(camx + 20,555, 3*(j1->PV), 40, GREEN); //pv joueur1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
         DrawRectangle(camx + 580,555, 3*j2->PV, 40, GREEN); //pv joueur2
