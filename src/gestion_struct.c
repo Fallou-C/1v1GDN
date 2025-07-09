@@ -12,4 +12,6 @@
 
 /*
 Je te jure deso et tout man mais je suis KO je crois je fais un burnout du stage (Y)
+
+trql on a le temps de le faire au fur et à mesure 
 */
