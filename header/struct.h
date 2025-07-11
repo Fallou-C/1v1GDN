@@ -73,8 +73,8 @@ typedef struct Positionnel_{
     int positionYmin; // position min en Y
 
     // Taille
-    int taille; // taille de l'objet sur l'axe X
-    int largeur; // taille de l'objet sur l'axe Y
+    int largeur; // taille de l'objet sur l'axe X
+    int taille; // taille de l'objet sur l'axe Y
 
     // saut
     bool sautable; // rajouté pour gerer le saut (F)

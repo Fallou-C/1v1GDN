@@ -6,7 +6,7 @@
 #include "../../raylib/src/raylib.h"
 #include "../header/all.h"
 
-#define PLAYER_HOR_SPD 200.0f
+
 
 float delta=0.03;
 //float min_X = -1140;
@@ -20,7 +20,7 @@ void Bouge(Personnage *Personnage,bool colision,float camx)
     {
         if(!Personnage->camp){Personnage->position.positionX -= PLAYER_HOR_SPD*delta;}else{Personnage->position.positionX -= PLAYER_HOR_SPD*delta*2/3;} // on regarde de quelle côté on est pour être plus lent si on recule
     }
-    if (IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT) && (!colision || !Personnage->camp) && (Personnage->position.positionX <= (camx + screen_size - 190)) ) // ajouter l'epaisseur du Personnage (190)
+    if (IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT) && (!colision || !Personnage->camp) && (Personnage->position.positionX <= (camx + screen_size - Personnage->position.largeur)) )
     {
         if(Personnage->camp){Personnage->position.positionX += PLAYER_HOR_SPD*delta;}else{Personnage->position.positionX += PLAYER_HOR_SPD*delta*2/3;}
     }
@@ -46,7 +46,7 @@ void Bouge2(Personnage *Personnage, bool colision,float camx)
     {
         if(!Personnage->camp){Personnage->position.positionX -= PLAYER_HOR_SPD*delta;}else{Personnage->position.positionX -= PLAYER_HOR_SPD*delta*2/3;}
     }
-    if (IsKeyDown(KEY_D) && (Personnage->position.positionX <= (camx + screen_size - 190)) && !IsKeyDown(KEY_A) && (!colision || !Personnage->camp)) //pour pas sortir du terrain
+    if (IsKeyDown(KEY_D) && (Personnage->position.positionX <= (camx + screen_size - Personnage->position.largeur)) && !IsKeyDown(KEY_A) && (!colision || !Personnage->camp)) //pour pas sortir du terrain
     {
         if(Personnage->camp){Personnage->position.positionX += PLAYER_HOR_SPD*delta;}else{Personnage->position.positionX += PLAYER_HOR_SPD*delta*2/3;}
     }
@@ -68,7 +68,7 @@ void Bouge2(Personnage *Personnage, bool colision,float camx)
 
 bool colision(Personnage *Personnage1,Personnage *Personnage2) // en théorie un Personnage ne peut pas position.durée_sauter au dessus de l'autre 
 {
-    if (abs((Personnage2->position.positionX - Personnage1->position.positionX))<190) {return true;} //remplacer 190n par min epaisseur entre les deux personnages 
+    if (abs((Personnage2->position.positionX - Personnage1->position.positionX))<Personnage1->position.largeur) {return true;} //remplacer Personnage->position.largeurn par min epaisseur entre les deux personnages 
     else {return false;}
 }
 

@@ -85,15 +85,15 @@ int main(void)
     
     // initialisation des attaques
     Attaque Escarm;
-    int escarm_info[8] = {20,personnage1.position.positionX + 190,personnage1.position.positionY,50,20,45,30,false};
+    int escarm_info[8] = {20,personnage1.position.positionX + personnage1.position.largeur,personnage1.position.positionY,50,20,45,30,false};
     Iniatk(&Escarm,escarm_info);
 
     Attaque Babouche; 
-    int babouche_info[8] = {30,personnage1.position.positionX + 190,personnage1.position.positionY,70,20,200,45,false};
+    int babouche_info[8] = {30,personnage1.position.positionX + personnage1.position.largeur,personnage1.position.positionY,70,20,200,45,false};
     Iniatk(&Babouche,babouche_info);
 
     Attaque Pigeon; 
-    int pigeon_info[8] = {10,personnage1.position.positionX + 190,personnage1.position.positionY,50,50,0,60,true};
+    int pigeon_info[8] = {10,personnage1.position.positionX + personnage1.position.largeur,personnage1.position.positionY,50,50,0,60,true};
     Iniatk(&Pigeon,pigeon_info);
 
 

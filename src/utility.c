@@ -32,9 +32,9 @@ float position_camera(Personnage* j1,Personnage* j2)
 {
     if( j1->position.positionX < j2->position.positionX )
     {
-        return j1->position.positionX + abs(j1->position.positionX -190 - j2->position.positionX)/2 - screenWidth/2;
+        return j1->position.positionX + abs(j1->position.positionX - j1->position.largeur - j2->position.positionX)/2 - screenWidth/2;
     }
-    return j2->position.positionX + abs(j2->position.positionX - 190 - j1->position.positionX)/2 - screenWidth/2;
+    return j2->position.positionX + abs(j2->position.positionX - j1->position.largeur - j1->position.positionX)/2 - screenWidth/2;
 }
 
 void AffichageSprite(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2) //amener à evoluer quand y'aura les sprites
@@ -51,17 +51,15 @@ void AffichageSprite(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int 
     externe++;
     if(externe>2){externe=0;}*/
 
-    DrawRectangle(j1->position.positionX,j1->position.positionY, 190.0f, 270.0f, RED); //Personnage 1
-    //DrawTextureRec(testure, frameRec, position.position, WHITE);
-
-    DrawRectangle(j2->position.positionX,j2->position.positionY, 190.0f, 270.0f, BLUE); //Personnage2
+    DrawRectangle(j1->position.positionX,j1->position.positionY, j1->position.largeur, j1->position.taille, RED); //Personnage 1
+    DrawRectangle(j2->position.positionX,j2->position.positionY, j2->position.largeur, j2->position.taille, BLUE); //Personnage2
     
     float camx = position_camera(j1,j2);
 
     if(camx >= -1145 && camx < 1145)
     {
-        DrawRectangle(camx + 20,555, 3*(j1->PV), 40, GREEN); //pv Personnage1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
-        DrawRectangle(camx + 580,555, 3*j2->PV, 40, GREEN); //pv Personnage2
+        DrawRectangle(camx + 20,555, 300*(j1->PV)/j1->pv_max, 40, GREEN); //pv Personnage1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
+        DrawRectangle(camx + 580,555, 300*j2->PV/j1->pv_max, 40, GREEN); //pv Personnage2
     }
     else if (camx < -1145)
     {
@@ -189,8 +187,9 @@ Positionnel Initialisaton_Position(int camp,int taille,int largueur) // renvoie 
         position.positionX = 660;
         position.positionY = 210;
     }
-    position.taille = taille;
+    
     position.largeur = largueur;
+    position.taille = taille;
 
     position.sautable = true;
     position.durée_saut = 0;
@@ -244,7 +243,7 @@ EnsembleCollectionRectangle Initialisation_Rectangle(void)
     return ensemble;
 }
 
-Personnage Initialisaton_Personnage(int camp, int id, int taille, int largueur) // renvoie un personnage initialisé
+Personnage Initialisaton_Personnage(int camp, int id, int taille, int largueur) // renvoie un personnage initialisé à amélliorer pour mettre une structure quand on aura avancé plus
 {
     Personnage personnage = {
         .idPersonnage = id,

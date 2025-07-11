@@ -15,7 +15,7 @@ bool AtkToucheY(Personnage* j,Attaque* atk1, Attaque* atk2) // renvoie si un Per
 {
     if (j != NULL)
     {
-        return ((atk1->espace->positionY <= j->position.positionY) && (abs(atk1->espace->positionY - j->position.positionY) <= atk1->espace->largeur ) ) || ( (j->position.positionY <= atk1->espace->positionY) && (abs(atk1->espace->positionY - j->position.positionY) <= 270 )) ; //270 hauteur du Personnages
+        return ((atk1->espace->positionY <= j->position.positionY) && (abs(atk1->espace->positionY - j->position.positionY) <= atk1->espace->largeur ) ) || ( (j->position.positionY <= atk1->espace->positionY) && (abs(atk1->espace->positionY - j->position.positionY) <= j->position.taille )) ;
     }
     else {
         return (  ((atk1->espace->positionY <= atk2->espace->positionY) && (abs(atk1->espace->positionY - atk2->espace->positionY) <= atk1->espace->largeur )) ||  ((atk1->espace->positionY >= atk2->espace->positionY) && (abs(atk1->espace->positionY - atk2->espace->positionY) <= atk2->espace->largeur)));
@@ -34,7 +34,7 @@ void ColisionAtk(Personnage *personnage, Attaque *attaque)
     }
     else
     {
-        if ( abs(personnage->position.positionX - attaque->espace->positionX ) <= 190) // on prend la position du Personnage par rapport à x avec largeur du Personnage (important si attaque Personnage à gauche)
+        if ( abs(personnage->position.positionX - attaque->espace->positionX ) <= personnage->position.largeur) // on prend la position du Personnage par rapport à x avec largeur du Personnage (important si attaque Personnage à gauche)
         {
             if( AtkToucheY(personnage,attaque,NULL) && abs(personnage->position.positionY - attaque->espace->positionY <= attaque->espace->largeur) && (!IsKeyDown(KEY_A)) )
             {personnage->PV -= attaque->degat;}
@@ -54,7 +54,7 @@ void ColisionAtk2(Personnage *personnage, Attaque *attaque)
     }
     else
     {
-        if ( abs(personnage->position.positionX - attaque->espace->positionX ) <= 190) // on prend la position du Personnage par rapport à x avec largeur du Personnage (important si attaque Personnage à gauche)
+        if ( abs(personnage->position.positionX - attaque->espace->positionX ) <= personnage->position.largeur) // on prend la position du Personnage par rapport à x avec largeur du Personnage (important si attaque Personnage à gauche)
         {
             if( AtkToucheY(personnage,attaque,NULL) && abs(personnage->position.positionY - attaque->espace->positionY <= attaque->espace->largeur) && (!IsKeyDown(KEY_LEFT)) )
             {personnage->PV -= attaque->degat;}
@@ -133,7 +133,7 @@ void AttaqueDistance(Personnage *j1,Personnage *j2,Attaque *attaque,bool Key) //
                 }
             }
             else{
-                if ( AtkToucheY(j2,attaque,NULL) && (abs(j2->position.positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) ) //si on est assez proche et qu'on a pas touché y'a colision
+                if ( AtkToucheY(j2,attaque,NULL) && (abs(j2->position.positionX - attaque->espace->positionX ) <= j2->position.largeur) && (!attaque->lag.Encours) ) //si on est assez proche et qu'on a pas touché y'a colision
                 {
                     ColisionAtk(j2,attaque);
                     attaque->lag.Encours=true;
@@ -170,7 +170,7 @@ void AttaqueDistance2(Personnage *j1,Personnage *j2,Attaque *attaque,bool Key) /
                 }
             }
             else{
-                if ( AtkToucheY(j2,attaque,NULL) && (abs(j2->position.positionX - attaque->espace->positionX ) <= 190) && (!attaque->lag.Encours) ) //si on est assez proche et qu'on a pas touché y'a colision
+                if ( AtkToucheY(j2,attaque,NULL) && (abs(j2->position.positionX - attaque->espace->positionX ) <= j1->position.largeur) && (!attaque->lag.Encours) ) //si on est assez proche et qu'on a pas touché y'a colision
                 {
                     ColisionAtk2(j2,attaque);
                     attaque->lag.Encours=true;
@@ -189,7 +189,7 @@ void MiseAJourAtk(Personnage *personnage, Attaque **liste_atk /*liste de pointeu
         {
             if (personnage->camp)
             {
-                liste_atk[i]->espace->positionX = personnage->position.positionX + 190;
+                liste_atk[i]->espace->positionX = personnage->position.positionX + personnage->position.largeur;
                 liste_atk[i]->espace->positionY = personnage->position.positionY + liste_atk[i]->espace->pos_relatif; // ajouter la position de l'attaque relatif au personnage
             }
             else
