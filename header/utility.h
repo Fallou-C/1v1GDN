@@ -9,11 +9,11 @@
 
 void AfficheAcceuil(int screenWidth, int screenHeight); // affiche l'ecran d'accueil
 
-float position_camera(Joueur* j1,Joueur* j2); // renvoie la position en x de la caméra 
+float position_camera(Personnage* j1,Personnage* j2); // renvoie la position en x de la caméra 
 
-void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2); // affiche les sprites (que les hitbox pour le moment)
+void AffichageSprite(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2); // affiche les sprites (que les hitbox pour le moment)
 
-void Reset_Combat(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2,long int* CompteFps); // permet de tous reset rapidement en initalisent le combat par rapport à certains paramètre d'origine
+void Reset_Combat(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2,long int* CompteFps); // permet de tous reset rapidement en initalisent le combat par rapport à certains paramètre d'origine
 
 Texture2D* Load_texture(char** path_texture,int nb_elem); // renvoie un tableau de texture provenant du tableau de chemin fourit (dans le même ordre)
 

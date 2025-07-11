@@ -69,31 +69,31 @@ int main(void)
     SetTargetFPS(60);            
     bool coli;
 
-    // initialisation des joueurs
-    //Personnage perso = Initialisaton_Personnage(1,0,270,190);
-    
-    Joueur joueur1;
-    Joueur joueur2;
-    joueur1.positionX = 50;
-    joueur2.positionX = 660;
-    joueur1.positionY = joueur2.positionY = 210;
-    joueur1.sautable=joueur2.sautable=joueur2.touchable=true;
-    joueur1.SAUT=joueur2.SAUT=0;
-    joueur1.PV=joueur2.PV=100;
-    joueur1.estGauche = true;
-    joueur2.estGauche = false;
+    // initialisation des Personnages
+    Personnage personnage1 = Initialisaton_Personnage(1,0,270,190);
+    Personnage personnage2 = Initialisaton_Personnage(0,0,270,190);
+
+    /*
+    personnage1.position.positionX = 50;
+    personnage2.position.positionX = 660;
+    personnage1.position.positionY = personnage2.position.positionY = 210;
+    personnage1.sautable=personnage2.sautable=personnage2.touchable=true;
+    personnage1.SAUT=personnage2.SAUT=0;
+    personnage1.PV=personnage2.PV=100;
+    personnage1.estGauche = true;
+    personnage2.estGauche = false;*/
     
     // initialisation des attaques
     Attaque Escarm;
-    int escarm_info[8] = {20,joueur1.positionX + 190,joueur1.positionY,50,20,45,30,false};
+    int escarm_info[8] = {20,personnage1.position.positionX + 190,personnage1.position.positionY,50,20,45,30,false};
     Iniatk(&Escarm,escarm_info);
 
     Attaque Babouche; 
-    int babouche_info[8] = {30,joueur1.positionX + 190,joueur1.positionY,70,20,200,45,false};
+    int babouche_info[8] = {30,personnage1.position.positionX + 190,personnage1.position.positionY,70,20,200,45,false};
     Iniatk(&Babouche,babouche_info);
 
     Attaque Pigeon; 
-    int pigeon_info[8] = {10,joueur1.positionX + 190,joueur1.positionY,50,50,0,60,true};
+    int pigeon_info[8] = {10,personnage1.position.positionX + 190,personnage1.position.positionY,50,50,0,60,true};
     Iniatk(&Pigeon,pigeon_info);
 
 
@@ -105,15 +105,15 @@ int main(void)
 
     //atk j2
     Attaque Punch;
-    int punch_info[8] = {20,joueur2.positionX - 50,joueur2.positionY,50,20,45,30,false};
+    int punch_info[8] = {20,personnage2.position.positionX - 50,personnage2.position.positionY,50,20,45,30,false};
     Iniatk(&Punch,punch_info);
 
     Attaque Slash;
-    int slash_info[8] = {30,joueur2.positionX - 70,joueur2.positionY,70,20,200,30,false};
+    int slash_info[8] = {30,personnage2.position.positionX - 70,personnage2.position.positionY,70,20,200,30,false};
     Iniatk(&Slash,slash_info);
 
     Attaque Sandale;
-    int sandale_info[8] = {10,joueur2.positionX - 50,joueur2.positionY,50,50,0,60,true};
+    int sandale_info[8] = {10,personnage2.position.positionX - 50,personnage2.position.positionY,50,50,0,60,true};
     Iniatk(&Sandale,sandale_info);
 
     Attaque **atk_j2 = (Attaque **) malloc(3 * sizeof(Attaque *)); // allocation dynamique pour le tableau d'attaques
@@ -152,15 +152,15 @@ int main(void)
         UpdateMusicStream(music);
         CompteFps++;
         
-        coli = colision(&joueur1,&joueur2);
-        Bouge(&joueur1,coli,camx);
-        Bouge2(&joueur2,coli, camx);
+        coli = colision(&personnage1,&personnage2);
+        Bouge(&personnage1,coli,camx);
+        Bouge2(&personnage2,coli, camx);
         
         
         // mise à jour de la position des attaques et du lag
 
-        MiseAJourAtk(&joueur1,atk_j1,3,CompteFps); // maj j1
-        MiseAJourAtk(&joueur2,atk_j2,3,CompteFps); // maj j2
+        MiseAJourAtk(&personnage1,atk_j1,3,CompteFps); // maj j1
+        MiseAJourAtk(&personnage2,atk_j2,3,CompteFps); // maj j2
 
         DestructionProjectile(&Pigeon ,atk_j2,3,true);
         DestructionProjectile(&Sandale ,atk_j1,3,false);
@@ -169,19 +169,19 @@ int main(void)
         // execution des attaques
         
         //j1 
-        ExecuteAttaque(&joueur2,&Escarm,IsKeyDown(KEY_C)); // on fait l'attaque Escarmouche
-        ExecuteAttaque(&joueur2,&Babouche,IsKeyDown(KEY_V));
-        AttaqueDistance(&joueur1,&joueur2,&Pigeon,IsKeyDown(KEY_X));
+        ExecuteAttaque(&personnage2,&Escarm,IsKeyDown(KEY_C)); // on fait l'attaque Escarmouche
+        ExecuteAttaque(&personnage2,&Babouche,IsKeyDown(KEY_V));
+        AttaqueDistance(&personnage1,&personnage2,&Pigeon,IsKeyDown(KEY_X));
         
         //j2
-        ExecuteAttaque2(&joueur1,&Punch,IsKeyDown(KEY_I));
-        ExecuteAttaque2(&joueur1,&Slash,IsKeyDown(KEY_O));
-        AttaqueDistance2(&joueur2,&joueur1,&Sandale,IsKeyDown(KEY_U));
+        ExecuteAttaque2(&personnage1,&Punch,IsKeyDown(KEY_I));
+        ExecuteAttaque2(&personnage1,&Slash,IsKeyDown(KEY_O));
+        AttaqueDistance2(&personnage2,&personnage1,&Sandale,IsKeyDown(KEY_U));
         
-        if(IsKeyDown(KEY_L) && tamp_l != IsKeyDown(KEY_L) ){Grab(&joueur1,&joueur2);}
+        if(IsKeyDown(KEY_L) && tamp_l != IsKeyDown(KEY_L) ){Grab(&personnage1,&personnage2);}
         tamp_l = IsKeyDown(KEY_L);
 
-        camx = position_camera(&joueur1,&joueur2);
+        camx = position_camera(&personnage1,&personnage2);
         if(camx < -1145 ) {camx = -1145;}
         else if ( camx > 1145){camx = 1145;}
         test_cam.target = (Vector2){camx,0};
@@ -192,20 +192,20 @@ int main(void)
             ClearBackground(WHITE);
             DrawTexture(texture, screenWidth/2 - texture.width/2, screenHeight/2 - texture.height/2 - 40, WHITE);
             
-            //joueur et stats
+            //Personnage et stats
             //info debug
             
             if (debug){
             DrawText(TextFormat("testmemo?: %i,%i", Escarm.lag.MemoFps, Escarm.lag.SaLag), camx + 10,50, 10, BLACK);
-            DrawText(TextFormat("atk?touché? : %i, %i ", IsKeyDown(KEY_T), joueur2.touchable),camx +  10,60, 10, BLACK);
+            DrawText(TextFormat("atk?touché? : %i, %i ", IsKeyDown(KEY_T), personnage2.touchable),camx +  10,60, 10, BLACK);
             DrawText(TextFormat("où est la souris: [%i, %i]", GetMouseX(), GetMouseY()),camx +  10, 10, 10, RED); //info position souris
             DrawText(TextFormat("colision : %i",coli),camx +  10, 40, 10, RED); // info colision
-            DrawText(TextFormat("position du joueur: [%i, %i]", joueur1.positionX, joueur1.positionY),camx +  10, 20, 10, RED); //position Joueur1
-            DrawText(TextFormat("position du joueur2: [%i, %i]", joueur2.positionX, joueur2.positionY),camx +  10, 30, 10, RED); //info position joueur2-
+            DrawText(TextFormat("position du Personnage: [%i, %i]", personnage1.position.positionX, personnage1.position.positionY),camx +  10, 20, 10, RED); //position personnage1
+            DrawText(TextFormat("position du personnage2: [%i, %i]", personnage2.position.positionX, personnage2.position.positionY),camx +  10, 30, 10, RED); //info position personnage2-
             DrawText(TextFormat("position caméra: [%f, %i]", camx, 0),camx + 10, 70, 10, BLACK); //info caméra
 
-            test_affichage(tab_test[2],joueur1.positionX + 65,joueur1.positionY - 65,0,0,65,45);
-            test_affichage(tab_test[2],joueur2.positionX + 65,joueur2.positionY - 65,65,0,65,45);
+            test_affichage(tab_test[2],personnage1.position.positionX + 65,personnage1.position.positionY - 65,0,0,65,45);
+            test_affichage(tab_test[2],personnage2.position.positionX + 65,personnage2.position.positionY - 65,65,0,65,45);
 
             }
             
@@ -215,9 +215,9 @@ int main(void)
                 memo_doggo = CompteFps + 8;} // la constante c'est la vitesse
                 test_affichage(tab_test[1],camx + 860,10,40*cmp_doggo,40,40,40);
 
-            AffichageSprite(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3);
+            AffichageSprite(&personnage1, &personnage2,  atk_j1, 3,atk_j2, 3);
                
-            if (joueur1.PV<=0 || joueur2.PV<=0)
+            if (personnage1.PV<=0 || personnage2.PV<=0)
             {
                 //texture disant d'appuyer sur R
                 DrawText(TextFormat("PRESS R TO RESTART"),camx + 20 + 5, 300, 70, WHITE);
@@ -227,7 +227,7 @@ int main(void)
 
             if (IsKeyDown(KEY_R))
                 {
-                    Reset_Combat(&joueur1, &joueur2,  atk_j1, 3,atk_j2, 3,&CompteFps);
+                    Reset_Combat(&personnage1, &personnage2,  atk_j1, 3,atk_j2, 3,&CompteFps);
                     cmp_doggo = 0;
                     memo_doggo = 0;
                     camx = 0;
@@ -254,58 +254,58 @@ int main(void)
 // trash zone (y mettre truc qui marchait mais qui ont été remplacer au cas où)
 
 /*
-        Escarm.espace->positionX = joueur1.positionX + 190; //prendre en compte l'épaisseur du joueur
-        Escarm.espace->positionY = joueur1.positionY + 50; //où il se trouve par rapport aux joueurs
+        Escarm.espace->position.positionX = personnage1.position.positionX + 190; //prendre en compte l'épaisseur du Personnage
+        Escarm.espace->position.positionY = personnage1.position.positionY + 50; //où il se trouve par rapport aux Personnages
         HitLagTemps(&Escarm,CompteFps,30);
         
-        Babouche.espace->positionX = joueur1.positionX + 190; 
-        Babouche.espace->positionY = joueur1.positionY + 200;
+        Babouche.espace->position.positionX = personnage1.position.positionX + 190; 
+        Babouche.espace->position.positionY = personnage1.position.positionY + 200;
         HitLagTemps(&Babouche,CompteFps,45);
         
         if (!Pigeon.executer)
         {
-            Pigeon.espace->positionX = joueur1.positionX + 190;
-            Pigeon.espace->positionY = joueur1.positionY;
+            Pigeon.espace->position.positionX = personnage1.position.positionX + 190;
+            Pigeon.espace->position.positionY = personnage1.position.positionY;
         }
         HitLagTemps(&Pigeon,CompteFps,60);
 
-        Punch.espace->positionX = joueur2.positionX - Punch.espace->taille; 
-        Punch.espace->positionY = joueur2.positionY + 50;
+        Punch.espace->position.positionX = personnage2.position.positionX - Punch.espace->taille; 
+        Punch.espace->position.positionY = personnage2.position.positionY + 50;
         HitLagTemps(&Punch,CompteFps,30);
         
-        Slash.espace->positionX = joueur2.positionX - Slash.espace->taille; 
-        Slash.espace->positionY = joueur2.positionY + 200;
+        Slash.espace->position.positionX = personnage2.position.positionX - Slash.espace->taille; 
+        Slash.espace->position.positionY = personnage2.position.positionY + 200;
         HitLagTemps(&Slash,CompteFps,30);    
 
         if (!Sandale.executer)
         {
-            Sandale.espace->positionX = joueur2.positionX - 50; // on retire la largeur de l'attaque 
-            Sandale.espace->positionY = joueur2.positionY;
+            Sandale.espace->position.positionX = personnage2.position.positionX - 50; // on retire la largeur de l'attaque 
+            Sandale.espace->position.positionY = personnage2.position.positionY;
         }
         HitLagTemps(&Sandale,CompteFps,60);
         
         
-            //info joueur
-            DrawRectangle(joueur1.positionX,joueur1.positionY, 190.0f, 270.0f, RED); //joueur 1
-            DrawRectangle(joueur2.positionX,joueur2.positionY, 190.0f, 270.0f, BLUE); //joueur2
+            //info Personnage
+            DrawRectangle(personnage1.position.positionX,personnage1.position.positionY, 190.0f, 270.0f, RED); //Personnage 1
+            DrawRectangle(personnage2.position.positionX,personnage2.position.positionY, 190.0f, 270.0f, BLUE); //personnage2
             
-            DrawRectangle(20,555, 3*joueur1.PV, 40, GREEN); //pv joueur1
-            DrawRectangle(580,555, 3*joueur2.PV, 40, GREEN); //pv joueur2
+            DrawRectangle(20,555, 3*personnage1.PV, 40, GREEN); //pv personnage1
+            DrawRectangle(580,555, 3*personnage2.PV, 40, GREEN); //pv personnage2
             
             //affichage attaque 
-            if (Escarm.lag.Encours){DrawRectangle(Escarm.espace->positionX,Escarm.espace->positionY,Escarm.espace->taille,Escarm.espace->largeur, ORANGE);}
-            if (Babouche.lag.Encours){DrawRectangle(Babouche.espace->positionX,Babouche.espace->positionY,Babouche.espace->taille,Babouche.espace->largeur, ORANGE);}
-            if (Pigeon.executer){DrawRectangle(Pigeon.espace->positionX,Pigeon.espace->positionY,Pigeon.espace->taille,Pigeon.espace->largeur, YELLOW);}
+            if (Escarm.lag.Encours){DrawRectangle(Escarm.espace->position.positionX,Escarm.espace->position.positionY,Escarm.espace->taille,Escarm.espace->largeur, ORANGE);}
+            if (Babouche.lag.Encours){DrawRectangle(Babouche.espace->position.positionX,Babouche.espace->position.positionY,Babouche.espace->taille,Babouche.espace->largeur, ORANGE);}
+            if (Pigeon.executer){DrawRectangle(Pigeon.espace->position.positionX,Pigeon.espace->position.positionY,Pigeon.espace->taille,Pigeon.espace->largeur, YELLOW);}
             
             
-            if (Punch.lag.Encours){DrawRectangle(Punch.espace->positionX,Punch.espace->positionY,Punch.espace->taille,Punch.espace->largeur, PURPLE);}
-            if (Slash.lag.Encours){DrawRectangle(Slash.espace->positionX,Slash.espace->positionY,Slash.espace->taille,Slash.espace->largeur, PURPLE);}
-            if (Sandale.executer){DrawRectangle(Sandale.espace->positionX,Sandale.espace->positionY,Sandale.espace->taille,Sandale.espace->largeur, PINK);}
+            if (Punch.lag.Encours){DrawRectangle(Punch.espace->position.positionX,Punch.espace->position.positionY,Punch.espace->taille,Punch.espace->largeur, PURPLE);}
+            if (Slash.lag.Encours){DrawRectangle(Slash.espace->position.positionX,Slash.espace->position.positionY,Slash.espace->taille,Slash.espace->largeur, PURPLE);}
+            if (Sandale.executer){DrawRectangle(Sandale.espace->position.positionX,Sandale.espace->position.positionY,Sandale.espace->taille,Sandale.espace->largeur, PINK);}
 
                     CompteFps=0; // reset pour pas que la mémoire explose
-                    joueur1.positionX = 50;
-                    joueur2.positionX = 660;
-                    joueur1.positionY = joueur2.positionY = 210;
-                    joueur1.sautable=joueur2.sautable=joueur2.touchable=true;
-                    joueur1.SAUT=joueur2.SAUT=0;
-                    joueur1.PV=joueur2.PV=100;*/
+                    personnage1.position.positionX = 50;
+                    personnage2.position.positionX = 660;
+                    personnage1.position.positionY = personnage2.position.positionY = 210;
+                    personnage1.sautable=personnage2.sautable=personnage2.touchable=true;
+                    personnage1.SAUT=personnage2.SAUT=0;
+                    personnage1.PV=personnage2.PV=100;*/

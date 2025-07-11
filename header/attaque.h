@@ -31,26 +31,26 @@ typedef struct Attaque_ {
 } Attaque;
 
 
-bool AtkToucheY(Joueur *j,Attaque *atk1, Attaque *atk2); // renvoie si un joueur se fait toucher par atk1 en Y ou si atk1 touche atk2 en Y si joueur null
+bool AtkToucheY(Personnage *j,Attaque *atk1, Attaque *atk2); // renvoie si un personnage se fait toucher par atk1 en Y ou si atk1 touche atk2 en Y si personnage null
 
-void ColisionAtk(Joueur *joueur, Attaque *attaque); //colision entre joueur et attaque
-void ColisionAtk2(Joueur *joueur, Attaque *attaque); //colision entre joueur et attaque (pour j2)
+void ColisionAtk(Personnage *personnage, Attaque *attaque); //colision entre personnage et attaque
+void ColisionAtk2(Personnage *personnage, Attaque *attaque); //colision entre personnage et attaque (pour j2)
 
 void HitLagTemps(Attaque *attaque,long int fpstour,int DureeLag); //gère le temps de lag
 
-void ExecuteAttaque(Joueur *joueur2,Attaque *attaque,bool IsKeyDown); // on exécute l'attaque de Key sur le joueur
-void ExecuteAttaque2(Joueur *joueur2,Attaque *attaque,bool IsKeyDown); // on exécute l'attaque de Key sur le joueur2
+void ExecuteAttaque(Personnage *personnage,Attaque *attaque,bool IsKeyDown); // on exécute l'attaque de Key sur le personnage
+void ExecuteAttaque2(Personnage *personnage,Attaque *attaque,bool IsKeyDown); // on exécute l'attaque de Key sur le personnage2
 
-void AttaqueDistance(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance de j1 sur j2
-void AttaqueDistance2(Joueur *joueur1, Joueur *joueur2, Attaque *attaque, bool IsKeyDown); //attaque à distance de j2 sur j1
+void AttaqueDistance(Personnage *personnage1, Personnage *personnage2, Attaque *attaque, bool IsKeyDown); //attaque à distance de j1 sur j2
+void AttaqueDistance2(Personnage *personnage1, Personnage *personnage2, Attaque *attaque, bool IsKeyDown); //attaque à distance de j2 sur j1
 
-void MiseAJourAtk(Joueur *joueur, Attaque **liste_atk /*liste de pointeur d'attaque*/, int nb_atk, int CompteFps); // on prend une liste d'attaque d'un joueur et on met à jour leurs positions 
+void MiseAJourAtk(Personnage *personnage, Attaque **liste_atk /*liste de pointeur d'attaque*/, int nb_atk, int CompteFps); // on prend une liste d'attaque d'un personnage et on met à jour leurs positions 
 
 // init attaque avec une liste du format : [degat,posX,posY,taille,largeur,pos-relatif,durrelag]
 void Iniatk(Attaque *atk, int* info_atk); // initialise une attaque en fonction des valeurs données
 
 void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, bool estj2); // fonctionne partiellement 
 
-void Grab(Joueur *j1, Joueur *j2); // échange les positions des joueurs et infligents des degs (bientôt)
+void Grab(Personnage *j1, Personnage *j2); // échange les positions des personnages et infligents des degs (bientôt)
 
 #endif //ATTACK_H

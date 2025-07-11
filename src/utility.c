@@ -28,18 +28,18 @@ void AfficheAcceuil(int screenWidth, int screenHeight)
 int externe = 0;
 int screenWidth = 900;
 
-float position_camera(Joueur* j1,Joueur* j2)
+float position_camera(Personnage* j1,Personnage* j2)
 {
-    if( j1->positionX < j2->positionX )
+    if( j1->position.positionX < j2->position.positionX )
     {
-        return j1->positionX + abs(j1->positionX -190 - j2->positionX)/2 - screenWidth/2;
+        return j1->position.positionX + abs(j1->position.positionX -190 - j2->position.positionX)/2 - screenWidth/2;
     }
-    return j2->positionX + abs(j2->positionX - 190 - j1->positionX)/2 - screenWidth/2;
+    return j2->position.positionX + abs(j2->position.positionX - 190 - j1->position.positionX)/2 - screenWidth/2;
 }
 
-void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2) //amener à evoluer quand y'aura les sprites
+void AffichageSprite(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2) //amener à evoluer quand y'aura les sprites
 {
-    //affichage joueur
+    //affichage Personnage
 
     // a transformer en menu debug quand on aura un debut de sprite et remplacer les rectangles par DrawRectangleLines
 
@@ -47,21 +47,21 @@ void AffichageSprite(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,
     char* path = "test_sprite/test4.png";
     Texture2D testure = LoadTexture(path);
     Rectangle frameRec = { 190*externe, 0, 190, 270 }; // x y (coordonnée dans l'image) largeur longueur que l'on regarde dans l'image
-    Vector2 position = {j1->positionX,j1->positionY };
+    Vector2 position.position = {j1->position.positionX,j1->position.positionY };
     externe++;
     if(externe>2){externe=0;}*/
 
-    DrawRectangle(j1->positionX,j1->positionY, 190.0f, 270.0f, RED); //joueur 1
-    //DrawTextureRec(testure, frameRec, position, WHITE);
+    DrawRectangle(j1->position.positionX,j1->position.positionY, 190.0f, 270.0f, RED); //Personnage 1
+    //DrawTextureRec(testure, frameRec, position.position, WHITE);
 
-    DrawRectangle(j2->positionX,j2->positionY, 190.0f, 270.0f, BLUE); //joueur2
+    DrawRectangle(j2->position.positionX,j2->position.positionY, 190.0f, 270.0f, BLUE); //Personnage2
     
     float camx = position_camera(j1,j2);
 
     if(camx >= -1145 && camx < 1145)
     {
-        DrawRectangle(camx + 20,555, 3*(j1->PV), 40, GREEN); //pv joueur1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
-        DrawRectangle(camx + 580,555, 3*j2->PV, 40, GREEN); //pv joueur2
+        DrawRectangle(camx + 20,555, 3*(j1->PV), 40, GREEN); //pv Personnage1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
+        DrawRectangle(camx + 580,555, 3*j2->PV, 40, GREEN); //pv Personnage2
     }
     else if (camx < -1145)
     {
@@ -127,25 +127,25 @@ void MenuDebug()
     // mettre les fonctions d'affichage de hitbox, info sur les personnages et boutton de reset rapide
 }
 
-/*Attaque** InitialisationCombat() // renvoie une liste de pointeur attaque du joueur après les avoir initialisés
+/*Attaque** InitialisationCombat() // renvoie une liste de pointeur attaque du Personnage après les avoir initialisés
 {
 
 }*/
 
-void Reset_Combat(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2,long int* CompteFps) // permet de tous reset rapidement en initalisent le combat par rapport à certains paramètre d'origine
+void Reset_Combat(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2,long int* CompteFps) // permet de tous reset rapidement en initalisent le combat par rapport à certains paramètre d'origine
 {
     // initailisation fps
     *CompteFps = 0;
 
-    // initiatlisation des joueurs
-    j1->positionX = 50;
-    j2->positionX = 660;
-    j1->positionY = j2->positionY = 210;
-    j1->sautable = j2->sautable = j2->touchable = true;
-    j1->SAUT = j2->SAUT = 0;
+    // initiatlisation des Personnages
+    j1->position.positionX = 50;
+    j2->position.positionX = 660;
+    j1->position.positionY = j2->position.positionY = 210;
+    j1->position.sautable = j2->position.sautable = j2->touchable = true;
+    j1->position.durée_saut = j2->position.durée_saut = 0;
     j1->PV = j2->PV = 100;
-    j1->estGauche = true;
-    j2->estGauche = false;
+    j1->camp = 1;
+    j2->camp = 0;
 
     // re-initialisation des attaques
 
@@ -176,7 +176,7 @@ void test_affichage(Texture2D testure, int x , int y, int x_sprite, int y_sprite
     DrawTextureRec(testure, frameRec, position, WHITE);
 }
 
-Positionnel Initialisaton_Position(int camp,int taille,int largueur) // renvoie une position initialisée en fonction du camp
+Positionnel Initialisaton_Position(int camp,int taille,int largueur) // renvoie une position.position initialisée en fonction du camp
 {
     Positionnel position;
     if (camp == 1)
@@ -207,11 +207,11 @@ Positionnel Initialisaton_Position(int camp,int taille,int largueur) // renvoie 
     position.accelerationXMin = 0;  // accélération min
     position.accelerationYMax = 0; // accélération max
     position.accelerationYMin = 0;  // accélération min
-    position.positionXmax = 0; // position max en X
-    position.positionYmax = 0;// position max en Y
-    position.positionXmin = 0; // position min en X
-    position.positionYmin = 0;// position min en Y
-    // Initialisation des positions min et max
+    position.positionXmax = 0; // position.position max en X
+    position.positionYmax = 0;// position.position max en Y
+    position.positionXmin = 0; // position.position min en X
+    position.positionYmin = 0;// position.position min en Y
+    // Initialisation des position.positions min et max
     
     return position;
 }
@@ -252,8 +252,8 @@ Personnage Initialisaton_Personnage(int camp, int id, int taille, int largueur) 
         .etat = 0,
         .camp = camp,
         .touchable = true,
-        .vie = 100,
-        .vie_max = 100,
+        .PV = 100,
+        .pv_max = 100,
         .status = 0,
         .position = Initialisaton_Position(camp,taille,largueur),
         .frame = Initialisation_Frame(),

@@ -14,62 +14,62 @@ float delta=0.03;
 
 int screen_size = 900;
 
-void Bouge(Joueur *joueur,bool colision,float camx)
+void Bouge(Personnage *Personnage,bool colision,float camx)
 {
-    if (IsKeyDown(KEY_LEFT) && (joueur->positionX> (camx)) && !IsKeyDown(KEY_RIGHT) && (!colision || joueur->estGauche) )  
+    if (IsKeyDown(KEY_LEFT) && (Personnage->position.positionX> (camx)) && !IsKeyDown(KEY_RIGHT) && (!colision || Personnage->camp) )  
     {
-        if(!joueur->estGauche){joueur->positionX -= PLAYER_HOR_SPD*delta;}else{joueur->positionX -= PLAYER_HOR_SPD*delta*2/3;} // on regarde de quelle côté on est pour être plus lent si on recule
+        if(!Personnage->camp){Personnage->position.positionX -= PLAYER_HOR_SPD*delta;}else{Personnage->position.positionX -= PLAYER_HOR_SPD*delta*2/3;} // on regarde de quelle côté on est pour être plus lent si on recule
     }
-    if (IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT) && (!colision || !joueur->estGauche) && (joueur->positionX <= (camx + screen_size - 190)) ) // ajouter l'epaisseur du joueur (190)
+    if (IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT) && (!colision || !Personnage->camp) && (Personnage->position.positionX <= (camx + screen_size - 190)) ) // ajouter l'epaisseur du Personnage (190)
     {
-        if(joueur->estGauche){joueur->positionX += PLAYER_HOR_SPD*delta;}else{joueur->positionX += PLAYER_HOR_SPD*delta*2/3;}
+        if(Personnage->camp){Personnage->position.positionX += PLAYER_HOR_SPD*delta;}else{Personnage->position.positionX += PLAYER_HOR_SPD*delta*2/3;}
     }
-    if (IsKeyDown(KEY_UP) && (joueur->sautable))
+    if (IsKeyDown(KEY_UP) && (Personnage->position.sautable))
     {
-        joueur->sautable = false;
+        Personnage->position.sautable = false;
     }
-    if (!joueur->sautable) 
+    if (!Personnage->position.sautable) 
         {
-            if (joueur->SAUT<40) {joueur->positionY -= PLAYER_HOR_SPD*delta*1 ; joueur->SAUT++;}
-            else if (joueur->SAUT<80 && joueur->SAUT>=40) {joueur->positionY += PLAYER_HOR_SPD*delta ; joueur->SAUT++;}
+            if (Personnage->position.durée_saut<40) {Personnage->position.positionY -= PLAYER_HOR_SPD*delta*1 ; Personnage->position.durée_saut++;}
+            else if (Personnage->position.durée_saut<80 && Personnage->position.durée_saut>=40) {Personnage->position.positionY += PLAYER_HOR_SPD*delta ; Personnage->position.durée_saut++;}
             else 
             {
-                joueur->SAUT=0;
-                joueur->sautable = true;
+                Personnage->position.durée_saut=0;
+                Personnage->position.sautable = true;
             }
         }
 }
 
-void Bouge2(Joueur *joueur, bool colision,float camx)
+void Bouge2(Personnage *Personnage, bool colision,float camx)
 {
-    if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D) && (!colision || joueur->estGauche) && (joueur->positionX > (camx )))
+    if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_D) && (!colision || Personnage->camp) && (Personnage->position.positionX > (camx )))
     {
-        if(!joueur->estGauche){joueur->positionX -= PLAYER_HOR_SPD*delta;}else{joueur->positionX -= PLAYER_HOR_SPD*delta*2/3;}
+        if(!Personnage->camp){Personnage->position.positionX -= PLAYER_HOR_SPD*delta;}else{Personnage->position.positionX -= PLAYER_HOR_SPD*delta*2/3;}
     }
-    if (IsKeyDown(KEY_D) && (joueur->positionX <= (camx + screen_size - 190)) && !IsKeyDown(KEY_A) && (!colision || !joueur->estGauche)) //pour pas sortir du terrain
+    if (IsKeyDown(KEY_D) && (Personnage->position.positionX <= (camx + screen_size - 190)) && !IsKeyDown(KEY_A) && (!colision || !Personnage->camp)) //pour pas sortir du terrain
     {
-        if(joueur->estGauche){joueur->positionX += PLAYER_HOR_SPD*delta;}else{joueur->positionX += PLAYER_HOR_SPD*delta*2/3;}
+        if(Personnage->camp){Personnage->position.positionX += PLAYER_HOR_SPD*delta;}else{Personnage->position.positionX += PLAYER_HOR_SPD*delta*2/3;}
     }
-    if (IsKeyDown(KEY_W) && joueur->sautable)
+    if (IsKeyDown(KEY_W) && Personnage->position.sautable)
     {
-        joueur->sautable = false;
+        Personnage->position.sautable = false;
     }
-    if (!joueur->sautable) 
+    if (!Personnage->position.sautable) 
         {
-            if (joueur->SAUT<40) {joueur->positionY -= PLAYER_HOR_SPD*delta*1 ; joueur->SAUT++;}
-            else if (joueur->SAUT<80 && joueur->SAUT>=40) {joueur->positionY += PLAYER_HOR_SPD*delta ; joueur->SAUT++;}
+            if (Personnage->position.durée_saut<40) {Personnage->position.positionY -= PLAYER_HOR_SPD*delta*1 ; Personnage->position.durée_saut++;}
+            else if (Personnage->position.durée_saut<80 && Personnage->position.durée_saut>=40) {Personnage->position.positionY += PLAYER_HOR_SPD*delta ; Personnage->position.durée_saut++;}
             else 
             {
-                joueur->SAUT=0;
-                joueur->sautable = true;
+                Personnage->position.durée_saut=0;
+                Personnage->position.sautable = true;
             }
         }
 }
 
-bool colision(Joueur *joueur1,Joueur *joueur2) // en théorie un joueur ne peut pas sauter au dessus de l'autre 
+bool colision(Personnage *Personnage1,Personnage *Personnage2) // en théorie un Personnage ne peut pas position.durée_sauter au dessus de l'autre 
 {
-    if (abs((joueur2->positionX - joueur1->positionX))<190) {return true;} //remplacer 190n par min epaisseur entre les deux personnages 
+    if (abs((Personnage2->position.positionX - Personnage1->position.positionX))<190) {return true;} //remplacer 190n par min epaisseur entre les deux personnages 
     else {return false;}
 }
 
-// ajouter inertie au saut ?
+// ajouter inertie au position.durée_saut ?

@@ -185,9 +185,9 @@ typedef struct Personnage_{
     void * sousPersonnage; //Contiendra un pointeur vers la structure specifique du personnage choisi pour gerer les difference
     int etat;
     int camp;
-    int vie;
+    int PV;
     bool touchable; // savoir quand on peut te toucher (F)
-    const int vie_max; // j'ai rajouté ça car sinon c'est chiant pour les barres de vie (F)
+    const int pv_max; // j'ai rajouté ça car sinon c'est chiant pour les barres de vie (F)
     int status; // status du personnage (stun, mort, empoisonné, etc.)
     Positionnel position;
     Frame frame; // frame du personnage   
