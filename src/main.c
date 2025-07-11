@@ -70,6 +70,8 @@ int main(void)
     bool coli;
 
     // initialisation des joueurs
+    //Personnage perso = Initialisaton_Personnage(1,0,270,190);
+    
     Joueur joueur1;
     Joueur joueur2;
     joueur1.positionX = 50;

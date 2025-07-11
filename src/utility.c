@@ -127,10 +127,10 @@ void MenuDebug()
     // mettre les fonctions d'affichage de hitbox, info sur les personnages et boutton de reset rapide
 }
 
-Attaque** InitialisationCombat() // renvoie une liste de pointeur attaque du joueur après les avoir initialisés
+/*Attaque** InitialisationCombat() // renvoie une liste de pointeur attaque du joueur après les avoir initialisés
 {
 
-}
+}*/
 
 void Reset_Combat(Joueur *j1, Joueur *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2,long int* CompteFps) // permet de tous reset rapidement en initalisent le combat par rapport à certains paramètre d'origine
 {
@@ -174,4 +174,91 @@ void test_affichage(Texture2D testure, int x , int y, int x_sprite, int y_sprite
     Rectangle frameRec = { x_sprite, y_sprite, largeur, longueur }; // x y largeur longueur 
     Vector2 position = { x, y };
     DrawTextureRec(testure, frameRec, position, WHITE);
+}
+
+Positionnel Initialisaton_Position(int camp,int taille,int largueur) // renvoie une position initialisée en fonction du camp
+{
+    Positionnel position;
+    if (camp == 1)
+    {
+        position.positionX = 50;
+        position.positionY = 210;
+    }
+    else
+    {
+        position.positionX = 660;
+        position.positionY = 210;
+    }
+    position.taille = taille;
+    position.largeur = largueur;
+
+    position.sautable = true;
+    position.durée_saut = 0;
+
+    position.vitesseX = 0;
+    position.vitesseY = 0;
+    position.accelerationX = 0;
+    position.accelerationY = 0;
+    position.vitesseXMax = 0; // vitesse max de déplacement
+    position.vitesseXMin = 0;  // vitesse min de déplacement
+    position.vitesseYMax = 0; // vitesse max de déplacement
+    position.vitesseYMin = 0;  // vitesse min de déplacement
+    position.accelerationXMax = 0; // accélération max
+    position.accelerationXMin = 0;  // accélération min
+    position.accelerationYMax = 0; // accélération max
+    position.accelerationYMin = 0;  // accélération min
+    position.positionXmax = 0; // position max en X
+    position.positionYmax = 0;// position max en Y
+    position.positionXmin = 0; // position min en X
+    position.positionYmin = 0;// position min en Y
+    // Initialisation des positions min et max
+    
+    return position;
+}
+
+Frame Initialisation_Frame(void)
+{
+    Frame frame;
+    frame.recoveryFrame = 0;
+    frame.atkFrame = 0;
+    frame.stunFrame = 0;
+    frame.idleFrame = 0;
+    frame.offensiveLagFrame = 0;
+    frame.defensiveLagFrame = 0;
+    return frame;
+}
+
+Attaques Initialisation_Attaques(void)
+{
+    Attaques attaques = {0};
+    // Toutes les valeurs sont initialisées à zéro ou NULL grâce à l'initialisation = {0}
+    return attaques;
+}
+
+EnsembleCollectionRectangle Initialisation_Rectangle(void)
+{
+    EnsembleCollectionRectangle ensemble = {
+        .nombreFrame = 0,
+        .ensemble = NULL
+    };
+    return ensemble;
+}
+
+Personnage Initialisaton_Personnage(int camp, int id, int taille, int largueur) // renvoie un personnage initialisé
+{
+    Personnage personnage = {
+        .idPersonnage = id,
+        .sousPersonnage = NULL,
+        .etat = 0,
+        .camp = camp,
+        .touchable = true,
+        .vie = 100,
+        .vie_max = 100,
+        .status = 0,
+        .position = Initialisaton_Position(camp,taille,largueur),
+        .frame = Initialisation_Frame(),
+        .attaques = Initialisation_Attaques(),
+        .hurtBox = Initialisation_Rectangle()
+    };
+    return personnage;
 }

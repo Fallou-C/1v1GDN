@@ -76,6 +76,10 @@ typedef struct Positionnel_{
     int taille; // taille de l'objet sur l'axe X
     int largeur; // taille de l'objet sur l'axe Y
 
+    // saut
+    bool sautable; // rajouté pour gerer le saut (F)
+    int durée_saut; // je pense que c'est explicite (F)
+
     // Vitesse
     int vitesseX; // vitesse de déplacement sur l'axe X
     int vitesseY; // vitesse de déplacement sur l'axe Y
@@ -182,6 +186,7 @@ typedef struct Personnage_{
     int etat;
     int camp;
     int vie;
+    bool touchable; // savoir quand on peut te toucher (F)
     const int vie_max; // j'ai rajouté ça car sinon c'est chiant pour les barres de vie (F)
     int status; // status du personnage (stun, mort, empoisonné, etc.)
     Positionnel position;

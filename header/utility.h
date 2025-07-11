@@ -21,4 +21,6 @@ void test_affichage(Texture2D testure, int x , int y, int x_sprite, int y_sprite
 
 void Unload_texture(Texture2D* tab_texture, int nb_elem); // on décharge tous par politesse
 
+Personnage Initialisaton_Personnage(int camp, int id, int taille, int largueur); // renvoie un personnage initialisé
+
 #endif // UTILITY_H
