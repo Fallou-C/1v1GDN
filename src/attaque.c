@@ -9,7 +9,7 @@
 
 //pensez à ré-organiser les fonctions par thèmes 
 float min_Xx = -1140;
-float max_Xx = 1826;
+float max_Xx = 2048;
 
 bool AtkToucheY(Personnage* j,Attaque* atk1, Attaque* atk2) // renvoie si un Personnage se fait toucher par atk1 en Y ou si atk1 touche atk2 en Y si Personnage null
 {

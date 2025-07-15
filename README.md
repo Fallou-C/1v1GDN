@@ -16,7 +16,7 @@ Important : choisir le nombre max d'attaque !
 - lag aussi avant les attaques pas que après [fine]
 - durée pendant laquelle l'attaque ferra des dégats (entre les deux lags) [chiantouille]
 - dégât qui dure toutes la durée de l'attaque et pas que le début (mais considèrerer comme un seul coup sauf cas spécial) [moyen-chiant]
-- fonction avec matrice des attaques en entrée qui initialise toutes les attaques et rennvoie la liste des attaques des deux joueurs (permet de stocker les infos de chaque joueurs sous forme de matrice + associés à une liste pour le nom des attaques) [facile-moyen]
+- fonction avec matrice des attaques en entrée qui initialise toutes les attaques et renvoie la liste des attaques des deux joueurs (permet de stocker les infos de chaque joueurs sous forme de matrice + associés à une liste pour le nom des attaques) [facile-moyen]
 - pas faire plusieurs atttaque en même temps [facile]
 
 - faire du knockback [trql]
