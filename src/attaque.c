@@ -7,10 +7,6 @@
 #include "../../raylib/src/raylib.h"
 
 
-//pensez à ré-organiser les fonctions par thèmes 
-float min_Xx = -1140;
-float max_Xx = 2048;
-
 bool AtkToucheY(Personnage* j,Attaque* atk1, Attaque* atk2) // renvoie si un Personnage se fait toucher par atk1 en Y ou si atk1 touche atk2 en Y si Personnage null
 {
     if (j != NULL)
@@ -111,11 +107,13 @@ void AttaqueDistance(Personnage *j1,Personnage *j2,Attaque *attaque,bool Key) //
 {
     int direction = 1;
 
+    float camx = position_camera(j1,j2);
+
     if (Key || attaque->executer)
     {
         if (!j1->camp){ direction = -1;} // de quel sens on tire
 
-        if ((attaque->lag.Encours ) || attaque->espace->positionX > max_Xx  || attaque->espace->positionX < min_Xx) //  on regarde si l'attaque est fini ou si elle est trop loin
+        if ((attaque->lag.Encours ) || attaque->espace->positionX > camx + 900  || attaque->espace->positionX < camx) //  on regarde si l'attaque est fini ou si elle est trop loin
         {   // si ça touche ou qu'on sort de l'écran on arrête de l'exécuter (tous les reset des emplacement sont fait à part)
             attaque->executer=false;
         }
@@ -148,11 +146,13 @@ void AttaqueDistance2(Personnage *j1,Personnage *j2,Attaque *attaque,bool Key) /
 {
     int direction = 1;
 
+    float camx = position_camera(j1,j2);
+
     if (Key || attaque->executer)
     {
         if (!j1->camp){ direction = -1;} // de quel sens on tire
 
-        if ((attaque->lag.Encours ) || attaque->espace->positionX > max_Xx  || attaque->espace->positionX < min_Xx) //  on regarde si l'attaque est fini ou si elle est trop loin
+        if ((attaque->lag.Encours ) || attaque->espace->positionX > camx + 900  || attaque->espace->positionX < camx) //  on regarde si l'attaque est fini ou si elle est trop loin
         {   // si ça touche ou qu'on sort de l'écran on arrête de l'exécuter (tous les reset des emplacement sont fait à part)
             attaque->executer=false;
         }
