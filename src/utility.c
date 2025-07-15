@@ -51,8 +51,11 @@ void AffichageSprite(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int 
     externe++;
     if(externe>2){externe=0;}*/
 
-    DrawRectangle(j1->position.positionX,j1->position.positionY, j1->position.largeur, j1->position.taille, RED); //Personnage 1
-    DrawRectangle(j2->position.positionX,j2->position.positionY, j2->position.largeur, j2->position.taille, BLUE); //Personnage2
+    Color tab_couleur[7] = {RED,ORANGE,YELLOW,GREEN,BLUE,DARKBLUE,PURPLE};
+
+
+    DrawRectangle(j1->position.positionX,j1->position.positionY, j1->position.largeur, j1->position.taille, tab_couleur[j1->idPersonnage]); //Personnage 1
+    DrawRectangle(j2->position.positionX,j2->position.positionY, j2->position.largeur, j2->position.taille, tab_couleur[j2->idPersonnage]); //Personnage2
     
     float camx = position_camera(j1,j2);
 

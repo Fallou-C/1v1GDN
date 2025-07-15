@@ -181,7 +181,7 @@ typedef struct ArgenteLigne6_{
 } ArgenteLigne6;
 
 typedef struct Personnage_{
-    const int idPersonnage; // id du type de personnage choisit (pour pouvoir reconnaitre sousPersonnage)
+     int idPersonnage; // id du type de personnage choisit (pour pouvoir reconnaitre sousPersonnage)
     void * sousPersonnage; //Contiendra un pointeur vers la structure specifique du personnage choisi pour gerer les difference
     int etat;
     int camp;

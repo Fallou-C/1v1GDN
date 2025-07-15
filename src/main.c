@@ -71,7 +71,7 @@ int main(void)
 
     // initialisation des Personnages
     Personnage personnage1 = Initialisaton_Personnage(1,0,270,190);
-    Personnage personnage2 = Initialisaton_Personnage(0,0,270,190);
+    Personnage personnage2 = Initialisaton_Personnage(0,4,270,190);
 
     /*
     personnage1.position.positionX = 50;
@@ -233,6 +233,8 @@ int main(void)
                     camx = 0;
                 }
         EndMode2D();
+
+        if(CompteFps%5 == 0) {personnage1.idPersonnage =     (personnage1.idPersonnage +1)%7;}
 
         EndDrawing();
         //----------------------------------------------------------------------------------
