@@ -9,7 +9,7 @@ Important : choisir le nombre max d'attaque !
 
 à faire : 
 
-- creation fonction animation
+
 - creation base de données d'info sur les animations
 
 - généraliser colisionATK car flm d'en avoir deux 

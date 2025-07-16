@@ -261,11 +261,6 @@ void DestructionProjectile(Attaque *attaque ,Attaque **liste_atk,int nb_atk, boo
         }
     }
 }
-// partie selon Y ((abs(attaque->espace->positionY + attaque->espace->largeur - liste_atk[i]->espace->positionY - liste_atk[i]->espace->largeur )<1)) &&
-// regarder quelle attaque est au dessus de l'autre
-
-
-//ajouté lag quand on se prend une attaque et invul si lag trop long
 
 void Grab(Personnage *j1, Personnage *j2)
 {

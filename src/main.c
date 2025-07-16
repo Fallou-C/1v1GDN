@@ -72,16 +72,6 @@ int main(void)
     // initialisation des Personnages
     Personnage personnage1 = Initialisaton_Personnage(1,0,270,190);
     Personnage personnage2 = Initialisaton_Personnage(0,4,270,190);
-
-    /*
-    personnage1.position.positionX = 50;
-    personnage2.position.positionX = 660;
-    personnage1.position.positionY = personnage2.position.positionY = 210;
-    personnage1.sautable=personnage2.sautable=personnage2.touchable=true;
-    personnage1.SAUT=personnage2.SAUT=0;
-    personnage1.PV=personnage2.PV=100;
-    personnage1.estGauche = true;
-    personnage2.estGauche = false;*/
     
     // initialisation des attaques
     Attaque Escarm;
@@ -129,12 +119,14 @@ int main(void)
 
     AfficheAcceuil(screenWidth,screenHeight);
 
+    // ini animation sprite
     Animation proj_1 = {0,0,2,20,50,50};
     Animation proj_2 = {0,0,2,20,50,50};
 
     int memo_doggo=0;
     int cmp_doggo=0;
 
+    // ini cam
     Camera2D test_cam;
     float camx = 0,camy = 0;
 
@@ -147,9 +139,6 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-        
-        
-
         if(IsKeyDown(KEY_P) && tamp_p != IsKeyDown(KEY_P)){debug = !debug; }
         tamp_p = IsKeyDown(KEY_P);
 
@@ -160,9 +149,7 @@ int main(void)
         Bouge(&personnage1,coli,camx);
         Bouge2(&personnage2,coli, camx);
         
-        
         // mise à jour de la position des attaques et du lag
-
         MiseAJourAtk(&personnage1,atk_j1,3,CompteFps); // maj j1
         MiseAJourAtk(&personnage2,atk_j2,3,CompteFps); // maj j2
 
@@ -267,6 +254,18 @@ int main(void)
 
 
 // trash zone (y mettre truc qui marchait mais qui ont été remplacer au cas où)
+
+    /*
+    ancien ini perso
+
+    personnage1.position.positionX = 50;
+    personnage2.position.positionX = 660;
+    personnage1.position.positionY = personnage2.position.positionY = 210;
+    personnage1.sautable=personnage2.sautable=personnage2.touchable=true;
+    personnage1.SAUT=personnage2.SAUT=0;
+    personnage1.PV=personnage2.PV=100;
+    personnage1.estGauche = true;
+    personnage2.estGauche = false;*/
 
 /*
         Escarm.espace->position.positionX = personnage1.position.positionX + 190; //prendre en compte l'épaisseur du Personnage

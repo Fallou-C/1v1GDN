@@ -9,9 +9,6 @@
 
 
 float delta=0.03;
-//float min_X = -1140;
-//float max_X = 1826;
-
 int screen_size = 900;
 
 void Bouge(Personnage *Personnage,bool colision,float camx)

@@ -39,17 +39,8 @@ float position_camera(Personnage* j1,Personnage* j2)
 
 void AffichageSprite(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int nb_atk1,Attaque **liste_atk2, int nb_atk2) //amener à evoluer quand y'aura les sprites
 {
-    //affichage Personnage
-
+    //affichage hitbox Personnage
     // a transformer en menu debug quand on aura un debut de sprite et remplacer les rectangles par DrawRectangleLines
-
-    /*
-    char* path = "test_sprite/test4.png";
-    Texture2D testure = LoadTexture(path);
-    Rectangle frameRec = { 190*externe, 0, 190, 270 }; // x y (coordonnée dans l'image) largeur longueur que l'on regarde dans l'image
-    Vector2 position.position = {j1->position.positionX,j1->position.positionY };
-    externe++;
-    if(externe>2){externe=0;}*/
 
     Color tab_couleur[7] = {RED,ORANGE,YELLOW,GREEN,BLUE,DARKBLUE,PURPLE};
 
@@ -80,10 +71,8 @@ void AffichageSprite(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int 
         DrawRectangle(1145 + 580,555, 300*j2->PV/j1->pv_max, 40, GREEN);
         DrawRectangleLines(1145 + 580,555, 300, 40, BLACK);
     }
-    // généralsier pour que tous s'adapte en fonction de la taille de l'ecran choisi
 
     //affichage attaque
-
     //j1
     for (int i=0; i < nb_atk1; i++)
     {
@@ -276,6 +265,6 @@ void AnimationSprite(Animation* anime,Texture2D texture, Attaque* atk,long int C
     if(anime->cmpt_frame >= anime->nb_frame ){anime->cmpt_frame = 0;} 
     if (anime->memo_fps <= CompteFps) {
         anime->cmpt_frame ++;
-        anime->memo_fps = CompteFps + 20;} // la constante c'est la vitesse
+        anime->memo_fps = CompteFps + anime->vitesse_frame;}
     if(atk->executer || (atk->lag.Encours && !atk->atk_distance)){test_affichage(texture,atk->espace->positionX,atk->espace->positionY,anime->largeur*anime->cmpt_frame,anime->longueur,anime->largeur,anime->longueur);}
 }
