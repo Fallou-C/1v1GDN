@@ -83,7 +83,7 @@ void AffichageSprite(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int 
     {
         if (liste_atk1[i]->atk_distance ) // attaque à distance 
         {
-            if(liste_atk1[i]->executer){DrawRectangle(liste_atk1[i]->espace->positionX,liste_atk1[i]->espace->positionY,liste_atk1[i]->espace->taille,liste_atk1[i]->espace->largeur, YELLOW);}
+            //if(liste_atk1[i]->executer){DrawRectangle(liste_atk1[i]->espace->positionX,liste_atk1[i]->espace->positionY,liste_atk1[i]->espace->taille,liste_atk1[i]->espace->largeur, YELLOW);}
         }
         else {
             if (liste_atk1[i]->lag.Encours){DrawRectangle(liste_atk1[i]->espace->positionX,liste_atk1[i]->espace->positionY,liste_atk1[i]->espace->taille,liste_atk1[i]->espace->largeur, ORANGE);}
@@ -95,7 +95,7 @@ void AffichageSprite(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int 
     {
         if (liste_atk2[i]->atk_distance)// attaque à distance 
         {
-            if(liste_atk2[i]->executer ){DrawRectangle(liste_atk2[i]->espace->positionX,liste_atk2[i]->espace->positionY,liste_atk2[i]->espace->taille,liste_atk2[i]->espace->largeur, PINK);}
+            //if(liste_atk2[i]->executer ){DrawRectangle(liste_atk2[i]->espace->positionX,liste_atk2[i]->espace->positionY,liste_atk2[i]->espace->taille,liste_atk2[i]->espace->largeur, PINK);}
         }
         else {
             if (liste_atk2[i]->lag.Encours){DrawRectangle(liste_atk2[i]->espace->positionX,liste_atk2[i]->espace->positionY,liste_atk2[i]->espace->taille,liste_atk2[i]->espace->largeur, PURPLE);}
@@ -263,4 +263,13 @@ Personnage Initialisaton_Personnage(int camp, int id, int taille, int largueur) 
         .hurtBox = Initialisation_Rectangle()
     };
     return personnage;
+}
+
+void AnimationSprite(Animation* anime,Texture2D texture, Attaque* atk,long int CompteFps)
+{
+    if(anime->cmpt_frame >= anime->nb_frame ){anime->cmpt_frame = 0;} 
+    if (anime->memo_fps <= CompteFps) {
+        anime->cmpt_frame ++;
+        anime->memo_fps = CompteFps + 20;} // la constante c'est la vitesse
+    if(atk->executer || (atk->lag.Encours && !atk->atk_distance)){test_affichage(texture,atk->espace->positionX,atk->espace->positionY,anime->largeur*anime->cmpt_frame,anime->longueur,anime->largeur,anime->longueur);}
 }

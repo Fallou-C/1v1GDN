@@ -123,10 +123,14 @@ int main(void)
 
     long int CompteFps=0;
     
-    char* path[3] = {"test_sprite/test2.png","test_sprite/doggo_kurukuru.png","test_sprite/who.png"};
-    Texture2D* tab_test = Load_texture(path,3);
+    int nb_elem_path = 4;
+    char* path[4] = {"test_sprite/ekusplosion.png","test_sprite/doggo_kurukuru.png","test_sprite/who.png","test_sprite/shodomariokurae.png"};
+    Texture2D* tab_test = Load_texture(path,nb_elem_path);
 
     AfficheAcceuil(screenWidth,screenHeight);
+
+    Animation proj_1 = {0,0,2,20,50,50};
+    Animation proj_2 = {0,0,2,20,50,50};
 
     int memo_doggo=0;
     int cmp_doggo=0;
@@ -216,6 +220,9 @@ int main(void)
                 test_affichage(tab_test[1],camx + 860,10,40*cmp_doggo,40,40,40);
 
             AffichageSprite(&personnage1, &personnage2,  atk_j1, 3,atk_j2, 3);
+
+            AnimationSprite(&proj_1,tab_test[0],&Pigeon,CompteFps);
+            AnimationSprite(&proj_2,tab_test[3],&Sandale,CompteFps);
                
             if (personnage1.PV<=0 || personnage2.PV<=0)
             {
@@ -230,18 +237,24 @@ int main(void)
                     Reset_Combat(&personnage1, &personnage2,  atk_j1, 3,atk_j2, 3,&CompteFps);
                     cmp_doggo = 0;
                     memo_doggo = 0;
+
+                    proj_1.cmpt_frame = 0;
+                    proj_1.memo_fps = 0;
+                    proj_2.cmpt_frame = 0;
+                    proj_2.memo_fps = 0;
+
                     camx = 0;
                 }
         EndMode2D();
 
-        if(CompteFps%5 == 0) {personnage1.idPersonnage =     (personnage1.idPersonnage +1)%7;}
+        // arc-en-ciel -> if(CompteFps%5 == 0) {personnage1.idPersonnage = (personnage1.idPersonnage +1)%7;}
 
         EndDrawing();
         //----------------------------------------------------------------------------------
     
     
     }
-    Unload_texture(tab_test,3);
+    Unload_texture(tab_test,nb_elem_path);
     UnloadMusicStream(music);
     CloseAudioDevice(); 
     // De-Initialization

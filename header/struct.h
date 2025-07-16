@@ -205,5 +205,19 @@ typedef struct GameInfo_{
     int LobbyProprio; //1 pour joueur 1 et 2 pour joueur 2
 } GameInfo;
 
+// j'ai rajouté ça pour simplifier les animations (F)
+typedef struct Animation_ {
+    //temps
+    int memo_fps; // garde en mémoire quand on doit changer de frame
+    int cmpt_frame; // garde en mémoire à quel frame on est actuellement
+    int nb_frame; // le nombre de frame dans l'animation
+    int vitesse_frame; // le nombre de frame qu'on doit attendre entre chaque chagement de frame
+
+    // espace
+    int largeur; // selon X
+    int longueur; // selon Y
+
+} Animation;
+
 
 #endif // STRUCT_H

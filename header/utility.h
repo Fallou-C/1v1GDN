@@ -23,4 +23,6 @@ void Unload_texture(Texture2D* tab_texture, int nb_elem); // on décharge tous p
 
 Personnage Initialisaton_Personnage(int camp, int id, int taille, int largueur); // renvoie un personnage initialisé
 
+void AnimationSprite(Animation* anime,Texture2D texture, Attaque* atk, long int CompteFps); // anime des sprites
+
 #endif // UTILITY_H
