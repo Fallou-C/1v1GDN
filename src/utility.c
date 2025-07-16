@@ -62,17 +62,23 @@ void AffichageSprite(Personnage *j1, Personnage *j2,  Attaque **liste_atk1, int 
     if(camx >= -1145 && camx < 1145)
     {
         DrawRectangle(camx + 20,555, 300*(j1->PV)/j1->pv_max, 40, GREEN); //pv Personnage1 à généraliser -> ajouter les HP max pour aider pour ça et le reset formule : Hpmax <=> 300px
+        DrawRectangleLines(camx + 20,555, 300, 40, BLACK); 
         DrawRectangle(camx + 580,555, 300*j2->PV/j1->pv_max, 40, GREEN); //pv Personnage2
+        DrawRectangleLines(camx + 580,555, 300, 40, BLACK);
     }
     else if (camx < -1145)
     {
-        DrawRectangle(-1145 + 20,555, 3*(j1->PV), 40, GREEN); 
-        DrawRectangle(-1145 + 580,555, 3*j2->PV, 40, GREEN);
+        DrawRectangle(-1145 + 20,555, 300*(j1->PV)/j1->pv_max, 40, GREEN); 
+        DrawRectangleLines(-1145 + 20,555, 300, 40, BLACK); 
+        DrawRectangle(-1145 + 580,555, 300*j2->PV/j1->pv_max, 40, GREEN);
+        DrawRectangleLines(-1145 + 580,555, 300, 40, BLACK);
     }
     else
     {
-        DrawRectangle(1145 + 20,555, 3*(j1->PV), 40, GREEN); 
-        DrawRectangle(1145 + 580,555, 3*j2->PV, 40, GREEN);
+        DrawRectangle(1145 + 20,555,300*(j1->PV)/j1->pv_max, 40, GREEN); 
+        DrawRectangleLines(1145 + 20,555, 300, 40, BLACK); 
+        DrawRectangle(1145 + 580,555, 300*j2->PV/j1->pv_max, 40, GREEN);
+        DrawRectangleLines(1145 + 580,555, 300, 40, BLACK);
     }
     // généralsier pour que tous s'adapte en fonction de la taille de l'ecran choisi
 
